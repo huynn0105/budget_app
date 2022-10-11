@@ -1,4 +1,4 @@
-# budget_app
+# Budget App
 
 Budget App helps you track your expenses and incomes. The minimalist approach does not distract you from the main focus either adding entries or checking insights interacting with a clean and simple interface.
 

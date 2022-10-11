@@ -16,7 +16,7 @@ Budget App build with Flutter 3.3.2:
   - Unit test + BloC test + Integration test
   
 Demo App:
-<img src="https://user-images.githubusercontent.com/51359128/195054843-24dffde7-73fa-410f-bb7f-9b0f87408d9a.png" width="200" height="400" />
+<img src="https://user-images.githubusercontent.com/51359128/195054843-24dffde7-73fa-410f-bb7f-9b0f87408d9a.png" height="400" />
 ![Screenshot_1665480686](https://user-images.githubusercontent.com/51359128/195054856-cde45a33-1b43-4325-999f-0a46e98bf283.png)
 ![Screenshot_1665480696](https://user-images.githubusercontent.com/51359128/195054868-c620168b-89e5-464c-a26d-7cde9cfa5328.png)
 ![Screenshot_1665480696](https://user-images.githubusercontent.com/51359128/195054902-690afee6-5079-46ab-bafc-8fdefaac29a8.png)

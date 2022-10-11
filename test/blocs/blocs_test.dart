@@ -48,7 +48,6 @@ void main() async {
             emoji: 'cash',
             name: 'cash',
           ),
-          // mn sôi nổi nhỉ
 
           category: Category(
             emoji: 'food',

@@ -15,8 +15,8 @@ class CategoryService implements ICategoryService {
   }
 
   @override
-  void insertCategory(Category category) {
-    _categoryDao.insert(category);
+  int insertCategory(Category category) {
+    return _categoryDao.insert(category);
   }
 
   @override

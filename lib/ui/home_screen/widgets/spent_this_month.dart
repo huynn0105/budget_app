@@ -1,22 +1,22 @@
 part of '../home_screen.dart';
 
-class _SpentThisMonth extends StatelessWidget {
-  const _SpentThisMonth({
+class _SpentThisWeek extends StatelessWidget {
+  const _SpentThisWeek({
     Key? key,
-    required this.format,
   }) : super(key: key);
-
-  final NumberFormat format;
 
   @override
   Widget build(BuildContext context) {
+    final format = NumberFormat('#,###');
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'Spent this month',
+          'Spent this week',
           style: TextStyleUtils.regular(14).copyWith(color: Colors.black54),
         ),
+        SizedBox(height: 10.h),
         BlocBuilder<TransactionBloc, TransactionState>(
           builder: (context, state) {
             if (state is TransactionInitial) {
@@ -27,7 +27,7 @@ class _SpentThisMonth extends StatelessWidget {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: format.format(state.total),
+                      text: format.format(state.totalThisWeek),
                       style: TextStyleUtils.regular(38).copyWith(
                         color: Colors.black,
                       ),

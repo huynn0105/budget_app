@@ -15,8 +15,8 @@ class AccountService implements IAccountService {
   }
 
   @override
-  void insertAccount(Account account) {
-    _accountDao.insert(account);
+  int insertAccount(Account account) {
+    return _accountDao.insert(account);
   }
 
   @override

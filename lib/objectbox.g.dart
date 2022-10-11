@@ -78,7 +78,7 @@ final _entities = <ModelEntity>[
   ModelEntity(
       id: const IdUid(3, 3459246968913548694),
       name: 'Transaction',
-      lastPropertyId: const IdUid(7, 1124505379606616695),
+      lastPropertyId: const IdUid(9, 4915966211244098468),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
@@ -114,6 +114,11 @@ final _entities = <ModelEntity>[
             id: const IdUid(7, 1124505379606616695),
             name: 'amount',
             type: 6,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(9, 4915966211244098468),
+            name: 'dbType',
+            type: 6,
             flags: 0)
       ],
       relations: <ModelRelation>[],
@@ -146,7 +151,7 @@ ModelDefinition getObjectBoxModel() {
       lastSequenceId: const IdUid(0, 0),
       retiredEntityUids: const [],
       retiredIndexUids: const [4779389994422262847, 7056461475385909954],
-      retiredPropertyUids: const [2060229492095202932],
+      retiredPropertyUids: const [2060229492095202932, 9080673135740415875],
       retiredRelationUids: const [],
       modelVersion: 5,
       modelVersionParserMinimum: 5,
@@ -244,13 +249,14 @@ ModelDefinition getObjectBoxModel() {
         },
         objectToFB: (Transaction object, fb.Builder fbb) {
           final titleOffset = fbb.writeString(object.title);
-          fbb.startTable(8);
+          fbb.startTable(10);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, titleOffset);
           fbb.addInt64(2, object.dateTime.millisecondsSinceEpoch);
           fbb.addInt64(4, object.category.targetId);
           fbb.addInt64(5, object.account.targetId);
           fbb.addInt64(6, object.amount);
+          fbb.addInt64(8, object.dbType);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -265,7 +271,9 @@ ModelDefinition getObjectBoxModel() {
                   const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0)),
               amount:
                   const fb.Int64Reader().vTableGet(buffer, rootOffset, 16, 0))
-            ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
+            ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0)
+            ..dbType =
+                const fb.Int64Reader().vTableGet(buffer, rootOffset, 20, 0);
           object.category.targetId =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 12, 0);
           object.category.attach(store);
@@ -329,4 +337,8 @@ class Transaction_ {
   /// see [Transaction.amount]
   static final amount =
       QueryIntegerProperty<Transaction>(_entities[2].properties[5]);
+
+  /// see [Transaction.dbType]
+  static final dbType =
+      QueryIntegerProperty<Transaction>(_entities[2].properties[6]);
 }

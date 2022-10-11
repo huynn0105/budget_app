@@ -47,7 +47,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
             categorySelected: state.categorySelected.id == event.category.id
                 ? state.categories.first
                 : state.categorySelected,
-            categories: [...state.categories]..remove(event.category),
+            categories: _categoryService.getCategoris(),
           ),
         );
       }

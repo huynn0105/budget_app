@@ -1,13 +1,15 @@
-import 'package:budget_app/core/entities/base_entity.dart';
 import 'package:budget_app/core/entities/transaction_entity.dart';
+import 'package:equatable/equatable.dart';
 import 'package:objectbox/objectbox.dart';
 
+import 'base_entity.dart';
+
 @Entity()
-class Category implements BaseEntity {
+class Category extends BaseEntity {
   @override
   int id = 0;
-  String emoji;
-  String name;
+  final String emoji;
+  final String name;
 
   @Backlink()
   final transactions = ToMany<Transaction>();
@@ -33,4 +35,7 @@ class Category implements BaseEntity {
     Category(name: 'Family', emoji: '👪'),
     Category(name: 'Coffe', emoji: '☕'),
   ];
+
+  @override
+  List<Object?> get props => [name, id, emoji];
 }

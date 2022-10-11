@@ -1,3 +1,4 @@
+import 'package:budget_app/core/blocs/analysis_bloc/analysis_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_multi_formatter/formatters/currency_input_formatter.dart';
@@ -41,8 +42,9 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
   void initState() {
     controller = TextEditingController(text: '0đ');
     noteController = TextEditingController();
-    accountBloc = context.read<AccountBloc>()..add(const AccountStarted());
-    categoryBloc = context.read<CategoryBloc>()..add(const CategoryStarted());
+    accountBloc = context.read<AccountBloc>();
+
+    categoryBloc = context.read<CategoryBloc>();
     transactionBloc = context.read<TransactionBloc>();
     transactionTypeCubit = context.read<TransactionTypeCubit>();
     super.initState();
@@ -111,13 +113,17 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
               children: [
                 Center(
                   child: IntrinsicWidth(
-                    child: _MoneyTextField(controller: controller),
+                    child: _MoneyTextField(
+                      controller: controller,
+                      key: const Key('moneyTextField'),
+                    ),
                   ),
                 ),
                 SizedBox(height: 20.h),
                 IntrinsicWidth(
                   child: TextField(
                     controller: noteController,
+                    key: const Key('noteTextField'),
                     style: TextStyleUtils.regular(12),
                     decoration: InputDecoration(
                       hintText: 'Enter note',
@@ -226,6 +232,7 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
                           .categorySelected,
                     ),
                   );
+                  context.read<AnalysisBloc>().add(const AnalysisStarted());
                   Navigator.of(context).pop();
                 },
               ),

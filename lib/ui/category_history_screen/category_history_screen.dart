@@ -29,14 +29,15 @@ class CategoryHistoryScreen extends StatelessWidget {
         children: [
           Text(
             'Spent this ${categoryUIModel.category.name} ${categoryUIModel.category.emoji}',
-            style: TextStyleUtils.regular(14).copyWith(color: Colors.black54),
+            style: TextStyleUtils.regular(17).copyWith(color: Colors.black54),
           ),
+          SizedBox(height: 5.h),
           RichText(
             text: TextSpan(
               children: [
                 TextSpan(
                   text: format.format(categoryUIModel.total),
-                  style: TextStyleUtils.regular(38).copyWith(
+                  style: TextStyleUtils.regular(45).copyWith(
                     color: Colors.black,
                   ),
                 ),

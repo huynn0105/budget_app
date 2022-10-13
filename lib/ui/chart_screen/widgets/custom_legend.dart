@@ -1,4 +1,5 @@
 part of '../chart_screen.dart';
+
 class _CustomLegend extends StatelessWidget {
   const _CustomLegend({
     Key? key,
@@ -24,7 +25,7 @@ class _CustomLegend extends StatelessWidget {
         ),
         Text(
           title,
-          style: TextStyleUtils.regular(14),
+          style: TextStyleUtils.regular(16),
           softWrap: true,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,

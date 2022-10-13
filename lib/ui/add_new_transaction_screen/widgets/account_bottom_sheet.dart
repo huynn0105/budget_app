@@ -15,7 +15,7 @@ class _AccountBottomSheet extends StatelessWidget {
           children: [
             Text(
               'Account',
-              style: TextStyleUtils.medium(16).copyWith(color: Colors.black54),
+              style: TextStyleUtils.medium(18).copyWith(color: Colors.black54),
             ),
             SizedBox(height: 10.h),
             BlocBuilder<AccountBloc, AccountState>(
@@ -67,4 +67,3 @@ class _AccountBottomSheet extends StatelessWidget {
     );
   }
 }
-

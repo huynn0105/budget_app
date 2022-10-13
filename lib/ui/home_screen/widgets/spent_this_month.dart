@@ -14,7 +14,7 @@ class _SpentThisWeek extends StatelessWidget {
       children: [
         Text(
           'Spent this week',
-          style: TextStyleUtils.regular(14).copyWith(color: Colors.black54),
+          style: TextStyleUtils.regular(16).copyWith(color: Colors.black54),
         ),
         SizedBox(height: 10.h),
         BlocBuilder<TransactionBloc, TransactionState>(
@@ -28,13 +28,13 @@ class _SpentThisWeek extends StatelessWidget {
                   children: [
                     TextSpan(
                       text: format.format(state.totalThisWeek),
-                      style: TextStyleUtils.regular(38).copyWith(
+                      style: TextStyleUtils.regular(45).copyWith(
                         color: Colors.black,
                       ),
                     ),
                     TextSpan(
                       text: 'đ',
-                      style: TextStyleUtils.regular(20)
+                      style: TextStyleUtils.regular(25)
                           .copyWith(color: Colors.black54),
                     ),
                   ],

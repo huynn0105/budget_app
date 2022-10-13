@@ -21,7 +21,7 @@ class _AddButton extends StatelessWidget {
           ),
           Text(
             'Add',
-            style: TextStyleUtils.regular(14),
+            style: TextStyleUtils.regular(16),
           ),
         ],
       ),

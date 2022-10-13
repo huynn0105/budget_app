@@ -58,7 +58,10 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: TextButton(
-          child: const Text('Cancel'),
+          child: Text(
+            'Cancel',
+            style: TextStyleUtils.medium(16),
+          ),
           onPressed: () => Navigator.pop(context),
         ),
         title: TextButton(
@@ -68,6 +71,7 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
                 state.transactionType == TransactionType.expense
                     ? 'Expense'
                     : 'Income',
+                style: TextStyleUtils.medium(16),
               );
             },
           ),
@@ -124,10 +128,10 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
                   child: TextField(
                     controller: noteController,
                     key: const Key('noteTextField'),
-                    style: TextStyleUtils.regular(12),
+                    style: TextStyleUtils.regular(14),
                     decoration: InputDecoration(
                       hintText: 'Enter note',
-                      hintStyle: TextStyleUtils.regular(12),
+                      hintStyle: TextStyleUtils.regular(14),
                       isDense: true,
                     ),
                   ),
@@ -158,10 +162,10 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text('${state.accountSelected.emoji} ',
-                                style: TextStyleUtils.regular(22)),
+                                style: TextStyleUtils.regular(28)),
                             Text(
                               state.accountSelected.name,
-                              style: TextStyleUtils.medium(14)
+                              style: TextStyleUtils.medium(16)
                                   .copyWith(color: Colors.black),
                             ),
                           ],
@@ -172,7 +176,10 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
                   ),
                 ),
               ),
-              const Icon(Icons.arrow_right_alt),
+              const Icon(
+                Icons.arrow_right_alt,
+                size: 30,
+              ),
               Expanded(
                 child: TextButton(
                   onPressed: () {
@@ -195,10 +202,10 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text('${state.categorySelected.emoji} ',
-                                  style: TextStyleUtils.regular(22)),
+                                  style: TextStyleUtils.regular(28)),
                               Text(
                                 state.categorySelected.name,
-                                style: TextStyleUtils.medium(14).copyWith(
+                                style: TextStyleUtils.medium(16).copyWith(
                                   color: Colors.black,
                                 ),
                                 overflow: TextOverflow.ellipsis,

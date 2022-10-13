@@ -10,7 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:money_formatter/money_formatter.dart';
 
-const double heightChart = 140.0;
+const double heightChart = 160.0;
 
 class AnalysisScreen extends StatefulWidget {
   const AnalysisScreen({super.key});
@@ -52,13 +52,13 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                   children: [
                     Text(
                       '${state.viewType == ViewType.week ? numberFormat.format(state.totalOfWeek) : numberFormat.format(state.totalOfMonth)}đ',
-                      style: TextStyleUtils.medium(30),
+                      style: TextStyleUtils.medium(40),
                     ),
                     Row(
                       children: [
                         Text(
                           'Total spent ${state.viewType == ViewType.week ? between : ''}',
-                          style: TextStyleUtils.regular(12)
+                          style: TextStyleUtils.regular(16)
                               .copyWith(color: Colors.black54),
                         ),
                         SizedBox(
@@ -74,7 +74,7 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                                   style: ButtonStyle(
                                       elevation: MaterialStateProperty.all(0),
                                       minimumSize: MaterialStateProperty.all(
-                                        const Size(20, 10),
+                                        const Size(30, 15),
                                       ),
                                       tapTargetSize:
                                           MaterialTapTargetSize.shrinkWrap,
@@ -85,7 +85,7 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                                           MaterialStateProperty.all(
                                               Colors.transparent),
                                       textStyle: MaterialStateProperty.all(
-                                          TextStyleUtils.medium(12)
+                                          TextStyleUtils.medium(14)
                                               .copyWith(color: Colors.blue))),
                                   child: const Text(
                                     'Today',
@@ -264,18 +264,18 @@ class _CategoryItem extends StatelessWidget {
         children: [
           Text(
             categoryUI.category.emoji,
-            style: TextStyleUtils.regular(26),
+            style: TextStyleUtils.regular(28),
           ),
           SizedBox(width: 10.w),
           Expanded(
             child: Text(
               categoryUI.category.name,
-              style: TextStyleUtils.regular(15),
+              style: TextStyleUtils.regular(16),
             ),
           ),
           Text(
             '${format.format(categoryUI.total)}đ',
-            style: TextStyleUtils.regular(15),
+            style: TextStyleUtils.regular(16),
           ),
         ],
       ),
@@ -303,7 +303,7 @@ class _ChartItem extends StatelessWidget {
           child: max != 0
               ? Text(
                   MoneyFormatter(amount: max).output.compactNonSymbol,
-                  style: TextStyleUtils.regular(10)
+                  style: TextStyleUtils.regular(14)
                       .copyWith(color: Colors.black54),
                 )
               : null,
@@ -320,7 +320,7 @@ class _ChartItem extends StatelessWidget {
             children: [
               Container(
                 height: value,
-                width: 20,
+                width: 30.w,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5.r),
                     color: Colors.black87),
@@ -331,7 +331,7 @@ class _ChartItem extends StatelessWidget {
         SizedBox(height: 5.h),
         Text(
           title,
-          style: TextStyleUtils.regular(11).copyWith(color: Colors.black54),
+          style: TextStyleUtils.regular(13).copyWith(color: Colors.black54),
         ),
       ],
     );
@@ -355,7 +355,7 @@ class _ViewTypeWidgetState extends State<_ViewTypeWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 35.h,
+      height: 40.h,
       child: ListView.separated(
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
@@ -374,9 +374,12 @@ class _ViewTypeWidgetState extends State<_ViewTypeWidget> {
                     backgroundColor: MaterialStateProperty.all(
                         isActive ? Colors.black87 : Colors.white),
                     padding: MaterialStateProperty.all(
-                        EdgeInsets.symmetric(horizontal: 8.w, vertical: 6.h)),
+                        EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h)),
                     minimumSize: MaterialStateProperty.all(
-                      const Size(18, 28),
+                      const Size(70, 28),
+                    ),
+                    fixedSize: MaterialStateProperty.all(
+                      const Size(70, 28),
                     ),
                     side: !isActive
                         ? MaterialStateProperty.all(
@@ -385,7 +388,7 @@ class _ViewTypeWidgetState extends State<_ViewTypeWidget> {
                 child: Text(
                   ViewType.values[index].name[0].toUpperCase() +
                       ViewType.values[index].name.substring(1),
-                  style: TextStyleUtils.regular(12).copyWith(
+                  style: TextStyleUtils.regular(14).copyWith(
                       color: isActive ? Colors.white : Colors.black87),
                 ),
               );

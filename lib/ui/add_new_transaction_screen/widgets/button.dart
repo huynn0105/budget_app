@@ -29,7 +29,7 @@ class _Button extends StatelessWidget {
           ),
           Text(
             name,
-            style: TextStyleUtils.regular(14),
+            style: TextStyleUtils.regular(16),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
@@ -38,4 +38,3 @@ class _Button extends StatelessWidget {
     );
   }
 }
-

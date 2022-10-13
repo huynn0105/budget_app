@@ -68,7 +68,7 @@ class _ChartScreenState extends State<ChartScreen> {
                     '${formater.format(state.transactionOfWeek.date.startOfWeek())} - ${formater.format(state.transactionOfWeek.date.endOfWeek())}';
                 return Text(
                   'SPENT ${state.transactionOfWeek.date.isToday() ? 'THIS ' : ''}WEEK $between',
-                  style: TextStyleUtils.medium(16),
+                  style: TextStyleUtils.medium(18),
                 );
               }
               return const CircularProgressIndicator();
@@ -161,7 +161,7 @@ class _ChartScreenState extends State<ChartScreen> {
               if (state is AnalysisLoaded) {
                 return Text(
                   'SPENT ${state.transactionOfMonth.date.isToday() ? 'THIS ' : ''}MONTH ${state.transactionOfMonth.date.month}',
-                  style: TextStyleUtils.medium(16),
+                  style: TextStyleUtils.medium(18),
                 );
               }
               return const CircularProgressIndicator();

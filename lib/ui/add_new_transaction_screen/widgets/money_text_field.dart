@@ -13,7 +13,7 @@ class _MoneyTextField extends StatelessWidget {
     return TextField(
       maxLines: 1,
       controller: controller,
-      style: TextStyleUtils.regular(35),
+      style: TextStyleUtils.regular(38),
       textAlign: TextAlign.center,
       maxLength: 16,
       keyboardType: TextInputType.number,
@@ -39,4 +39,3 @@ class _MoneyTextField extends StatelessWidget {
     );
   }
 }
-

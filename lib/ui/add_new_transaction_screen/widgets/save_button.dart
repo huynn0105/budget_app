@@ -18,9 +18,12 @@ class _SaveButton extends StatelessWidget {
           padding: MaterialStateProperty.all(
               EdgeInsets.symmetric(horizontal: 13.w, vertical: 6.h)),
           minimumSize: MaterialStateProperty.all(
-            const Size(20, 30),
+            const Size(74, 36),
           ),
-          textStyle: MaterialStateProperty.all(TextStyleUtils.medium(14))),
+          fixedSize: MaterialStateProperty.all(
+            const Size(74, 36),
+          ),
+          textStyle: MaterialStateProperty.all(TextStyleUtils.medium(15))),
       child: const Text('Save'),
     );
   }

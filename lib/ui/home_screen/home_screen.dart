@@ -58,18 +58,31 @@ class _HomeScreenState extends State<HomeScreen> {
             elevation: 1,
             backgroundColor: Colors.grey.shade200,
             items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.insert_chart_outlined_outlined), label: ''),
+                  icon: Icon(
+                    Icons.home,
+                    size: 30,
+                  ),
+                  label: ''),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.pie_chart_outline_sharp), label: ''),
+                  icon: Icon(
+                    Icons.insert_chart_outlined_outlined,
+                    size: 30,
+                  ),
+                  label: ''),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.pie_chart_outline_sharp,
+                    size: 30,
+                  ),
+                  label: ''),
             ],
             currentIndex: state.navBar.index,
             onTap: (index) {
               context.read<BottomNavBarCubit>().onItemTapped(index);
             },
           ),
-          floatingActionButton: FloatingActionButton.small(
+          floatingActionButton: FloatingActionButton(
             backgroundColor: Colors.black,
             key: const Key('addNewTransaction'),
             onPressed: () {

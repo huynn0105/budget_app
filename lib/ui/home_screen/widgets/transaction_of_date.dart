@@ -37,12 +37,12 @@ class _TransactionOfDate extends StatelessWidget {
                       date.isToday()
                           ? 'Today'
                           : DateFormat('MMM dd').format(date),
-                      style: TextStyleUtils.regular(14)
+                      style: TextStyleUtils.regular(17)
                           .copyWith(color: Colors.black45),
                     ),
                     Text(
                       '${format.format(total)}đ',
-                      style: TextStyleUtils.regular(14)
+                      style: TextStyleUtils.regular(17)
                           .copyWith(color: Colors.black45),
                     ),
                   ],
@@ -87,7 +87,7 @@ class _TransactionItem extends StatelessWidget {
           children: [
             Text(
               transaction.category.target!.emoji,
-              style: TextStyleUtils.regular(24),
+              style: TextStyleUtils.regular(30),
             ),
             SizedBox(width: 10.w),
             Expanded(
@@ -95,13 +95,13 @@ class _TransactionItem extends StatelessWidget {
                 children: [
                   Text(
                     transaction.category.target!.name,
-                    style: TextStyleUtils.regular(14),
+                    style: TextStyleUtils.regular(16),
                   ),
                   SizedBox(width: 5.w),
                   transaction.title.isNotEmpty
                       ? Text(
                           '(${transaction.title})',
-                          style: TextStyleUtils.regular(12)
+                          style: TextStyleUtils.regular(14)
                               .copyWith(color: Colors.black45),
                         )
                       : const SizedBox.shrink(),
@@ -110,7 +110,7 @@ class _TransactionItem extends StatelessWidget {
             ),
             Text(
               '${transaction.type == TransactionType.expense ? '-' : ''}${format.format(transaction.amount)}đ',
-              style: TextStyleUtils.regular(14),
+              style: TextStyleUtils.regular(16),
             ),
           ],
         ),

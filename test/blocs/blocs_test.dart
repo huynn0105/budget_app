@@ -48,7 +48,6 @@ void main() async {
             emoji: 'cash',
             name: 'cash',
           ),
-
           category: Category(
             emoji: 'food',
             name: 'food',
@@ -72,25 +71,25 @@ void main() async {
       expect(categoryBloc.state, const CategoryInitial());
     });
 
-    blocTest<CategoryBloc,CategoryState>(
+    blocTest<CategoryBloc, CategoryState>(
         'emit [CategoryLoaded(categories,categorySelected) when CategoryStarted is added]',
         build: () => categoryBloc,
         act: (bloc) => bloc.add(const CategoryStarted()),
         expect: () {
-          final categories = categoryService.getCategoris();
+          final categories = categoryService.getCategories();
           return [
             CategoryLoaded(
                 categories: categories, categorySelected: categories.first)
           ];
         });
-    blocTest<CategoryBloc,CategoryState>(
+    blocTest<CategoryBloc, CategoryState>(
         'emit [CategoryLoaded(categories,categorySelected) when CategoryAdded is added]',
         build: () => categoryBloc,
         setUp: () => categoryBloc.add(const CategoryStarted()),
         act: (bloc) => bloc.add(
             CategoryAdded(category: Category(emoji: 'food', name: 'food'))),
         expect: () {
-          final categories = categoryService.getCategoris();
+          final categories = categoryService.getCategories();
           return [
             CategoryLoaded(
                 categories: categories,
@@ -99,7 +98,7 @@ void main() async {
           ];
         });
 
-    blocTest<CategoryBloc,CategoryState>(
+    blocTest<CategoryBloc, CategoryState>(
         'emit [CategoryLoaded(categories,categorySelected) when CategorySelected is added]',
         build: () => categoryBloc,
         setUp: () {
@@ -108,7 +107,7 @@ void main() async {
         act: (bloc) => bloc
             .add(CategorySelected(category: Category.cetegoriesDefault.first)),
         expect: () {
-          final categories = categoryService.getCategoris();
+          final categories = categoryService.getCategories();
           return [
             CategoryLoaded(
                 categories: categories,

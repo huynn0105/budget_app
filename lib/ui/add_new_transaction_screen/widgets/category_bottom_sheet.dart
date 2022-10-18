@@ -16,9 +16,9 @@ class CategoriesBottomSheet extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Categories',
+                KeyWork.category.tr,
                 style:
-                    TextStyleUtils.medium(16).copyWith(color: Colors.black54),
+                    TextStyleUtils.medium(16),
               ),
               SizedBox(height: 10.h),
               Expanded(
@@ -41,7 +41,7 @@ class CategoriesBottomSheet extends StatelessWidget {
                                 state.categories.length
                             ? _Button(
                                 emoji: state.categories[index].emoji,
-                                name: state.categories[index].name,
+                                name: state.categories[index].name.tr,
                                 onLongPress: () {
                                   context.read<CategoryBloc>().add(
                                       CategoryDeleted(

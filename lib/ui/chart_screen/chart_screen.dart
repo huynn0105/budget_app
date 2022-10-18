@@ -3,13 +3,20 @@ import 'package:budget_app/core/blocs/analysis_bloc/analysis_bloc.dart';
 import 'package:budget_app/core/entities/category_entity.dart';
 import 'package:budget_app/core/entities/transaction_entity.dart';
 import 'package:budget_app/core/utils/datetime_util.dart';
+import 'package:budget_app/translation/keyword.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:collection/collection.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import 'package:pie_chart/pie_chart.dart' as pie;
+
+import '../../core/blocs/setting_bloc/setting_bloc.dart';
+import '../../core/utils/enum_helper.dart';
+import 'package:intl/date_symbol_data_local.dart';
+
 part 'widgets/custom_legend.dart';
 
 class ChartScreen extends StatefulWidget {
@@ -49,16 +56,16 @@ class _ChartScreenState extends State<ChartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final formater = DateFormat('MMM dd');
-
+    initializeDateFormatting();
+    final formater =
+        context.read<SettingBloc>().state.language == Language.english
+            ? DateFormat('MMM dd', 'en')
+            : DateFormat('dd MMM', 'vi');
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.grey.shade50,
-        elevation: 0,
-      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          SizedBox(height: 20.h),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: BlocBuilder<AnalysisBloc, AnalysisState>(
@@ -67,7 +74,7 @@ class _ChartScreenState extends State<ChartScreen> {
                 final between =
                     '${formater.format(state.transactionOfWeek.date.startOfWeek())} - ${formater.format(state.transactionOfWeek.date.endOfWeek())}';
                 return Text(
-                  'SPENT ${state.transactionOfWeek.date.isToday() ? 'THIS ' : ''}WEEK $between',
+                  '${KeyWork.week.tr} $between'.toUpperCase(),
                   style: TextStyleUtils.medium(18),
                 );
               }
@@ -144,7 +151,7 @@ class _ChartScreenState extends State<ChartScreen> {
                                           .name,
                                     ),
                                   )
-                                : const Center(child: Text('No data')),
+                                : Center(child: Text(KeyWork.noTrnsaction.tr)),
                           ),
                         ),
                       ],
@@ -160,7 +167,8 @@ class _ChartScreenState extends State<ChartScreen> {
                 builder: (context, state) {
               if (state is AnalysisLoaded) {
                 return Text(
-                  'SPENT ${state.transactionOfMonth.date.isToday() ? 'THIS ' : ''}MONTH ${state.transactionOfMonth.date.month}',
+                  '${KeyWork.month.tr} ${state.transactionOfMonth.date.month}'
+                      .toUpperCase(),
                   style: TextStyleUtils.medium(18),
                 );
               }
@@ -208,7 +216,7 @@ class _ChartScreenState extends State<ChartScreen> {
                                           .fold(0, (prev, e) => prev + e.amount)
                                           .toDouble()
                                   }
-                                : {'No data': 0},
+                                : {KeyWork.noTrnsaction.tr: 0},
                             animationDuration: const Duration(
                               milliseconds: 800,
                             ),
@@ -241,7 +249,7 @@ class _ChartScreenState extends State<ChartScreen> {
                                           .name,
                                     ),
                                   )
-                                : const Center(child: Text('No data')),
+                                : Center(child: Text(KeyWork.noTrnsaction.tr)),
                           ),
                         ),
                       ],

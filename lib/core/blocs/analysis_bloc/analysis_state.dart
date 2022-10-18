@@ -27,12 +27,21 @@ class AnalysisLoaded extends AnalysisState {
   final ViewType viewType;
   @override
   List<Object> get props => [viewType, transactionOfWeek, transactionOfMonth];
-  int get totalOfWeek => transactionOfWeek.transactions
-      .fold(0, (prevValue, x) => prevValue + x.amount);
-  int get totalOfMonth => transactionOfMonth.transactions
-      .fold(0, (prevValue, x) => prevValue + x.amount);
-  int get totalOfYear => transactionOfYear.transactions
-      .fold(0, (prevValue, x) => prevValue + x.amount);
+  int get totalOfWeek => transactionOfWeek.transactions.fold(
+      0,
+      (prevValue, x) =>
+          prevValue +
+          (x.type == TransactionType.expense ? -x.amount : x.amount));
+  int get totalOfMonth => transactionOfMonth.transactions.fold(
+      0,
+      (prevValue, x) =>
+          prevValue +
+          (x.type == TransactionType.expense ? -x.amount : x.amount));
+  int get totalOfYear => transactionOfYear.transactions.fold(
+      0,
+      (prevValue, x) =>
+          prevValue +
+          (x.type == TransactionType.expense ? -x.amount : x.amount));
 
   Map<int, List<Transaction>> get transactionsDateOfViewType {
     switch (viewType) {

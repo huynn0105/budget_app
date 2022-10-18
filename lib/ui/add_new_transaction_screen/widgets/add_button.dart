@@ -20,7 +20,7 @@ class _AddButton extends StatelessWidget {
             size: 42.r,
           ),
           Text(
-            'Add',
+            KeyWork.add.tr,
             style: TextStyleUtils.regular(16),
           ),
         ],

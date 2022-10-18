@@ -1,4 +1,5 @@
 import 'package:budget_app/core/entities/transaction_entity.dart';
+import 'package:budget_app/translation/keyword.dart';
 import 'package:equatable/equatable.dart';
 import 'package:objectbox/objectbox.dart';
 
@@ -19,21 +20,21 @@ class Category extends BaseEntity {
   });
 
   static List<Category> cetegoriesDefault = [
-    Category(name: 'Food', emoji: '🥙'),
-    Category(name: 'Breakfash', emoji: '🍔'),
-    Category(name: 'Lunch', emoji: '🍜'),
-    Category(name: 'Dinner', emoji: '🍽'),
-    Category(name: 'Drink', emoji: '🍹'),
-    Category(name: 'Bike', emoji: '🚗'),
-    Category(name: 'Gas', emoji: '⛽'),
-    Category(name: 'Clothing', emoji: '👕'),
-    Category(name: 'Gifts', emoji: '🎁'),
-    Category(name: 'Entertainment', emoji: '🎞'),
-    Category(name: 'Tech', emoji: '📱'),
-    Category(name: 'Travel', emoji: '🏝'),
-    Category(name: 'Health', emoji: '💊'),
-    Category(name: 'Family', emoji: '👪'),
-    Category(name: 'Coffe', emoji: '☕'),
+    Category(name: KeyWork.food, emoji: '🥙'),
+    Category(name: KeyWork.breakfash, emoji: '🍔'),
+    Category(name: KeyWork.lunch, emoji: '🍜'),
+    Category(name: KeyWork.dinner, emoji: '🍽'),
+    Category(name: KeyWork.drink, emoji: '🍹'),
+    Category(name: KeyWork.bike, emoji: '🚗'),
+    Category(name: KeyWork.gas, emoji: '⛽'),
+    Category(name: KeyWork.clothing, emoji: '👕'),
+    Category(name: KeyWork.gifts, emoji: '🎁'),
+    Category(name: KeyWork.entertainment, emoji: '🎞'),
+    Category(name: KeyWork.tech, emoji: '📱'),
+    Category(name: KeyWork.travel, emoji: '🏝'),
+    Category(name: KeyWork.health, emoji: '💊'),
+    Category(name: KeyWork.family, emoji: '👪'),
+    Category(name: KeyWork.coffe, emoji: '☕'),
   ];
 
   @override

@@ -3,11 +3,13 @@ import 'dart:io';
 import 'package:budget_app/constants.dart';
 import 'package:budget_app/core/blocs/category_bloc/category_bloc.dart';
 import 'package:budget_app/core/entities/category_entity.dart' as app;
+import 'package:budget_app/translation/keyword.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class AddNewCategoryScreen extends StatefulWidget {
   const AddNewCategoryScreen({super.key});
@@ -36,15 +38,11 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'New Category',
-          style: TextStyle(
-            color: Colors.black87,
-          ),
+        title: Text(
+          KeyWork.newCategory.tr,
         ),
         centerTitle: true,
         elevation: 0,
-        backgroundColor: Colors.grey[50],
         actions: [
           TextButton(
               onPressed: () {
@@ -58,7 +56,7 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
                     );
                 Navigator.of(context).pop();
               },
-              child: const Text('Done')),
+              child: Text(KeyWork.done.tr)),
         ],
       ),
       body: Padding(
@@ -115,7 +113,7 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
               textAlign: TextAlign.center,
               controller: controller,
               decoration: InputDecoration(
-                hintText: 'Enter Category Name',
+                hintText: KeyWork.enterCategoryName.tr,
                 hintStyle: TextStyleUtils.regular(20),
                 border: InputBorder.none,
               ),

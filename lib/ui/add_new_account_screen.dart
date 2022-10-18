@@ -3,11 +3,13 @@ import 'dart:io';
 import 'package:budget_app/constants.dart';
 import 'package:budget_app/core/blocs/account_bloc/account_bloc.dart';
 import 'package:budget_app/core/entities/account_entity.dart';
+import 'package:budget_app/translation/keyword.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class AddNewAccountScreen extends StatefulWidget {
   const AddNewAccountScreen({super.key});
@@ -36,8 +38,8 @@ class _AddNewAccountScreenState extends State<AddNewAccountScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'New Account',
+        title:  Text(
+          KeyWork.newAccount.tr,
           style: TextStyle(
             color: Colors.black87,
           ),
@@ -58,7 +60,7 @@ class _AddNewAccountScreenState extends State<AddNewAccountScreen> {
                     );
                 Navigator.of(context).pop();
               },
-              child: const Text('Done')),
+              child:  Text(KeyWork.done.tr)),
         ],
       ),
       body: Padding(
@@ -115,7 +117,7 @@ class _AddNewAccountScreenState extends State<AddNewAccountScreen> {
               textAlign: TextAlign.center,
               controller: controller,
               decoration: InputDecoration(
-                hintText: 'Enter Account Name',
+                hintText: KeyWork.enterAccountName.tr,
                 hintStyle: TextStyleUtils.regular(20),
                 border: InputBorder.none,
               ),

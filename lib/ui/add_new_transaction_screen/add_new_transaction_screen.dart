@@ -1,9 +1,11 @@
 import 'package:budget_app/core/blocs/analysis_bloc/analysis_bloc.dart';
+import 'package:budget_app/translation/keyword.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_multi_formatter/formatters/currency_input_formatter.dart';
 import 'package:flutter_multi_formatter/formatters/money_input_enums.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import 'package:budget_app/constants.dart';
@@ -53,13 +55,12 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
         elevation: 0,
+        backgroundColor: Theme.of(context).bottomAppBarColor,
         leading: TextButton(
           child: Text(
-            'Cancel',
+            KeyWork.cancel.tr,
             style: TextStyleUtils.medium(16),
           ),
           onPressed: () => Navigator.pop(context),
@@ -69,8 +70,8 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
             builder: (context, state) {
               return Text(
                 state.transactionType == TransactionType.expense
-                    ? 'Expense'
-                    : 'Income',
+                    ? KeyWork.expense.tr
+                    : KeyWork.income.tr,
                 style: TextStyleUtils.medium(16),
               );
             },
@@ -93,7 +94,7 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
                       (e) => PopupMenuItem<String>(
                         value: e.name,
                         child: Text(
-                          e == TransactionType.expense ? 'Expense' : 'Income',
+                          e == TransactionType.expense ?  KeyWork.expense.tr :  KeyWork.income.tr,
                         ),
                         onTap: () {
                           context
@@ -108,6 +109,7 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
         centerTitle: true,
         leadingWidth: 80.w,
       ),
+      backgroundColor: Theme.of(context).bottomAppBarColor,
       body: Column(
         children: [
           Expanded(
@@ -130,7 +132,7 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
                     key: const Key('noteTextField'),
                     style: TextStyleUtils.regular(14),
                     decoration: InputDecoration(
-                      hintText: 'Enter note',
+                      hintText:  KeyWork.enterNote.tr,
                       hintStyle: TextStyleUtils.regular(14),
                       isDense: true,
                     ),
@@ -164,9 +166,8 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
                             Text('${state.accountSelected.emoji} ',
                                 style: TextStyleUtils.regular(28)),
                             Text(
-                              state.accountSelected.name,
-                              style: TextStyleUtils.medium(16)
-                                  .copyWith(color: Colors.black),
+                              state.accountSelected.name.tr,
+                              style: TextStyleUtils.medium(16),
                             ),
                           ],
                         );
@@ -204,10 +205,8 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
                               Text('${state.categorySelected.emoji} ',
                                   style: TextStyleUtils.regular(28)),
                               Text(
-                                state.categorySelected.name,
-                                style: TextStyleUtils.medium(16).copyWith(
-                                  color: Colors.black,
-                                ),
+                                state.categorySelected.name.tr,
+                                style: TextStyleUtils.medium(16),
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                               ),

@@ -100,9 +100,33 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "4:2996561069980989109",
+      "lastPropertyId": "3:5450406603083700164",
+      "name": "SettingEntity",
+      "properties": [
+        {
+          "id": "1:7393416565991210114",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:2215641050921343010",
+          "name": "dbLanguage",
+          "type": 6
+        },
+        {
+          "id": "3:5450406603083700164",
+          "name": "dbThemeMode",
+          "type": 6
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "3:3459246968913548694",
+  "lastEntityId": "4:2996561069980989109",
   "lastIndexId": "4:1894448582879584189",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

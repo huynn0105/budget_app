@@ -1,14 +1,19 @@
 import 'package:budget_app/constants.dart';
 import 'package:budget_app/core/blocs/analysis_bloc/analysis_bloc.dart';
+import 'package:budget_app/core/blocs/setting_bloc/setting_bloc.dart';
 import 'package:budget_app/core/ui_model/category_ui_model.dart';
 import 'package:budget_app/core/utils/datetime_util.dart';
+import 'package:budget_app/core/utils/enum_helper.dart';
+import 'package:budget_app/translation/keyword.dart';
 import 'package:budget_app/ui/category_history_screen/category_history_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:money_formatter/money_formatter.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 const double heightChart = 160.0;
 
@@ -31,7 +36,11 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final format = DateFormat('MMM dd');
+    initializeDateFormatting();
+    final formater =
+        context.read<SettingBloc>().state.language == Language.english
+            ? DateFormat('MMM dd', 'en')
+            : DateFormat('dd MMM', 'vi');
     final numberFormat = NumberFormat('#,###');
     final monthFormat = DateFormat('dd/MM');
     return Padding(
@@ -45,21 +54,55 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                 return const CircularProgressIndicator();
               }
               if (state is AnalysisLoaded) {
-                final between =
-                    '${state.transactionOfWeek.date.isToday() ? 'this ' : ''}${state.viewType.name} ${format.format(state.transactionOfWeek.date.startOfWeek())} - ${format.format(state.transactionOfWeek.date.endOfWeek())}';
+                String between = '';
+                switch (state.viewType) {
+                  case ViewType.week:
+                    between =
+                        "${state.transactionOfWeek.date.isToday() ? KeyWork.thisWeek.tr : ''} ${formater.format(state.transactionOfWeek.date.startOfWeek())} - ${formater.format(state.transactionOfWeek.date.endOfWeek())}";
+                    break;
+                  case ViewType.month:
+                    final format = DateFormat(
+                        'MMMM',
+                        context.read<SettingBloc>().state.language ==
+                                Language.english
+                            ? 'en'
+                            : 'vi');
+                    between = format.format(state.transactionOfMonth.date);
+                    break;
+                  case ViewType.year:
+                    between = KeyWork.year.tr +
+                        ' ${state.transactionOfYear.date.year}';
+                    break;
+                }
+
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      '${state.viewType == ViewType.week ? numberFormat.format(state.totalOfWeek) : numberFormat.format(state.totalOfMonth)}đ',
-                      style: TextStyleUtils.medium(40),
+                    SizedBox(
+                      height: 56.h,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            state.viewType == ViewType.week
+                                ? numberFormat.format(state.totalOfWeek)
+                                : state.viewType == ViewType.month
+                                    ? numberFormat.format(state.totalOfMonth)
+                                    : numberFormat.format(state.totalOfYear),
+                            style: TextStyleUtils.medium(40),
+                          ),
+                          Text(
+                            'đ',
+                            style: TextStyleUtils.regular(30),
+                          ),
+                        ],
+                      ),
                     ),
                     Row(
                       children: [
                         Text(
-                          'Total spent ${state.viewType == ViewType.week ? between : ''}',
-                          style: TextStyleUtils.regular(16)
-                              .copyWith(color: Colors.black54),
+                          '${KeyWork.totalSpent.tr} $between',
+                          style: TextStyleUtils.regular(16),
                         ),
                         SizedBox(
                           height: 30.h,
@@ -87,8 +130,8 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                                       textStyle: MaterialStateProperty.all(
                                           TextStyleUtils.medium(14)
                                               .copyWith(color: Colors.blue))),
-                                  child: const Text(
-                                    'Today',
+                                  child: Text(
+                                    KeyWork.today.tr,
                                   ),
                                 )
                               : const SizedBox.shrink(),
@@ -204,11 +247,19 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
             ),
           ),
           SizedBox(height: 15.h),
-          _ViewTypeWidget(
-            onChanged: (value) {
-              context
-                  .read<AnalysisBloc>()
-                  .add(AnalysisSeleteViewType(viewType: value));
+          BlocBuilder<AnalysisBloc, AnalysisState>(
+            builder: (context, state) {
+              if (state is AnalysisLoaded) {
+                return _ViewTypeWidget(
+                  initValue: state.viewType.index,
+                  onChanged: (value) {
+                    context
+                        .read<AnalysisBloc>()
+                        .add(AnalysisSeleteViewType(viewType: value));
+                  },
+                );
+              }
+              return CircularProgressIndicator();
             },
           ),
           SizedBox(height: 30.h),
@@ -227,7 +278,7 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                         )
                       : Center(
                           child: Text(
-                            'No transaction',
+                            KeyWork.noTrnsaction.tr,
                             style: TextStyleUtils.regular(12)
                                 .copyWith(color: Colors.black54),
                           ),
@@ -303,15 +354,14 @@ class _ChartItem extends StatelessWidget {
           child: max != 0
               ? Text(
                   MoneyFormatter(amount: max).output.compactNonSymbol,
-                  style: TextStyleUtils.regular(14)
-                      .copyWith(color: Colors.black54),
+                  style: TextStyleUtils.regular(14),
                 )
               : null,
         ),
         Container(
           height: heightChart,
           decoration: BoxDecoration(
-            color: Colors.grey.shade200,
+            color: Theme.of(context).splashColor,
             borderRadius: BorderRadius.circular(5.r),
           ),
           child: Column(
@@ -320,10 +370,11 @@ class _ChartItem extends StatelessWidget {
             children: [
               Container(
                 height: value,
-                width: 30.w,
+                width: 26.w,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5.r),
-                    color: Colors.black87),
+                  borderRadius: BorderRadius.circular(5.r),
+                  color: Theme.of(context).primaryColor,
+                ),
               ),
             ],
           ),
@@ -331,7 +382,7 @@ class _ChartItem extends StatelessWidget {
         SizedBox(height: 5.h),
         Text(
           title,
-          style: TextStyleUtils.regular(13).copyWith(color: Colors.black54),
+          style: TextStyleUtils.regular(13),
         ),
       ],
     );
@@ -342,15 +393,22 @@ class _ViewTypeWidget extends StatefulWidget {
   const _ViewTypeWidget({
     Key? key,
     required this.onChanged,
+    required this.initValue,
   }) : super(key: key);
   final ValueChanged<ViewType> onChanged;
+  final int initValue;
 
   @override
   State<_ViewTypeWidget> createState() => _ViewTypeWidgetState();
 }
 
 class _ViewTypeWidgetState extends State<_ViewTypeWidget> {
-  ValueNotifier<int> selected = ValueNotifier(0);
+  late ValueNotifier<int> selected;
+  @override
+  void initState() {
+    selected = ValueNotifier(widget.initValue);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -386,8 +444,11 @@ class _ViewTypeWidgetState extends State<_ViewTypeWidget> {
                             BorderSide(color: Colors.grey.shade300))
                         : null),
                 child: Text(
-                  ViewType.values[index].name[0].toUpperCase() +
-                      ViewType.values[index].name.substring(1),
+                  ViewType.values[index] == ViewType.week
+                      ? KeyWork.week.tr.toUpperCase()
+                      : ViewType.values[index] == ViewType.month
+                          ? KeyWork.month.tr.toUpperCase()
+                          : KeyWork.year.tr.toUpperCase(),
                   style: TextStyleUtils.regular(14).copyWith(
                       color: isActive ? Colors.white : Colors.black87),
                 ),

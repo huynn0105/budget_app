@@ -14,7 +14,6 @@ class _SaveButton extends StatelessWidget {
       style: ButtonStyle(
           elevation: MaterialStateProperty.all(0),
           shape: MaterialStateProperty.all(const StadiumBorder()),
-          backgroundColor: MaterialStateProperty.all(Colors.black),
           padding: MaterialStateProperty.all(
               EdgeInsets.symmetric(horizontal: 13.w, vertical: 6.h)),
           minimumSize: MaterialStateProperty.all(
@@ -24,7 +23,7 @@ class _SaveButton extends StatelessWidget {
             const Size(74, 36),
           ),
           textStyle: MaterialStateProperty.all(TextStyleUtils.medium(15))),
-      child: const Text('Save'),
+      child: Text(KeyWork.save.tr),
     );
   }
 }

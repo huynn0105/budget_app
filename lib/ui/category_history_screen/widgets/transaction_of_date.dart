@@ -13,6 +13,11 @@ class _TransactionOfDate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final format = NumberFormat('#,###');
+    initializeDateFormatting();
+    final formater =
+        context.read<SettingBloc>().state.language == Language.english
+            ? DateFormat('MMM, dd/MM/yyyy', 'en')
+            : DateFormat('MMM, dd/MM/yyyy', 'vi');
     final total = transactions.fold(
         0,
         (prevValue, x) =>
@@ -28,16 +33,12 @@ class _TransactionOfDate extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    date.isToday()
-                        ? 'Today'
-                        : DateFormat('MMM, dd/MM/yyyy').format(date),
-                    style: TextStyleUtils.regular(18)
-                        .copyWith(color: Colors.black45),
+                    date.isToday() ? KeyWork.today.tr : formater.format(date),
+                    style: TextStyleUtils.regular(18),
                   ),
                   Text(
                     '${format.format(total)}đ',
-                    style: TextStyleUtils.regular(16)
-                        .copyWith(color: Colors.black45),
+                    style: TextStyleUtils.regular(16),
                   ),
                 ],
               ),
@@ -82,7 +83,7 @@ class _TransactionItem extends StatelessWidget {
           children: [
             Text(
               DateFormat('HH:mm').format(transaction.dateTime),
-              style: TextStyleUtils.regular(12).copyWith(color: Colors.black45),
+              style: TextStyleUtils.regular(12),
             ),
             SizedBox(width: 5.w),
             Text(
@@ -101,8 +102,7 @@ class _TransactionItem extends StatelessWidget {
                   transaction.title.isNotEmpty
                       ? Text(
                           '(${transaction.title})',
-                          style: TextStyleUtils.regular(14)
-                              .copyWith(color: Colors.black45),
+                          style: TextStyleUtils.regular(14),
                         )
                       : const SizedBox.shrink(),
                 ],

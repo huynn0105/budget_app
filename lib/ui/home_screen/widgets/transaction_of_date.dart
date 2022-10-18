@@ -13,13 +13,17 @@ class _TransactionOfDate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final format = NumberFormat('#,###');
+        initializeDateFormatting();
+    final formater =
+        context.read<SettingBloc>().state.language == Language.english
+            ? DateFormat('MMM dd', 'en')
+            : DateFormat('MMM dd', 'vi');
     final total = transactions.fold(
         0,
         (prevValue, x) =>
             prevValue +
             (x.type == TransactionType.expense ? -x.amount : x.amount));
     return Card(
-      color: Colors.white,
       elevation: 0.5,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5.0),
@@ -35,15 +39,13 @@ class _TransactionOfDate extends StatelessWidget {
                   children: [
                     Text(
                       date.isToday()
-                          ? 'Today'
-                          : DateFormat('MMM dd').format(date),
-                      style: TextStyleUtils.regular(17)
-                          .copyWith(color: Colors.black45),
+                          ? KeyWork.today.tr
+                          : formater.format(date),
+                      style: TextStyleUtils.regular(17),
                     ),
                     Text(
                       '${format.format(total)}đ',
-                      style: TextStyleUtils.regular(17)
-                          .copyWith(color: Colors.black45),
+                      style: TextStyleUtils.regular(17),
                     ),
                   ],
                 ),

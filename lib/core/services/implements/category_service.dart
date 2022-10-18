@@ -6,7 +6,7 @@ import 'package:budget_app/global/locator.dart';
 class CategoryService implements ICategoryService {
   final _categoryDao = locator<CategoryDao>();
   @override
-  List<Category> getCategoris() {
+  List<Category> getCategories() {
     final categories = _categoryDao.getAll();
     if (categories.isEmpty) {
       _categoryDao.insertAll(Category.cetegoriesDefault);

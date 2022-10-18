@@ -14,6 +14,7 @@ abstract class BaseDao<T extends BaseEntity> {
 
   T? findById(int id) => _box.get(id);
   int insert(T entity) => _box.put(entity);
+  void update(T entity) => _box.put(entity, mode: PutMode.update);
   bool delete(int id) => _box.remove(id);
   void deleteAll() => _box.removeAll();
   List<int> insertAll(List<T> entities) => _box.putMany(entities);

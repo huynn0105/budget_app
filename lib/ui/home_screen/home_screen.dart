@@ -3,14 +3,21 @@ import 'package:budget_app/core/blocs/home_cubit/home_cubit.dart';
 import 'package:budget_app/core/blocs/transaction_bloc/transaction_bloc.dart';
 import 'package:budget_app/core/entities/transaction_entity.dart';
 import 'package:budget_app/core/utils/datetime_util.dart';
+import 'package:budget_app/core/utils/enum_helper.dart';
+import 'package:budget_app/translation/keyword.dart';
 import 'package:budget_app/ui/chart_screen/chart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import '../../core/blocs/setting_bloc/setting_bloc.dart';
 import '../add_new_transaction_screen/add_new_transaction_screen.dart';
 import '../analysis_screen/analysis_screen.dart';
+import '../setting_screen/setting_screen.dart';
+import 'package:intl/date_symbol_data_local.dart';
+
 part 'widgets/transaction_of_date.dart';
 part 'widgets/spent_this_month.dart';
 
@@ -38,6 +45,8 @@ class _HomeScreenState extends State<HomeScreen> {
           return const AnalysisScreen();
         case BottomNavBar.chart:
           return const ChartScreen();
+        case BottomNavBar.settiing:
+          return SettingScreen();
       }
     }
 
@@ -46,36 +55,24 @@ class _HomeScreenState extends State<HomeScreen> {
         return Scaffold(
           appBar: AppBar(
             elevation: 0,
-            backgroundColor: Colors.grey.shade50,
             toolbarHeight: 20,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           ),
           resizeToAvoidBottomInset: false,
           body: homeScreen(state.navBar),
           bottomNavigationBar: BottomNavigationBar(
             showSelectedLabels: false,
             showUnselectedLabels: false,
-            selectedItemColor: Colors.black,
             elevation: 1,
-            backgroundColor: Colors.grey.shade200,
+            iconSize: 28,
+            type: BottomNavigationBarType.fixed,
             items: const [
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
               BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home,
-                    size: 30,
-                  ),
-                  label: ''),
+                  icon: Icon(Icons.insert_chart_outlined_outlined), label: ''),
               BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.insert_chart_outlined_outlined,
-                    size: 30,
-                  ),
-                  label: ''),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.pie_chart_outline_sharp,
-                    size: 30,
-                  ),
-                  label: ''),
+                  icon: Icon(Icons.pie_chart_outline_sharp), label: ''),
+              BottomNavigationBarItem(icon: Icon(Icons.settings), label: ''),
             ],
             currentIndex: state.navBar.index,
             onTap: (index) {
@@ -83,7 +80,6 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
           floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.black,
             key: const Key('addNewTransaction'),
             onPressed: () {
               showCupertinoModalBottomSheet(
@@ -94,9 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             },
             elevation: 0,
-            child: const Icon(
-              Icons.add,
-            ),
+            child: const Icon(Icons.add),
           ),
         );
       },

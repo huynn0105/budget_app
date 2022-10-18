@@ -12,7 +12,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
 
   CategoryBloc() : super(const CategoryInitial()) {
     on<CategoryStarted>((event, emit) {
-      final categories = _categoryService.getCategoris();
+      final categories = _categoryService.getCategories();
       emit(CategoryLoaded(
           categories: categories, categorySelected: categories.first));
     });
@@ -47,7 +47,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
             categorySelected: state.categorySelected.id == event.category.id
                 ? state.categories.first
                 : state.categorySelected,
-            categories: _categoryService.getCategoris(),
+            categories: _categoryService.getCategories(),
           ),
         );
       }

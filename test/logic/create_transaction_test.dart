@@ -41,7 +41,7 @@ void main() async {
     });
     test('User delete category, categories list shouldn delete this category',
         () {
-      final categories = categoryService.getCategoris();
+      final categories = categoryService.getCategories();
       final categoryInList = categories.first;
       categoryService.deleteCategory(categoryInList);
       Category? categoryInDb =

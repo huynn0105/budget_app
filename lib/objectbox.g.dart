@@ -16,6 +16,7 @@ import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
 import 'core/entities/account_entity.dart';
 import 'core/entities/category_entity.dart';
+import 'core/entities/setting_entity.dart';
 import 'core/entities/transaction_entity.dart';
 
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
@@ -122,6 +123,30 @@ final _entities = <ModelEntity>[
             flags: 0)
       ],
       relations: <ModelRelation>[],
+      backlinks: <ModelBacklink>[]),
+  ModelEntity(
+      id: const IdUid(4, 2996561069980989109),
+      name: 'SettingEntity',
+      lastPropertyId: const IdUid(3, 5450406603083700164),
+      flags: 0,
+      properties: <ModelProperty>[
+        ModelProperty(
+            id: const IdUid(1, 7393416565991210114),
+            name: 'id',
+            type: 6,
+            flags: 1),
+        ModelProperty(
+            id: const IdUid(2, 2215641050921343010),
+            name: 'dbLanguage',
+            type: 6,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(3, 5450406603083700164),
+            name: 'dbThemeMode',
+            type: 6,
+            flags: 0)
+      ],
+      relations: <ModelRelation>[],
       backlinks: <ModelBacklink>[])
 ];
 
@@ -145,7 +170,7 @@ Future<Store> openStore(
 ModelDefinition getObjectBoxModel() {
   final model = ModelInfo(
       entities: _entities,
-      lastEntityId: const IdUid(3, 3459246968913548694),
+      lastEntityId: const IdUid(4, 2996561069980989109),
       lastIndexId: const IdUid(4, 1894448582879584189),
       lastRelationId: const IdUid(0, 0),
       lastSequenceId: const IdUid(0, 0),
@@ -281,6 +306,35 @@ ModelDefinition getObjectBoxModel() {
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 14, 0);
           object.account.attach(store);
           return object;
+        }),
+    SettingEntity: EntityDefinition<SettingEntity>(
+        model: _entities[3],
+        toOneRelations: (SettingEntity object) => [],
+        toManyRelations: (SettingEntity object) => {},
+        getId: (SettingEntity object) => object.id,
+        setId: (SettingEntity object, int id) {
+          object.id = id;
+        },
+        objectToFB: (SettingEntity object, fb.Builder fbb) {
+          fbb.startTable(4);
+          fbb.addInt64(0, object.id);
+          fbb.addInt64(1, object.dbLanguage);
+          fbb.addInt64(2, object.dbThemeMode);
+          fbb.finish(fbb.endTable());
+          return object.id;
+        },
+        objectFromFB: (Store store, ByteData fbData) {
+          final buffer = fb.BufferContext(fbData);
+          final rootOffset = buffer.derefObject(0);
+
+          final object = SettingEntity(
+              id: const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0))
+            ..dbLanguage =
+                const fb.Int64Reader().vTableGet(buffer, rootOffset, 6, 0)
+            ..dbThemeMode =
+                const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0);
+
+          return object;
         })
   };
 
@@ -341,4 +395,19 @@ class Transaction_ {
   /// see [Transaction.dbType]
   static final dbType =
       QueryIntegerProperty<Transaction>(_entities[2].properties[6]);
+}
+
+/// [SettingEntity] entity fields to define ObjectBox queries.
+class SettingEntity_ {
+  /// see [SettingEntity.id]
+  static final id =
+      QueryIntegerProperty<SettingEntity>(_entities[3].properties[0]);
+
+  /// see [SettingEntity.dbLanguage]
+  static final dbLanguage =
+      QueryIntegerProperty<SettingEntity>(_entities[3].properties[1]);
+
+  /// see [SettingEntity.dbThemeMode]
+  static final dbThemeMode =
+      QueryIntegerProperty<SettingEntity>(_entities[3].properties[2]);
 }

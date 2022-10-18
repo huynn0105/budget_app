@@ -2,9 +2,17 @@ import 'package:budget_app/constants.dart';
 import 'package:budget_app/core/entities/transaction_entity.dart';
 import 'package:budget_app/core/ui_model/category_ui_model.dart';
 import 'package:budget_app/core/utils/datetime_util.dart';
+import 'package:budget_app/core/utils/enum_helper.dart';
+import 'package:budget_app/translation/keyword.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
+
+import '../../core/blocs/setting_bloc/setting_bloc.dart';
+
 part 'widgets/transaction_of_date.dart';
 
 class CategoryHistoryScreen extends StatelessWidget {
@@ -19,17 +27,13 @@ class CategoryHistoryScreen extends StatelessWidget {
     final format = NumberFormat('#,###');
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey.shade50,
         elevation: 0,
-        leading: const BackButton(
-          color: Colors.black87,
-        ),
       ),
       body: Column(
         children: [
           Text(
-            'Spent this ${categoryUIModel.category.name} ${categoryUIModel.category.emoji}',
-            style: TextStyleUtils.regular(17).copyWith(color: Colors.black54),
+            '${KeyWork.spent.tr} ${categoryUIModel.category.name} ${categoryUIModel.category.emoji}',
+            style: TextStyleUtils.regular(17),
           ),
           SizedBox(height: 5.h),
           RichText(
@@ -38,13 +42,14 @@ class CategoryHistoryScreen extends StatelessWidget {
                 TextSpan(
                   text: format.format(categoryUIModel.total),
                   style: TextStyleUtils.regular(45).copyWith(
-                    color: Colors.black,
+                    color: Theme.of(context).primaryColor,
                   ),
                 ),
                 TextSpan(
                   text: 'đ',
-                  style: TextStyleUtils.regular(20)
-                      .copyWith(color: Colors.black54),
+                  style: TextStyleUtils.regular(20).copyWith(
+                    color: Theme.of(context).primaryColor,
+                  ),
                 ),
               ],
             ),

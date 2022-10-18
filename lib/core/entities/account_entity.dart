@@ -1,5 +1,7 @@
 import 'package:budget_app/core/entities/base_entity.dart';
 import 'package:budget_app/core/entities/transaction_entity.dart';
+import 'package:budget_app/translation/keyword.dart';
+import 'package:get/get.dart';
 import 'package:objectbox/objectbox.dart';
 
 @Entity()
@@ -16,8 +18,8 @@ class Account extends BaseEntity {
   });
 
   static List<Account> accountsDefault = [
-    Account(name: 'Cash', emoji: '💵'),
-    Account(name: 'Card', emoji: '💳'),
+    Account(name: KeyWork.cash, emoji: '💵'),
+    Account(name: KeyWork.card, emoji: '💳'),
   ];
 
   @override

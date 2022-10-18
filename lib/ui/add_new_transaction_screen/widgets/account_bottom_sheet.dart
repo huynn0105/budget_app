@@ -14,8 +14,8 @@ class _AccountBottomSheet extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Account',
-              style: TextStyleUtils.medium(18).copyWith(color: Colors.black54),
+              KeyWork.account.tr,
+              style: TextStyleUtils.medium(18),
             ),
             SizedBox(height: 10.h),
             BlocBuilder<AccountBloc, AccountState>(
@@ -39,7 +39,7 @@ class _AccountBottomSheet extends StatelessWidget {
                             state.accounts.length
                         ? _Button(
                             emoji: state.accounts[index].emoji,
-                            name: state.accounts[index].name,
+                            name: state.accounts[index].name.tr,
                             onLongPress: () {
                               context.read<AccountBloc>().add(AccountDeleted(
                                   account: state.accounts[index]));

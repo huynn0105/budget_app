@@ -1,5 +1,6 @@
 import 'package:budget_app/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 ThemeData lightTheme = ThemeData(
   primaryColor: Colors.black,
@@ -8,6 +9,7 @@ ThemeData lightTheme = ThemeData(
     foregroundColor: Colors.white,
   ),
   appBarTheme: AppBarTheme(
+    elevation: 0,
     backgroundColor: Colors.grey.shade50,
     titleTextStyle: TextStyleUtils.medium(16).copyWith(color: Colors.black87),
     iconTheme: IconThemeData(color: Colors.black87),
@@ -42,6 +44,7 @@ ThemeData darkTheme = ThemeData(
   primaryColor: Colors.white,
   appBarTheme: AppBarTheme(
     backgroundColor: Colors.grey[850],
+    elevation: 0,
   ),
   floatingActionButtonTheme: FloatingActionButtonThemeData(
     backgroundColor: Colors.white,
@@ -67,13 +70,12 @@ ThemeData darkTheme = ThemeData(
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
-      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-          EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0)),
-      shape: MaterialStateProperty.all<OutlinedBorder>(
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0))),
-      backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-      foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-      overlayColor: MaterialStateProperty.all<Color>(Colors.black26),
-    ),
+        backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+        foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+        overlayColor: MaterialStateProperty.all<Color>(Colors.black26),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5.0.r),
+        ))),
   ),
 );

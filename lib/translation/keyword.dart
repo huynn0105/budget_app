@@ -58,7 +58,9 @@ class KeyWork {
   static const light = 'light';
   static const dark = 'dark';
   static const newCategory = 'newCategory';
+  static const editCategory = 'editCategory';
   static const newAccount = 'newAccount';
+  static const editAccount = 'editAccount';
   static const done = 'done';
   static const enterAccountName = 'enterAccountName';
   static const enterCategoryName = 'enterCategoryName';
@@ -66,4 +68,11 @@ class KeyWork {
   static const vietnamese = 'vietnamese';
   static const thiss = 'this';
   static const spent = 'spent';
+  static const eraseData = 'eraseData';
+  static const eraseAllTransactions = 'eraseAllTransactions';
+  static const restoreApp = 'restoreApp';
+  static const messageEraseAll = 'messageEraseAll';
+  static const messageRestoreApp = 'messagerestoreApp';
+  static const restoreToDefault = 'restoreToDefault';
+  static const contact = 'contact';
 }

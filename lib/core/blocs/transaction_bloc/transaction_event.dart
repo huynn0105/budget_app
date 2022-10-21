@@ -38,3 +38,9 @@ class TransactionDeleted extends TransactionEvent {
   @override
   List<Object> get props => [transaction];
 }
+
+class TransactionClear extends TransactionEvent {
+  const TransactionClear();
+  @override
+  List<Object?> get props => [];
+}

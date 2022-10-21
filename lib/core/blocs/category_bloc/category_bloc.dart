@@ -52,5 +52,11 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
         );
       }
     });
+    on<CategoryClear>((event, emit) {
+      _categoryService.clear();
+      final categories = _categoryService.getCategories();
+      CategoryLoaded(
+          categories: categories, categorySelected: categories.first);
+    });
   }
 }

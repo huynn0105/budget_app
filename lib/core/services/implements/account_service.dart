@@ -28,4 +28,9 @@ class AccountService implements IAccountService {
   void deleteAccount(Account account) {
     _accountDao.delete(account.id);
   }
+
+  @override
+  void clear() {
+    _accountDao.deleteAll();
+  }
 }

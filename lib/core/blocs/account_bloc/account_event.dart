@@ -30,3 +30,9 @@ class AccountDeleted extends AccountEvent {
   @override
   List<Object?> get props => [account];
 }
+
+class AccountClear extends AccountEvent {
+  const AccountClear();
+  @override
+  List<Object?> get props => [];
+}

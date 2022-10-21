@@ -28,4 +28,9 @@ class CategoryService implements ICategoryService {
   void deleteCategory(Category category) {
     _categoryDao.delete(category.id);
   }
+
+  @override
+  void clear() {
+    _categoryDao.deleteAll();
+  }
 }

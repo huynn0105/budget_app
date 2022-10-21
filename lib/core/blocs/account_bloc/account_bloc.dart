@@ -58,5 +58,10 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         );
       }
     });
+    on<AccountClear>((event, emit) {
+      _accountService.clear();
+      final accounts = _accountService.getAccounts();
+      emit(AccountLoaded(accountSelected: accounts.first, accounts: accounts));
+    });
   }
 }

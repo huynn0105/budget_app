@@ -33,3 +33,8 @@ class CategoryDeleted extends CategoryEvent {
   @override
   List<Object> get props => [category];
 }
+class CategoryClear extends CategoryEvent {
+  const CategoryClear();
+  @override
+  List<Object> get props => [];
+}

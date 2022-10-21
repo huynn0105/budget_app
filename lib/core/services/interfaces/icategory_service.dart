@@ -5,4 +5,5 @@ abstract class ICategoryService {
   Category? findCategoryById(int id);
   int insertCategory(Category category);
   void deleteCategory(Category category);
+  void clear();
 }

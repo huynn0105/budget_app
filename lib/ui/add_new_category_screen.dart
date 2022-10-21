@@ -10,9 +10,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:budget_app/core/entities/category_entity.dart' as entity;
+
+class AddNewCategoryArgument {
+  final entity.Category category;
+  const AddNewCategoryArgument({required this.category});
+}
 
 class AddNewCategoryScreen extends StatefulWidget {
-  const AddNewCategoryScreen({super.key});
+  const AddNewCategoryScreen({
+    super.key,
+    this.argument,
+  });
+  final AddNewCategoryArgument? argument;
 
   @override
   State<AddNewCategoryScreen> createState() => _AddNewCategoryScreenState();
@@ -21,13 +31,14 @@ class AddNewCategoryScreen extends StatefulWidget {
 class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
   @override
   void initState() {
-    controller = TextEditingController();
+    controller = TextEditingController(text: widget.argument?.category.name);
+    emojiText = widget.argument?.category.emoji ?? '❤';
     super.initState();
   }
 
   late TextEditingController controller;
 
-  String emojiText = '❤';
+  late String emojiText = '❤';
   _onEmojiSelected(Emoji emoji) {
     setState(() {
       emojiText = emoji.emoji;
@@ -39,7 +50,7 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          KeyWork.newCategory.tr,
+          widget.argument == null ? KeyWork.newCategory.tr : KeyWork.editCategory.tr,
         ),
         centerTitle: true,
         elevation: 0,

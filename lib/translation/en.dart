@@ -60,7 +60,9 @@ const Map<String, String> en = {
   KeyWork.light: 'Light',
   KeyWork.dark: 'Dark',
   KeyWork.newAccount: 'New Account',
-  KeyWork.newCategory: 'New category',
+  KeyWork.editAccount: 'Edit Account',
+  KeyWork.newCategory: 'New Category',
+  KeyWork.editCategory: 'Edit Category',
   KeyWork.done: 'Done',
   KeyWork.enterCategoryName: 'Enter category name',
   KeyWork.enterAccountName: 'Enter account name',
@@ -68,4 +70,12 @@ const Map<String, String> en = {
   KeyWork.vietnamese: 'Vietnamese',
   KeyWork.thiss: 'this',
   KeyWork.spent: 'spent',
+  KeyWork.eraseData: 'Erase Data',
+  KeyWork.eraseAllTransactions: 'Erase All Transactions',
+  KeyWork.messageEraseAll: 'Accounts and Categories remain.',
+  KeyWork.restoreApp: 'Restore App Content to Default',
+  KeyWork.restoreToDefault: 'Restore to Default',
+  KeyWork.messageRestoreApp:
+      'Erase everything Transactions, Accounts and Categories. The App will like launched for the first time.',
+      KeyWork.contact: 'Contact Developer',
 };

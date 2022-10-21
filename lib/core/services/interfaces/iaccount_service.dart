@@ -5,4 +5,5 @@ abstract class IAccountService {
   Account? findAccountById(int id);
   int insertAccount(Account account);
   void deleteAccount(Account account);
+  void clear();
 }

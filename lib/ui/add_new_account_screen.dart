@@ -11,8 +11,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+class AddNewAccountArgument {
+  final Account account;
+  const AddNewAccountArgument({required this.account});
+}
+
 class AddNewAccountScreen extends StatefulWidget {
-  const AddNewAccountScreen({super.key});
+  const AddNewAccountScreen({
+    super.key,
+    this.argument,
+  });
+
+  final AddNewAccountArgument? argument;
 
   @override
   State<AddNewAccountScreen> createState() => _AddNewAccountScreenState();
@@ -21,13 +31,14 @@ class AddNewAccountScreen extends StatefulWidget {
 class _AddNewAccountScreenState extends State<AddNewAccountScreen> {
   @override
   void initState() {
-    controller = TextEditingController();
+    controller = TextEditingController(text: widget.argument?.account.name);
+    emojiText = widget.argument?.account.emoji ?? '❤';
     super.initState();
   }
 
   late TextEditingController controller;
 
-  String emojiText = '❤';
+  late String emojiText = '❤';
   _onEmojiSelected(Emoji emoji) {
     setState(() {
       emojiText = emoji.emoji;
@@ -38,8 +49,8 @@ class _AddNewAccountScreenState extends State<AddNewAccountScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text(
-          KeyWork.newAccount.tr,
+        title: Text(
+          widget.argument == null ? KeyWork.newAccount.tr : KeyWork.editAccount.tr,
           style: TextStyle(
             color: Colors.black87,
           ),
@@ -60,7 +71,7 @@ class _AddNewAccountScreenState extends State<AddNewAccountScreen> {
                     );
                 Navigator.of(context).pop();
               },
-              child:  Text(KeyWork.done.tr)),
+              child: Text(KeyWork.done.tr)),
         ],
       ),
       body: Padding(

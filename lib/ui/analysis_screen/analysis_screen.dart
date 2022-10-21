@@ -437,7 +437,7 @@ class _ViewTypeWidgetState extends State<_ViewTypeWidget> {
                       const Size(70, 28),
                     ),
                     fixedSize: MaterialStateProperty.all(
-                      const Size(70, 28),
+                      const Size(80, 28),
                     ),
                     side: !isActive
                         ? MaterialStateProperty.all(

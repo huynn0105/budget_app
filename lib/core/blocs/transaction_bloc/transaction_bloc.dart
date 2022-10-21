@@ -40,7 +40,14 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
         emit(TransactionLoaded(transactions: transactions));
       }
     });
-    on<TransactionChangeList>((event, emit) =>
-        emit(TransactionLoaded(transactions: event.transactions)));
+    on<TransactionChangeList>(
+      (event, emit) => emit(
+        TransactionLoaded(transactions: event.transactions),
+      ),
+    );
+    on<TransactionClear>((event, emit) {
+      _transactionService.clear();
+      emit(TransactionLoaded(transactions: []));
+    });
   }
 }

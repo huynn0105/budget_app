@@ -11,9 +11,9 @@ Initially, the app was made based on the spreadsheet's point of view. You can no
 Be your personal finance manager and take control of your money, wisely plan your budgets, use the app on daily basis and you will see good results in the near future.
 
 Budget App build with Flutter 3.3.2:
-  - Using BloC to state management
+  - Using BLoC to state management + MVVM
   - DatabaseLocal ObjectBox 1.6.2
-  - Unit test + BloC test + Integration test
+  - Unit test + BLoC test + Integration test
   
 Demo App:
 

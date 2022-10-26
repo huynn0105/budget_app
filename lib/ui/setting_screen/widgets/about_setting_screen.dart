@@ -26,7 +26,7 @@ class AboutSettingScreen extends StatelessWidget {
             ),
             SizedBox(height: 15.h),
             Text(
-              'Phiên bản 1.0.0',
+              '${KeyWork.version.tr} 1.0.0',
               style: TextStyleUtils.regular(16),
             ),
             SizedBox(height: 20.h),

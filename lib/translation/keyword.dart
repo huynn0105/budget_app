@@ -75,4 +75,5 @@ class KeyWork {
   static const messageRestoreApp = 'messagerestoreApp';
   static const restoreToDefault = 'restoreToDefault';
   static const contact = 'contact';
+  static const version = 'version';
 }

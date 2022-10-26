@@ -60,4 +60,5 @@ const Map<String, String> vi = {
   KeyWork.messageRestoreApp:
       'Xoá mọi giao dịch, Hình thức thanh toán và nhóm chi tiêu. Ứng dụng sẽ được đặt lại ban đầu.',
   KeyWork.contact: 'Liên hệ',
+  KeyWork.version: 'Phiên bản',
 };

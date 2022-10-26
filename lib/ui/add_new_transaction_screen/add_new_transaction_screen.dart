@@ -6,6 +6,7 @@ import 'package:flutter_multi_formatter/formatters/currency_input_formatter.dart
 import 'package:flutter_multi_formatter/formatters/money_input_enums.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import 'package:budget_app/constants.dart';
@@ -40,12 +41,15 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
   late CategoryBloc categoryBloc;
   late TransactionBloc transactionBloc;
   late TransactionTypeCubit transactionTypeCubit;
+  late DateFormat format;
+  late DateTime selectedDate;
   @override
   void initState() {
     controller = TextEditingController(text: '0đ');
+    format = DateFormat('dd/MM/yyyy');
     noteController = TextEditingController();
     accountBloc = context.read<AccountBloc>();
-
+    selectedDate = DateTime.now();
     categoryBloc = context.read<CategoryBloc>();
     transactionBloc = context.read<TransactionBloc>();
     transactionTypeCubit = context.read<TransactionTypeCubit>();
@@ -94,7 +98,9 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
                       (e) => PopupMenuItem<String>(
                         value: e.name,
                         child: Text(
-                          e == TransactionType.expense ?  KeyWork.expense.tr :  KeyWork.income.tr,
+                          e == TransactionType.expense
+                              ? KeyWork.expense.tr
+                              : KeyWork.income.tr,
                         ),
                         onTap: () {
                           context
@@ -132,7 +138,7 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
                     key: const Key('noteTextField'),
                     style: TextStyleUtils.regular(14),
                     decoration: InputDecoration(
-                      hintText:  KeyWork.enterNote.tr,
+                      hintText: KeyWork.enterNote.tr,
                       hintStyle: TextStyleUtils.regular(14),
                       isDense: true,
                     ),
@@ -141,7 +147,25 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
               ],
             ),
           ),
-          SizedBox(height: 30.h),
+          SizedBox(height: 25.h),
+          TextButton(
+            onPressed: () async {
+              final DateTime? picked = await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime(2015),
+                lastDate: DateTime(2023),
+              );
+              if (picked != null && picked != selectedDate) {
+                setState(() {
+                  selectedDate = picked;
+                });
+              }
+            },
+            child: Text(
+              format.format(selectedDate),
+            ),
+          ),
           Row(
             children: [
               Expanded(
@@ -228,7 +252,7 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
                         amount: int.parse(controller.text
                             .replaceAll(',', '')
                             .replaceAll('đ', '')),
-                        dateTime: DateTime.now(),
+                        dateTime: selectedDate,
                         title: noteController.text,
                         type: transactionTypeCubit.state.transactionType,
                       ),
@@ -247,7 +271,7 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: SizedBox(height: 1.sh / 2),
+      bottomNavigationBar: SizedBox(height: 1.sh / 2.3),
     );
   }
 }

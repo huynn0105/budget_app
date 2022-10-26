@@ -77,5 +77,6 @@ const Map<String, String> en = {
   KeyWork.restoreToDefault: 'Restore to Default',
   KeyWork.messageRestoreApp:
       'Erase everything Transactions, Accounts and Categories. The App will like launched for the first time.',
-      KeyWork.contact: 'Contact Developer',
+  KeyWork.contact: 'Contact Developer',
+  KeyWork.version: 'Version',
 };

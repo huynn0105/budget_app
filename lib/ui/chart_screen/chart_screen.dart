@@ -10,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:collection/collection.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:money_formatter/money_formatter.dart';
 
 import 'package:pie_chart/pie_chart.dart' as pie;
 
@@ -62,6 +63,13 @@ class _ChartScreenState extends State<ChartScreen> {
             ? DateFormat('MMM dd', 'en')
             : DateFormat('dd MMM', 'vi');
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          KeyWork.chart.tr,
+          style: TextStyleUtils.medium(18),
+        ),
+        centerTitle: true,
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -142,15 +150,37 @@ class _ChartScreenState extends State<ChartScreen> {
                                 ? ListView.builder(
                                     itemCount:
                                         transactionOfCategory.entries.length,
-                                    itemBuilder: (context, index) =>
-                                        _CustomLegend(
-                                      color: getColor(colorList, index),
-                                      title: transactionOfCategory.entries
+                                    itemBuilder: (context, index) {
+                                      double totalAmount = transactionOfCategory
+                                          .entries
                                           .toList()[index]
-                                          .key
-                                          .name,
-                                    ),
-                                  )
+                                          .value
+                                          .fold(
+                                              0,
+                                              (prevValue, e) =>
+                                                  prevValue +
+                                                  (e.type ==
+                                                          TransactionType.income
+                                                      ? e.amount
+                                                      : (-e.amount)));
+                                      var totalAmountFormat = MoneyFormatter(
+                                        amount: totalAmount.abs(),
+                                      ).output.compactNonSymbol;
+                                      if (totalAmount < 0) {
+                                        totalAmountFormat =
+                                            '-' + totalAmountFormat;
+                                      }
+                                      return _CustomLegend(
+                                        color: getColor(colorList, index),
+                                        title: totalAmountFormat +
+                                            ' - ' +
+                                            transactionOfCategory.entries
+                                                .toList()[index]
+                                                .key
+                                                .name
+                                                .tr,
+                                      );
+                                    })
                                 : Center(child: Text(KeyWork.noTrnsaction.tr)),
                           ),
                         ),
@@ -240,15 +270,37 @@ class _ChartScreenState extends State<ChartScreen> {
                                 ? ListView.builder(
                                     itemCount:
                                         transactionOfCategory.entries.length,
-                                    itemBuilder: (context, index) =>
-                                        _CustomLegend(
-                                      color: getColor(colorList, index),
-                                      title: transactionOfCategory.entries
+                                    itemBuilder: (context, index) {
+                                      double totalAmount = transactionOfCategory
+                                          .entries
                                           .toList()[index]
-                                          .key
-                                          .name,
-                                    ),
-                                  )
+                                          .value
+                                          .fold(
+                                              0,
+                                              (prevValue, e) =>
+                                                  prevValue +
+                                                  (e.type ==
+                                                          TransactionType.income
+                                                      ? e.amount
+                                                      : (-e.amount)));
+                                      var totalAmountFormat = MoneyFormatter(
+                                        amount: totalAmount.abs(),
+                                      ).output.compactNonSymbol;
+                                      if (totalAmount < 0) {
+                                        totalAmountFormat =
+                                            '-' + totalAmountFormat;
+                                      }
+                                      return _CustomLegend(
+                                        color: getColor(colorList, index),
+                                        title: totalAmountFormat +
+                                            ' - ' +
+                                            transactionOfCategory.entries
+                                                .toList()[index]
+                                                .key
+                                                .name
+                                                .tr,
+                                      );
+                                    })
                                 : Center(child: Text(KeyWork.noTrnsaction.tr)),
                           ),
                         ),

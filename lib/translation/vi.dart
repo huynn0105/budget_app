@@ -32,7 +32,7 @@ const Map<String, String> vi = {
   KeyWork.travel: 'Du lịch',
   KeyWork.health: 'Thuốc',
   KeyWork.family: 'Gia đình',
-  KeyWork.coffe: 'Coffe',
+  KeyWork.coffee: 'Coffee',
   KeyWork.add: 'Thêm',
   KeyWork.account: 'Hình thức thanh toán',
   KeyWork.category: 'Loại chi tiêu',
@@ -61,4 +61,7 @@ const Map<String, String> vi = {
       'Xoá mọi giao dịch, Hình thức thanh toán và nhóm chi tiêu. Ứng dụng sẽ được đặt lại ban đầu.',
   KeyWork.contact: 'Liên hệ',
   KeyWork.version: 'Phiên bản',
+  KeyWork.eating: 'Ăn uống',
+  KeyWork.viewChart: 'Xem biểu đồ',
+  KeyWork.chart: 'Biểu đồ',
 };

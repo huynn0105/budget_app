@@ -2,8 +2,11 @@ import 'package:budget_app/constants.dart';
 import 'package:budget_app/core/blocs/home_cubit/home_cubit.dart';
 import 'package:budget_app/core/blocs/transaction_bloc/transaction_bloc.dart';
 import 'package:budget_app/core/entities/transaction_entity.dart';
+import 'package:budget_app/core/services/interfaces/icategory_service.dart';
+import 'package:budget_app/core/services/interfaces/itransaction_service.dart';
 import 'package:budget_app/core/utils/datetime_util.dart';
 import 'package:budget_app/core/utils/enum_helper.dart';
+import 'package:budget_app/global/locator.dart';
 import 'package:budget_app/translation/keyword.dart';
 import 'package:budget_app/ui/chart_screen/chart_screen.dart';
 import 'package:flutter/material.dart';
@@ -43,8 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
           return const HomeWidget();
         case BottomNavBar.analysis:
           return const AnalysisScreen();
-        case BottomNavBar.chart:
-          return const ChartScreen();
         case BottomNavBar.settiing:
           return SettingScreen();
       }
@@ -70,8 +71,6 @@ class _HomeScreenState extends State<HomeScreen> {
               BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
               BottomNavigationBarItem(
                   icon: Icon(Icons.insert_chart_outlined_outlined), label: ''),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.pie_chart_outline_sharp), label: ''),
               BottomNavigationBarItem(icon: Icon(Icons.settings), label: ''),
             ],
             currentIndex: state.navBar.index,

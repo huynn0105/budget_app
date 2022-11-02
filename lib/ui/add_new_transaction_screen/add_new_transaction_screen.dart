@@ -17,6 +17,7 @@ import 'package:budget_app/core/blocs/transaction_type_cubit/transaction_type_cu
 import 'package:budget_app/core/entities/transaction_entity.dart';
 import 'package:budget_app/ui/add_new_account_screen.dart';
 import 'package:budget_app/ui/add_new_category_screen.dart';
+import 'package:money_formatter/money_formatter.dart';
 
 part 'widgets/account_bottom_sheet.dart';
 part 'widgets/add_button.dart';
@@ -26,8 +27,10 @@ part 'widgets/money_text_field.dart';
 part 'widgets/save_button.dart';
 
 class AddNewTransactionScreen extends StatefulWidget {
+  final Transaction? transaction;
   const AddNewTransactionScreen({
     Key? key,
+    this.transaction,
   }) : super(key: key);
 
   @override
@@ -47,12 +50,24 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
   void initState() {
     controller = TextEditingController(text: '0đ');
     format = DateFormat('dd/MM/yyyy');
-    noteController = TextEditingController();
+    noteController = TextEditingController(text: widget.transaction?.note);
     accountBloc = context.read<AccountBloc>();
-    selectedDate = DateTime.now();
+    selectedDate = widget.transaction == null
+        ? DateTime.now()
+        : widget.transaction!.dateTime;
     categoryBloc = context.read<CategoryBloc>();
     transactionBloc = context.read<TransactionBloc>();
     transactionTypeCubit = context.read<TransactionTypeCubit>();
+    if (widget.transaction != null) {
+      var moneyFormatter = MoneyFormatter(
+        amount: widget.transaction!.amount.toDouble(),
+      ).output.withoutFractionDigits;
+      controller.text = moneyFormatter + 'đ';
+      categoryBloc.add(
+          CategorySelected(category: widget.transaction!.category.target!));
+      accountBloc
+          .add(AccountSelected(account: widget.transaction!.account.target!));
+    }
     super.initState();
   }
 
@@ -248,14 +263,23 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
                 onPressed: () {
                   transactionBloc.add(
                     TransactionAdded(
-                      transaction: Transaction(
-                        amount: int.parse(controller.text
-                            .replaceAll(',', '')
-                            .replaceAll('đ', '')),
-                        dateTime: selectedDate,
-                        title: noteController.text,
-                        type: transactionTypeCubit.state.transactionType,
-                      ),
+                      transaction: widget.transaction == null
+                          ? Transaction(
+                              amount: int.parse(controller.text
+                                  .replaceAll(',', '')
+                                  .replaceAll('đ', '')),
+                              dateTime: selectedDate,
+                              note: noteController.text,
+                              type: transactionTypeCubit.state.transactionType,
+                            )
+                          : widget.transaction!.copyWith(
+                              amount: int.parse(controller.text
+                                  .replaceAll(',', '')
+                                  .replaceAll('đ', '')),
+                              dateTime: selectedDate,
+                              note: noteController.text,
+                              type: transactionTypeCubit.state.transactionType,
+                            ),
                       account:
                           (accountBloc.state as AccountLoaded).accountSelected,
                       category: (categoryBloc.state as CategoryLoaded)

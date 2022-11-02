@@ -31,7 +31,7 @@ class AddNewAccountScreen extends StatefulWidget {
 class _AddNewAccountScreenState extends State<AddNewAccountScreen> {
   @override
   void initState() {
-    controller = TextEditingController(text: widget.argument?.account.name);
+    controller = TextEditingController(text: widget.argument?.account.name.tr);
     emojiText = widget.argument?.account.emoji ?? '❤';
     super.initState();
   }
@@ -50,7 +50,9 @@ class _AddNewAccountScreenState extends State<AddNewAccountScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.argument == null ? KeyWork.newAccount.tr : KeyWork.editAccount.tr,
+          widget.argument == null
+              ? KeyWork.newAccount.tr
+              : KeyWork.editAccount.tr,
           style: TextStyle(
             color: Colors.black87,
           ),
@@ -63,10 +65,15 @@ class _AddNewAccountScreenState extends State<AddNewAccountScreen> {
               onPressed: () {
                 context.read<AccountBloc>().add(
                       AccountAdded(
-                        account: Account(
-                          name: controller.text,
-                          emoji: emojiText,
-                        ),
+                        account: widget.argument?.account == null
+                            ? Account(
+                                name: controller.text,
+                                emoji: emojiText,
+                              )
+                            : widget.argument!.account.copyWith(
+                                name: controller.text,
+                                emoji: emojiText,
+                              ),
                       ),
                     );
                 Navigator.of(context).pop();

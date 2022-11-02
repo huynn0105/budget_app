@@ -20,6 +20,13 @@ class CategoryAdded extends CategoryEvent {
   List<Object> get props => [category];
 }
 
+class CategoryUpdated extends CategoryEvent {
+  final Category category;
+  const CategoryUpdated({required this.category});
+  @override
+  List<Object> get props => [category];
+}
+
 class CategorySelected extends CategoryEvent {
   final Category category;
   const CategorySelected({required this.category});
@@ -33,6 +40,7 @@ class CategoryDeleted extends CategoryEvent {
   @override
   List<Object> get props => [category];
 }
+
 class CategoryClear extends CategoryEvent {
   const CategoryClear();
   @override

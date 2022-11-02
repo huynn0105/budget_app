@@ -25,7 +25,7 @@ final _entities = <ModelEntity>[
   ModelEntity(
       id: const IdUid(1, 8296679817524583314),
       name: 'Account',
-      lastPropertyId: const IdUid(3, 5434269270498639034),
+      lastPropertyId: const IdUid(4, 7369415057554100201),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
@@ -42,6 +42,11 @@ final _entities = <ModelEntity>[
             id: const IdUid(3, 5434269270498639034),
             name: 'emoji',
             type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(4, 7369415057554100201),
+            name: 'active',
+            type: 1,
             flags: 0)
       ],
       relations: <ModelRelation>[],
@@ -52,7 +57,7 @@ final _entities = <ModelEntity>[
   ModelEntity(
       id: const IdUid(2, 2501090390936674867),
       name: 'Category',
-      lastPropertyId: const IdUid(3, 2868528120517405448),
+      lastPropertyId: const IdUid(4, 3090261778419142496),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
@@ -69,6 +74,11 @@ final _entities = <ModelEntity>[
             id: const IdUid(3, 2868528120517405448),
             name: 'name',
             type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(4, 3090261778419142496),
+            name: 'active',
+            type: 1,
             flags: 0)
       ],
       relations: <ModelRelation>[],
@@ -79,7 +89,7 @@ final _entities = <ModelEntity>[
   ModelEntity(
       id: const IdUid(3, 3459246968913548694),
       name: 'Transaction',
-      lastPropertyId: const IdUid(9, 4915966211244098468),
+      lastPropertyId: const IdUid(10, 2873775516735302974),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
@@ -87,11 +97,6 @@ final _entities = <ModelEntity>[
             name: 'id',
             type: 6,
             flags: 1),
-        ModelProperty(
-            id: const IdUid(2, 1463201996194926459),
-            name: 'title',
-            type: 9,
-            flags: 0),
         ModelProperty(
             id: const IdUid(3, 4911400077816523896),
             name: 'dateTime',
@@ -120,6 +125,11 @@ final _entities = <ModelEntity>[
             id: const IdUid(9, 4915966211244098468),
             name: 'dbType',
             type: 6,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(10, 2873775516735302974),
+            name: 'note',
+            type: 9,
             flags: 0)
       ],
       relations: <ModelRelation>[],
@@ -176,7 +186,11 @@ ModelDefinition getObjectBoxModel() {
       lastSequenceId: const IdUid(0, 0),
       retiredEntityUids: const [],
       retiredIndexUids: const [4779389994422262847, 7056461475385909954],
-      retiredPropertyUids: const [2060229492095202932, 9080673135740415875],
+      retiredPropertyUids: const [
+        2060229492095202932,
+        9080673135740415875,
+        1463201996194926459
+      ],
       retiredRelationUids: const [],
       modelVersion: 5,
       modelVersionParserMinimum: 5,
@@ -198,10 +212,11 @@ ModelDefinition getObjectBoxModel() {
         objectToFB: (Account object, fb.Builder fbb) {
           final nameOffset = fbb.writeString(object.name);
           final emojiOffset = fbb.writeString(object.emoji);
-          fbb.startTable(4);
+          fbb.startTable(5);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, nameOffset);
           fbb.addOffset(2, emojiOffset);
+          fbb.addBool(3, object.active);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -210,11 +225,13 @@ ModelDefinition getObjectBoxModel() {
           final rootOffset = buffer.derefObject(0);
 
           final object = Account(
+              id: const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0),
               name: const fb.StringReader(asciiOptimization: true)
                   .vTableGet(buffer, rootOffset, 6, ''),
               emoji: const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 8, ''))
-            ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
+                  .vTableGet(buffer, rootOffset, 8, ''),
+              active: const fb.BoolReader()
+                  .vTableGet(buffer, rootOffset, 10, false));
           InternalToManyAccess.setRelInfo(
               object.transactions,
               store,
@@ -238,10 +255,11 @@ ModelDefinition getObjectBoxModel() {
         objectToFB: (Category object, fb.Builder fbb) {
           final emojiOffset = fbb.writeString(object.emoji);
           final nameOffset = fbb.writeString(object.name);
-          fbb.startTable(4);
+          fbb.startTable(5);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, emojiOffset);
           fbb.addOffset(2, nameOffset);
+          fbb.addBool(3, object.active);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -250,11 +268,13 @@ ModelDefinition getObjectBoxModel() {
           final rootOffset = buffer.derefObject(0);
 
           final object = Category(
+              id: const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0),
               name: const fb.StringReader(asciiOptimization: true)
                   .vTableGet(buffer, rootOffset, 8, ''),
               emoji: const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 6, ''))
-            ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
+                  .vTableGet(buffer, rootOffset, 6, ''),
+              active: const fb.BoolReader()
+                  .vTableGet(buffer, rootOffset, 10, false));
           InternalToManyAccess.setRelInfo(
               object.transactions,
               store,
@@ -273,15 +293,15 @@ ModelDefinition getObjectBoxModel() {
           object.id = id;
         },
         objectToFB: (Transaction object, fb.Builder fbb) {
-          final titleOffset = fbb.writeString(object.title);
-          fbb.startTable(10);
+          final noteOffset = fbb.writeString(object.note);
+          fbb.startTable(11);
           fbb.addInt64(0, object.id);
-          fbb.addOffset(1, titleOffset);
           fbb.addInt64(2, object.dateTime.millisecondsSinceEpoch);
           fbb.addInt64(4, object.category.targetId);
           fbb.addInt64(5, object.account.targetId);
           fbb.addInt64(6, object.amount);
           fbb.addInt64(8, object.dbType);
+          fbb.addOffset(9, noteOffset);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -290,13 +310,13 @@ ModelDefinition getObjectBoxModel() {
           final rootOffset = buffer.derefObject(0);
 
           final object = Transaction(
-              title: const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 6, ''),
+              id: const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0),
+              note: const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 22, ''),
               dateTime: DateTime.fromMillisecondsSinceEpoch(
                   const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0)),
               amount:
                   const fb.Int64Reader().vTableGet(buffer, rootOffset, 16, 0))
-            ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0)
             ..dbType =
                 const fb.Int64Reader().vTableGet(buffer, rootOffset, 20, 0);
           object.category.targetId =
@@ -351,6 +371,10 @@ class Account_ {
 
   /// see [Account.emoji]
   static final emoji = QueryStringProperty<Account>(_entities[0].properties[2]);
+
+  /// see [Account.active]
+  static final active =
+      QueryBooleanProperty<Account>(_entities[0].properties[3]);
 }
 
 /// [Category] entity fields to define ObjectBox queries.
@@ -364,6 +388,10 @@ class Category_ {
 
   /// see [Category.name]
   static final name = QueryStringProperty<Category>(_entities[1].properties[2]);
+
+  /// see [Category.active]
+  static final active =
+      QueryBooleanProperty<Category>(_entities[1].properties[3]);
 }
 
 /// [Transaction] entity fields to define ObjectBox queries.
@@ -372,29 +400,29 @@ class Transaction_ {
   static final id =
       QueryIntegerProperty<Transaction>(_entities[2].properties[0]);
 
-  /// see [Transaction.title]
-  static final title =
-      QueryStringProperty<Transaction>(_entities[2].properties[1]);
-
   /// see [Transaction.dateTime]
   static final dateTime =
-      QueryIntegerProperty<Transaction>(_entities[2].properties[2]);
+      QueryIntegerProperty<Transaction>(_entities[2].properties[1]);
 
   /// see [Transaction.category]
   static final category =
-      QueryRelationToOne<Transaction, Category>(_entities[2].properties[3]);
+      QueryRelationToOne<Transaction, Category>(_entities[2].properties[2]);
 
   /// see [Transaction.account]
   static final account =
-      QueryRelationToOne<Transaction, Account>(_entities[2].properties[4]);
+      QueryRelationToOne<Transaction, Account>(_entities[2].properties[3]);
 
   /// see [Transaction.amount]
   static final amount =
-      QueryIntegerProperty<Transaction>(_entities[2].properties[5]);
+      QueryIntegerProperty<Transaction>(_entities[2].properties[4]);
 
   /// see [Transaction.dbType]
   static final dbType =
-      QueryIntegerProperty<Transaction>(_entities[2].properties[6]);
+      QueryIntegerProperty<Transaction>(_entities[2].properties[5]);
+
+  /// see [Transaction.note]
+  static final note =
+      QueryStringProperty<Transaction>(_entities[2].properties[6]);
 }
 
 /// [SettingEntity] entity fields to define ObjectBox queries.

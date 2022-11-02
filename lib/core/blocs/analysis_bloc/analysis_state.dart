@@ -96,7 +96,10 @@ class AnalysisLoaded extends AnalysisState {
 
   int get maxOfTransactions {
     int max = transactionsDateOfViewType.values.fold(0, (prevValue, e) {
-      int totalAmountOfDate = e.fold(0, (prev, x) => prev + x.amount);
+      int totalAmountOfDate = e.fold(
+          0,
+          (prev, x) =>
+              prev + (x.type == TransactionType.income ? x.amount : -x.amount));
       return totalAmountOfDate > prevValue ? totalAmountOfDate : prevValue;
     });
 
@@ -107,8 +110,12 @@ class AnalysisLoaded extends AnalysisState {
     final transactions = transactionsDateOfViewType.entries
         .firstWhereOrNull((x) => x.key == value)
         ?.value;
-    int total =
-        transactions != null ? transactions.fold(0, (p, e) => p + e.amount) : 0;
+    int total = transactions != null
+        ? transactions.fold(
+            0,
+            (p, e) =>
+                p + (e.type == TransactionType.income ? e.amount : -e.amount))
+        : 0;
     return total;
   }
 

@@ -69,9 +69,11 @@ class _CategoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.to(() => AddNewCategoryScreen(
-              argument: AddNewCategoryArgument(category: category),
-            ));
+        Get.to(
+          () => AddNewCategoryScreen(
+            argument: AddNewCategoryArgument(category: category),
+          ),
+        );
       },
       child: Slidable(
         startActionPane: ActionPane(

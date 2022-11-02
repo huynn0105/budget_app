@@ -3,6 +3,7 @@ import 'package:budget_app/core/services/interfaces/icategory_service.dart';
 import 'package:budget_app/global/locator.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 
 part 'category_event.dart';
 part 'category_state.dart';
@@ -22,10 +23,11 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
         _categoryService.insertCategory(event.category);
 
         emit(CategoryLoaded(
-            categories: [...state.categories, event.category],
+            categories: _categoryService.getCategories(),
             categorySelected: event.category));
       }
     });
+
     on<CategorySelected>((event, emit) {
       final state = this.state;
       if (state is CategoryLoaded) {
@@ -41,13 +43,13 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
       final state = this.state;
       if (state is CategoryLoaded) {
         _categoryService.deleteCategory(event.category);
-
+        final categories = _categoryService.getCategories();
         emit(
           CategoryLoaded(
             categorySelected: state.categorySelected.id == event.category.id
-                ? state.categories.first
+                ? categories.first
                 : state.categorySelected,
-            categories: _categoryService.getCategories(),
+            categories: categories,
           ),
         );
       }
@@ -58,5 +60,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
       CategoryLoaded(
           categories: categories, categorySelected: categories.first);
     });
+
+    var a = '0'.obs;
   }
 }

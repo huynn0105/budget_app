@@ -11,7 +11,7 @@ class CategoryService implements ICategoryService {
     if (categories.isEmpty) {
       _categoryDao.insertAll(Category.cetegoriesDefault);
     }
-    return _categoryDao.getAll();
+    return _categoryDao.getAll().where((x) => x.active).toList();
   }
 
   @override
@@ -26,7 +26,14 @@ class CategoryService implements ICategoryService {
 
   @override
   void deleteCategory(Category category) {
-    _categoryDao.delete(category.id);
+    // _categoryDao.delete(category.id);
+    // active = false => Soft Delete
+    _categoryDao.update(category.copyWith(active: false));
+  }
+
+  @override
+  void updateCategory(Category category) {
+    _categoryDao.update(category);
   }
 
   @override

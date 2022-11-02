@@ -9,8 +9,8 @@ import 'base_entity.dart';
 @Entity()
 class Transaction extends BaseEntity {
   @override
-  int id = 0;
-  final String title;
+  int id;
+  final String note;
   @Property(type: PropertyType.date)
   final DateTime dateTime;
   final int amount;
@@ -20,7 +20,8 @@ class Transaction extends BaseEntity {
   final account = ToOne<Account>();
   final category = ToOne<Category>();
   Transaction({
-    required this.title,
+    this.id = 0,
+    required this.note,
     required this.dateTime,
     required this.amount,
     this.type = TransactionType.expense,
@@ -49,7 +50,7 @@ class Transaction extends BaseEntity {
   @override
   List<Object?> get props => [
         id,
-        title,
+        note,
         type,
         amount,
         account.targetId,
@@ -58,13 +59,14 @@ class Transaction extends BaseEntity {
 
   Transaction copyWith({
     int? id,
-    String? title,
+    String? note,
     DateTime? dateTime,
     int? amount,
     TransactionType? type,
   }) {
     return Transaction(
-      title: title ?? this.title,
+      id: id ?? this.id,
+      note: note ?? this.note,
       dateTime: dateTime ?? this.dateTime,
       amount: amount ?? this.amount,
       type: type ?? this.type,

@@ -13,7 +13,7 @@ class _TransactionOfDate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final format = NumberFormat('#,###');
-        initializeDateFormatting();
+    initializeDateFormatting();
     final formater =
         context.read<SettingBloc>().state.language == Language.english
             ? DateFormat('MMM dd', 'en')
@@ -38,9 +38,7 @@ class _TransactionOfDate extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      date.isToday()
-                          ? KeyWork.today.tr
-                          : formater.format(date),
+                      date.isToday() ? KeyWork.today.tr : formater.format(date),
                       style: TextStyleUtils.regular(17),
                     ),
                     Text(
@@ -79,42 +77,89 @@ class _TransactionItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final format = NumberFormat('#,###');
-    return ColoredBox(
-      color: transaction.type == TransactionType.income
-          ? Colors.blue.withOpacity(0.06)
-          : Colors.red.withOpacity(0.06),
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 8.0.r, horizontal: 16.r),
-        child: Row(
-          children: [
-            Text(
-              transaction.category.target!.emoji,
-              style: TextStyleUtils.regular(30),
-            ),
-            SizedBox(width: 10.w),
-            Expanded(
-              child: Row(
-                children: [
-                  Text(
-                    transaction.category.target!.name,
-                    style: TextStyleUtils.regular(16),
+    return InkWell(
+      onLongPress: () {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+                  title: Text(
+                    KeyWork.eraseData.tr,
+                    style: TextStyleUtils.medium(16),
                   ),
-                  SizedBox(width: 5.w),
-                  transaction.title.isNotEmpty
-                      ? Text(
-                          '(${transaction.title})',
-                          style: TextStyleUtils.regular(14)
-                              .copyWith(color: Colors.black45),
-                        )
-                      : const SizedBox.shrink(),
-                ],
+                  actions: [
+                    TextButton(
+                      child: Text(
+                        KeyWork.cancel.tr,
+                        style: TextStyleUtils.medium(14)
+                            .copyWith(color: Colors.blue),
+                      ),
+                      onPressed: () {
+                        Get.back();
+                      },
+                    ),
+                    TextButton(
+                      child: Text(
+                        KeyWork.eraseData.tr,
+                        style: TextStyleUtils.medium(14)
+                            .copyWith(color: Colors.red),
+                      ),
+                      onPressed: () {
+                        context.read<TransactionBloc>().add(
+                              TransactionDeleted(transaction: transaction),
+                            );
+                        Get.back();
+                      },
+                    ),
+                  ],
+                ));
+      },
+      onTap: () {
+        showCupertinoModalBottomSheet(
+          context: context,
+          builder: (context) {
+            return AddNewTransactionScreen(
+              transaction: transaction,
+            );
+          },
+        );
+      },
+      child: ColoredBox(
+        color: transaction.type == TransactionType.income
+            ? Colors.blue.withOpacity(0.06)
+            : Colors.red.withOpacity(0.06),
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 8.0.r, horizontal: 16.r),
+          child: Row(
+            children: [
+              Text(
+                transaction.category.target!.emoji,
+                style: TextStyleUtils.regular(30),
               ),
-            ),
-            Text(
-              '${transaction.type == TransactionType.expense ? '-' : ''}${format.format(transaction.amount)}đ',
-              style: TextStyleUtils.regular(16),
-            ),
-          ],
+              SizedBox(width: 10.w),
+              Expanded(
+                child: Row(
+                  children: [
+                    Text(
+                      transaction.category.target!.name.tr,
+                      style: TextStyleUtils.regular(16),
+                    ),
+                    SizedBox(width: 5.w),
+                    transaction.note.isNotEmpty
+                        ? Text(
+                            '(${transaction.note})',
+                            style: TextStyleUtils.regular(14)
+                                .copyWith(color: Colors.black45),
+                          )
+                        : const SizedBox.shrink(),
+                  ],
+                ),
+              ),
+              Text(
+                '${transaction.type == TransactionType.expense ? '-' : ''}${format.format(transaction.amount)}đ',
+                style: TextStyleUtils.regular(16),
+              ),
+            ],
+          ),
         ),
       ),
     );

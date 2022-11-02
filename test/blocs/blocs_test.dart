@@ -43,7 +43,7 @@ void main() async {
       act: (bloc) => bloc.add(
         TransactionAdded(
           transaction:
-              Transaction(title: 'title', dateTime: DateTime.now(), amount: 1),
+              Transaction(note: 'title', dateTime: DateTime.now(), amount: 1),
           account: Account(
             emoji: 'cash',
             name: 'cash',

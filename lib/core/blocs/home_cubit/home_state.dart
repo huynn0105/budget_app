@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'home_cubit.dart';
 
-enum BottomNavBar { home, analysis, chart, settiing }
+enum BottomNavBar { home, analysis, settiing }
 
 class BottomNavBarState extends Equatable {
   const BottomNavBarState({this.navBar = BottomNavBar.home});

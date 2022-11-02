@@ -95,13 +95,13 @@ class _TransactionItem extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    transaction.category.target!.name,
+                    transaction.category.target!.name.tr,
                     style: TextStyleUtils.regular(18),
                   ),
                   SizedBox(width: 5.w),
-                  transaction.title.isNotEmpty
+                  transaction.note.isNotEmpty
                       ? Text(
-                          '(${transaction.title})',
+                          '(${transaction.note})',
                           style: TextStyleUtils.regular(14),
                         )
                       : const SizedBox.shrink(),

@@ -17,7 +17,7 @@ void main() async {
         'User created transaction, transactions list should add new transaction',
         () {
       final transaction =
-          Transaction(title: 'title', dateTime: DateTime.now(), amount: 1);
+          Transaction(note: 'title', dateTime: DateTime.now(), amount: 1);
       final category = Category(name: 'food', emoji: 'food');
       final account = Account(name: 'cash', emoji: 'cash');
       transaction.category.target = category;

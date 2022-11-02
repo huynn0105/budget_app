@@ -51,7 +51,7 @@ const Map<String, String> en = {
   KeyWork.travel: 'Travel',
   KeyWork.health: 'Health',
   KeyWork.family: 'Family',
-  KeyWork.coffe: 'Coffe',
+  KeyWork.coffee: 'Coffee',
   KeyWork.add: 'Add',
   KeyWork.category: 'Category',
   KeyWork.account: 'Account',
@@ -79,4 +79,7 @@ const Map<String, String> en = {
       'Erase everything Transactions, Accounts and Categories. The App will like launched for the first time.',
   KeyWork.contact: 'Contact Developer',
   KeyWork.version: 'Version',
+  KeyWork.eating: 'Eating',
+  KeyWork.viewChart: 'View chart',
+  KeyWork.chart: 'Chart'
 };

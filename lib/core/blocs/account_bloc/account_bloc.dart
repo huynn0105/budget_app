@@ -27,7 +27,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         _accountService.insertAccount(event.account);
         emit(
           AccountLoaded(
-            accounts: [...state.accounts, event.account],
+            accounts: _accountService.getAccounts(),
             accountSelected: event.account,
           ),
         );
@@ -48,11 +48,13 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
       final state = this.state;
       if (state is AccountLoaded) {
         _accountService.deleteAccount(event.account);
+        final accounts = _accountService.getAccounts();
+
         emit(
           AccountLoaded(
-            accounts: [...state.accounts]..remove(event.account),
+            accounts: accounts,
             accountSelected: state.accountSelected.id == event.account.id
-                ? state.accounts.first
+                ? accounts.first
                 : event.account,
           ),
         );

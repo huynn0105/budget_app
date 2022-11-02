@@ -4,6 +4,7 @@ abstract class ICategoryService {
   List<Category> getCategories();
   Category? findCategoryById(int id);
   int insertCategory(Category category);
+  void updateCategory(Category category);
   void deleteCategory(Category category);
   void clear();
 }

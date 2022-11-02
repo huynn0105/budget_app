@@ -11,7 +11,7 @@ class AccountService implements IAccountService {
     if (accounts.isEmpty) {
       _accountDao.insertAll(Account.accountsDefault);
     }
-    return _accountDao.getAll();
+    return _accountDao.getAll().where((x) => x.active).toList();
   }
 
   @override
@@ -26,7 +26,9 @@ class AccountService implements IAccountService {
 
   @override
   void deleteAccount(Account account) {
-    _accountDao.delete(account.id);
+    //_accountDao.delete(account.id);
+    // active = false => Soft Delete
+    _accountDao.update(account.copyWith(active: false));
   }
 
   @override

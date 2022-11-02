@@ -32,7 +32,7 @@ class CategoryHistoryScreen extends StatelessWidget {
       body: Column(
         children: [
           Text(
-            '${KeyWork.spent.tr} ${categoryUIModel.category.name} ${categoryUIModel.category.emoji}',
+            '${KeyWork.spent.tr} ${categoryUIModel.category.name.tr} ${categoryUIModel.category.emoji}',
             style: TextStyleUtils.regular(17),
           ),
           SizedBox(height: 5.h),

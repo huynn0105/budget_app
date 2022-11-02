@@ -49,7 +49,7 @@ class KeyWork {
   static const travel = 'travel';
   static const health = 'health';
   static const family = 'family';
-  static const coffe = 'coffe';
+  static const coffee = 'coffee';
   static const add = 'add';
   static const category = 'category';
   static const account = 'account';
@@ -76,4 +76,7 @@ class KeyWork {
   static const restoreToDefault = 'restoreToDefault';
   static const contact = 'contact';
   static const version = 'version';
+  static const eating = 'eating';
+  static const chart = 'chart';
+  static const viewChart = 'viewChart';
 }

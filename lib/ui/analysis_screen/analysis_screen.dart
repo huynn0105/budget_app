@@ -6,6 +6,7 @@ import 'package:budget_app/core/utils/datetime_util.dart';
 import 'package:budget_app/core/utils/enum_helper.dart';
 import 'package:budget_app/translation/keyword.dart';
 import 'package:budget_app/ui/category_history_screen/category_history_screen.dart';
+import 'package:budget_app/ui/chart_screen/chart_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -83,17 +84,36 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text(
-                            state.viewType == ViewType.week
-                                ? numberFormat.format(state.totalOfWeek)
-                                : state.viewType == ViewType.month
-                                    ? numberFormat.format(state.totalOfMonth)
-                                    : numberFormat.format(state.totalOfYear),
-                            style: TextStyleUtils.medium(40),
+                          Expanded(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  state.viewType == ViewType.week
+                                      ? numberFormat.format(state.totalOfWeek)
+                                      : state.viewType == ViewType.month
+                                          ? numberFormat
+                                              .format(state.totalOfMonth)
+                                          : numberFormat
+                                              .format(state.totalOfYear),
+                                  style: TextStyleUtils.medium(40),
+                                ),
+                                Text(
+                                  'đ',
+                                  style: TextStyleUtils.regular(30),
+                                ),
+                              ],
+                            ),
                           ),
-                          Text(
-                            'đ',
-                            style: TextStyleUtils.regular(30),
+                          TextButton(
+                            onPressed: () {
+                              Get.to(() => ChartScreen());
+                            },
+                            child: Text(
+                              KeyWork.viewChart.tr,
+                              style: TextStyleUtils.medium(15)
+                                  .copyWith(color: Colors.blue),
+                            ),
                           ),
                         ],
                       ),
@@ -110,28 +130,30 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                               ? TextButton(
                                   onPressed: () {
                                     context.read<AnalysisBloc>().add(
-                                        AnalysisChangeDate(
+                                          AnalysisChangeDate(
                                             date: DateTime.now(),
-                                            viewType: ViewType.week));
+                                            viewType: ViewType.week,
+                                          ),
+                                        );
                                   },
                                   style: ButtonStyle(
-                                      elevation: MaterialStateProperty.all(0),
-                                      minimumSize: MaterialStateProperty.all(
-                                        const Size(30, 15),
-                                      ),
-                                      tapTargetSize:
-                                          MaterialTapTargetSize.shrinkWrap,
-                                      padding: MaterialStateProperty.all(
-                                          const EdgeInsets.symmetric(
-                                              vertical: 5, horizontal: 5)),
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
-                                              Colors.transparent),
-                                      textStyle: MaterialStateProperty.all(
-                                          TextStyleUtils.medium(14)
-                                              .copyWith(color: Colors.blue))),
+                                    elevation: MaterialStateProperty.all(0),
+                                    tapTargetSize:
+                                        MaterialTapTargetSize.shrinkWrap,
+                                    padding: MaterialStateProperty.all(
+                                        const EdgeInsets.symmetric(
+                                            horizontal: 1)),
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Colors.transparent),
+                                    textStyle: MaterialStateProperty.all(
+                                      TextStyleUtils.medium(14)
+                                          .copyWith(color: Colors.blue),
+                                    ),
+                                  ),
                                   child: Text(
                                     KeyWork.today.tr,
+                                    style: TextStyleUtils.medium(14)
+                                        .copyWith(color: Colors.red),
                                   ),
                                 )
                               : const SizedBox.shrink(),
@@ -152,7 +174,7 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                   final month = DateTime.now().month - 5;
                   if (state.viewType == ViewType.year && month > 0) {
                     Future.delayed(Duration.zero, () {
-                      scrollController.animateTo(month * (50),
+                      scrollController.animateTo(month * (70),
                           duration: const Duration(milliseconds: 200),
                           curve: Curves.linear);
                     });
@@ -307,9 +329,12 @@ class _CategoryItem extends StatelessWidget {
     final format = NumberFormat('#,###');
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(CupertinoPageRoute(
+        Navigator.of(context).push(
+          CupertinoPageRoute(
             builder: (context) =>
-                CategoryHistoryScreen(categoryUIModel: categoryUI)));
+                CategoryHistoryScreen(categoryUIModel: categoryUI),
+          ),
+        );
       },
       child: Row(
         children: [
@@ -320,7 +345,7 @@ class _CategoryItem extends StatelessWidget {
           SizedBox(width: 10.w),
           Expanded(
             child: Text(
-              categoryUI.category.name,
+              categoryUI.category.name.tr,
               style: TextStyleUtils.regular(16),
             ),
           ),
@@ -346,45 +371,53 @@ class _ChartItem extends StatelessWidget {
   final double max;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: 20.h,
-          child: max != 0
-              ? Text(
-                  MoneyFormatter(amount: max).output.compactNonSymbol,
-                  style: TextStyleUtils.regular(14),
-                )
-              : null,
-        ),
-        Container(
-          height: heightChart,
-          decoration: BoxDecoration(
-            color: Theme.of(context).splashColor,
-            borderRadius: BorderRadius.circular(5.r),
+    var moneyFormatter =
+        MoneyFormatter(amount: max.abs()).output.compactNonSymbol;
+    if (max < 0) {
+      moneyFormatter = '-' + moneyFormatter;
+    }
+    return SizedBox(
+      width: 45.w,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 20.h,
+            child: max != 0
+                ? Text(
+                    moneyFormatter,
+                    style: TextStyleUtils.regular(12),
+                  )
+                : null,
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
-                height: value,
-                width: 26.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5.r),
-                  color: Theme.of(context).primaryColor,
+          Container(
+            height: heightChart,
+            decoration: BoxDecoration(
+              color: Theme.of(context).splashColor,
+              borderRadius: BorderRadius.circular(5.r),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  height: value,
+                  width: 26.w,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.r),
+                    color: Theme.of(context).primaryColor,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-        SizedBox(height: 5.h),
-        Text(
-          title,
-          style: TextStyleUtils.regular(13),
-        ),
-      ],
+          SizedBox(height: 5.h),
+          Text(
+            title,
+            style: TextStyleUtils.regular(13),
+          ),
+        ],
+      ),
     );
   }
 }

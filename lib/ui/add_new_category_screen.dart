@@ -31,7 +31,7 @@ class AddNewCategoryScreen extends StatefulWidget {
 class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
   @override
   void initState() {
-    controller = TextEditingController(text: widget.argument?.category.name);
+    controller = TextEditingController(text: widget.argument?.category.name.tr);
     emojiText = widget.argument?.category.emoji ?? '❤';
     super.initState();
   }
@@ -50,7 +50,9 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.argument == null ? KeyWork.newCategory.tr : KeyWork.editCategory.tr,
+          widget.argument == null
+              ? KeyWork.newCategory.tr
+              : KeyWork.editCategory.tr,
         ),
         centerTitle: true,
         elevation: 0,
@@ -59,10 +61,15 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
               onPressed: () {
                 context.read<CategoryBloc>().add(
                       CategoryAdded(
-                        category: app.Category(
-                          name: controller.text,
-                          emoji: emojiText,
-                        ),
+                        category: widget.argument?.category == null
+                            ? app.Category(
+                                name: controller.text,
+                                emoji: emojiText,
+                              )
+                            : widget.argument!.category.copyWith(
+                                name: controller.text,
+                                emoji: emojiText,
+                              ),
                       ),
                     );
                 Navigator.of(context).pop();

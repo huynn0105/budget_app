@@ -126,7 +126,8 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                         ),
                         SizedBox(
                           height: 30.h,
-                          child: !state.transactionOfWeek.date.isToday()
+                          child: !state.transactionOfWeek.date.isToday() &&
+                                  state.viewType == ViewType.week
                               ? TextButton(
                                   onPressed: () {
                                     context.read<AnalysisBloc>().add(

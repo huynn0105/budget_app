@@ -100,6 +100,7 @@ class AnalysisLoaded extends AnalysisState {
           0,
           (prev, x) =>
               prev + (x.type == TransactionType.income ? x.amount : -x.amount));
+      totalAmountOfDate = totalAmountOfDate.abs();
       return totalAmountOfDate > prevValue ? totalAmountOfDate : prevValue;
     });
 
@@ -116,7 +117,7 @@ class AnalysisLoaded extends AnalysisState {
             (p, e) =>
                 p + (e.type == TransactionType.income ? e.amount : -e.amount))
         : 0;
-    return total;
+    return total.abs();
   }
 
   int get maxValueOfWeek => transactionOfWeek.transactions

@@ -69,7 +69,7 @@ const Map<String, String> en = {
   KeyWork.english: 'English',
   KeyWork.vietnamese: 'Vietnamese',
   KeyWork.thiss: 'this',
-  KeyWork.spent: 'spent',
+  KeyWork.spent: 'Spent',
   KeyWork.eraseData: 'Erase Data',
   KeyWork.eraseAllTransactions: 'Erase All Transactions',
   KeyWork.messageEraseAll: 'Accounts and Categories remain.',

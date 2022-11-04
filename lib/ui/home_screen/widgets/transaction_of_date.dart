@@ -17,7 +17,7 @@ class _TransactionOfDate extends StatelessWidget {
     final formater =
         context.read<SettingBloc>().state.language == Language.english
             ? DateFormat('MMM dd', 'en')
-            : DateFormat('MMM dd', 'vi');
+            : DateFormat('dd MMM', 'vi');
     final total = transactions.fold(
         0,
         (prevValue, x) =>

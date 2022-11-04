@@ -53,6 +53,7 @@ class Transaction extends BaseEntity {
         note,
         type,
         amount,
+        dateTime,
         account.targetId,
         category.targetId,
       ];

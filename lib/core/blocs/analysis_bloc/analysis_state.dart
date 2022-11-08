@@ -83,8 +83,8 @@ class AnalysisLoaded extends AnalysisState {
               (p, e) =>
                   p +
                   (e.type == TransactionType.expense ? -e.amount : e.amount)),
-          transactions:
-              item.value.groupListsBy<DateTime>((e) => e.dateTime.toDate()),
+          transactions: item.value
+              .groupListsBy<DateTime>((e) => e.dateTime.toStartDate()),
           lastUpdate: item.value.fold(item.value.first.dateTime,
               (p, e) => p.compareTo(e.dateTime) > 0 ? p : e.dateTime),
         ),

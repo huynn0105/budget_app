@@ -104,6 +104,21 @@ class HomeWidget extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 10.r),
       child: Column(
         children: [
+          Row(
+            children: [
+              SizedBox(width: 10),
+              InkWell(
+                onTap: () {},
+                borderRadius: BorderRadius.circular(20),
+                
+                child: Image.asset(
+                  'assets/images/group.png',
+                  width: 25,
+                  height: 25,
+                ),
+              ),
+            ],
+          ),
           const Expanded(
             flex: 1,
             child: _SpentThisWeek(),

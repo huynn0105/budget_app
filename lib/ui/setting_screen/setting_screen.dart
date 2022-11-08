@@ -3,7 +3,7 @@ import 'package:budget_app/core/blocs/setting_bloc/setting_bloc.dart';
 import 'package:budget_app/core/utils/enum_helper.dart';
 import 'package:budget_app/translation/keyword.dart';
 import 'package:budget_app/ui/setting_screen/widgets/about_setting_screen.dart';
-import 'package:budget_app/ui/setting_screen/widgets/account_setting_screen.dart';
+import 'package:budget_app/ui/setting_screen/widgets/payment_setting_screen.dart';
 import 'package:budget_app/ui/setting_screen/widgets/category_setting_screen.dart';
 import 'package:budget_app/ui/setting_screen/widgets/dark_mode_setting_screen.dart';
 import 'package:budget_app/ui/setting_screen/widgets/erase_data_setting_screen.dart';
@@ -78,10 +78,10 @@ class SettingScreen extends StatelessWidget {
                   children: [
                     _SettingItem(
                       icon: Icons.wallet_rounded,
-                      title: KeyWork.account.tr,
+                      title: KeyWork.payment.tr,
                       value: '',
                       onTap: () {
-                        Get.to(() => AccountSettingScreen());
+                        Get.to(() => PaymentSettingScreen());
                       },
                     ),
                     Divider(

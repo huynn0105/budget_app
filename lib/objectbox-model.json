@@ -4,35 +4,6 @@
   "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
   "entities": [
     {
-      "id": "1:8296679817524583314",
-      "lastPropertyId": "4:7369415057554100201",
-      "name": "Account",
-      "properties": [
-        {
-          "id": "1:2822742064893531904",
-          "name": "id",
-          "type": 6,
-          "flags": 1
-        },
-        {
-          "id": "2:3213445006787576109",
-          "name": "name",
-          "type": 9
-        },
-        {
-          "id": "3:5434269270498639034",
-          "name": "emoji",
-          "type": 9
-        },
-        {
-          "id": "4:7369415057554100201",
-          "name": "active",
-          "type": 1
-        }
-      ],
-      "relations": []
-    },
-    {
       "id": "2:2501090390936674867",
       "lastPropertyId": "4:3090261778419142496",
       "name": "Category",
@@ -63,7 +34,7 @@
     },
     {
       "id": "3:3459246968913548694",
-      "lastPropertyId": "10:2873775516735302974",
+      "lastPropertyId": "11:4981267556058581864",
       "name": "Transaction",
       "properties": [
         {
@@ -107,6 +78,14 @@
           "id": "10:2873775516735302974",
           "name": "note",
           "type": 9
+        },
+        {
+          "id": "11:4981267556058581864",
+          "name": "paymentId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "5:475914921134855771",
+          "relationTarget": "Payment"
         }
       ],
       "relations": []
@@ -134,15 +113,66 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "5:4810265279849438907",
+      "lastPropertyId": "4:7740974396729799348",
+      "name": "Payment",
+      "properties": [
+        {
+          "id": "1:1942087705111350790",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7302225031685387564",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:7432430976350463662",
+          "name": "emoji",
+          "type": 9
+        },
+        {
+          "id": "4:7740974396729799348",
+          "name": "active",
+          "type": 1
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "7:7969227711269589476",
+      "lastPropertyId": "2:9123652872069993126",
+      "name": "Account",
+      "properties": [
+        {
+          "id": "1:252383646842821722",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:9123652872069993126",
+          "name": "name",
+          "type": 9
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "4:2996561069980989109",
-  "lastIndexId": "4:1894448582879584189",
+  "lastEntityId": "7:7969227711269589476",
+  "lastIndexId": "5:475914921134855771",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
-  "retiredEntityUids": [],
+  "retiredEntityUids": [
+    8296679817524583314,
+    4496292267058893169
+  ],
   "retiredIndexUids": [
     4779389994422262847,
     7056461475385909954
@@ -150,7 +180,13 @@
   "retiredPropertyUids": [
     2060229492095202932,
     9080673135740415875,
-    1463201996194926459
+    1463201996194926459,
+    2822742064893531904,
+    3213445006787576109,
+    5434269270498639034,
+    7369415057554100201,
+    3979446512432894809,
+    5603855170268429572
   ],
   "retiredRelationUids": [],
   "version": 1

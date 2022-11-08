@@ -20,11 +20,11 @@ class TransactionChangeList extends TransactionEvent {
 class TransactionAdded extends TransactionEvent {
   final Transaction transaction;
   final Category category;
-  final Account account;
+  final Payment payment;
 
   const TransactionAdded({
     required this.transaction,
-    required this.account,
+    required this.payment,
     required this.category,
   });
 

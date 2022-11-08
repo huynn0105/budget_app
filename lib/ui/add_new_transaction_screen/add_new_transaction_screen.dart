@@ -1,4 +1,6 @@
 import 'package:budget_app/core/blocs/analysis_bloc/analysis_bloc.dart';
+import 'package:budget_app/core/blocs/payment_bloc/payment_bloc.dart';
+import 'package:budget_app/core/utils/datetime_util.dart';
 import 'package:budget_app/translation/keyword.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +12,6 @@ import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import 'package:budget_app/constants.dart';
-import 'package:budget_app/core/blocs/account_bloc/account_bloc.dart';
 import 'package:budget_app/core/blocs/category_bloc/category_bloc.dart';
 import 'package:budget_app/core/blocs/transaction_bloc/transaction_bloc.dart';
 import 'package:budget_app/core/blocs/transaction_type_cubit/transaction_type_cubit.dart';
@@ -19,7 +20,7 @@ import 'package:budget_app/ui/add_new_account_screen.dart';
 import 'package:budget_app/ui/add_new_category_screen.dart';
 import 'package:money_formatter/money_formatter.dart';
 
-part 'widgets/account_bottom_sheet.dart';
+part 'widgets/payment_bottom_sheet.dart';
 part 'widgets/add_button.dart';
 part 'widgets/button.dart';
 part 'widgets/category_bottom_sheet.dart';
@@ -40,7 +41,7 @@ class AddNewTransactionScreen extends StatefulWidget {
 
 class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
   late TextEditingController controller, noteController;
-  late AccountBloc accountBloc;
+  late PaymentBloc paymentBloc;
   late CategoryBloc categoryBloc;
   late TransactionBloc transactionBloc;
   late TransactionTypeCubit transactionTypeCubit;
@@ -51,7 +52,7 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
     controller = TextEditingController(text: '0đ');
     format = DateFormat('dd/MM/yyyy');
     noteController = TextEditingController(text: widget.transaction?.note);
-    accountBloc = context.read<AccountBloc>();
+    paymentBloc = context.read<PaymentBloc>();
     selectedDate = widget.transaction == null
         ? DateTime.now()
         : widget.transaction!.dateTime;
@@ -65,8 +66,8 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
       controller.text = moneyFormatter + 'đ';
       categoryBloc.add(
           CategorySelected(category: widget.transaction!.category.target!));
-      accountBloc
-          .add(AccountSelected(account: widget.transaction!.account.target!));
+      paymentBloc
+          .add(PaymentSelected(payment: widget.transaction!.payment.target!));
     }
     super.initState();
   }
@@ -189,23 +190,23 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
                     showCupertinoModalBottomSheet(
                       context: context,
                       builder: (context) {
-                        return const _AccountBottomSheet();
+                        return const _PaymentBottomSheet();
                       },
                     );
                   },
-                  child: BlocBuilder<AccountBloc, AccountState>(
+                  child: BlocBuilder<PaymentBloc, PaymentState>(
                     builder: (context, state) {
-                      if (state is AccountInitial) {
+                      if (state is PaymentInitial) {
                         return const CircularProgressIndicator();
                       }
-                      if (state is AccountLoaded) {
+                      if (state is PaymentLoaded) {
                         return Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text('${state.accountSelected.emoji} ',
+                            Text('${state.paymentSelected.emoji} ',
                                 style: TextStyleUtils.regular(28)),
                             Text(
-                              state.accountSelected.name.tr,
+                              state.paymentSelected.name.tr,
                               style: TextStyleUtils.medium(16),
                             ),
                           ],
@@ -268,7 +269,7 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
                               amount: int.parse(controller.text
                                   .replaceAll(',', '')
                                   .replaceAll('đ', '')),
-                              dateTime: selectedDate,
+                              dateTime: selectedDate.setCurrentTime(),
                               note: noteController.text,
                               type: transactionTypeCubit.state.transactionType,
                             )
@@ -276,12 +277,12 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
                               amount: int.parse(controller.text
                                   .replaceAll(',', '')
                                   .replaceAll('đ', '')),
-                              dateTime: selectedDate,
+                              dateTime: selectedDate.setCurrentTime(),
                               note: noteController.text,
                               type: transactionTypeCubit.state.transactionType,
                             ),
-                      account:
-                          (accountBloc.state as AccountLoaded).accountSelected,
+                      payment:
+                          (paymentBloc.state as PaymentLoaded).paymentSelected,
                       category: (categoryBloc.state as CategoryLoaded)
                           .categorySelected,
                     ),

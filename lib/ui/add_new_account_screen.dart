@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:budget_app/constants.dart';
-import 'package:budget_app/core/blocs/account_bloc/account_bloc.dart';
-import 'package:budget_app/core/entities/account_entity.dart';
+import 'package:budget_app/core/blocs/payment_bloc/payment_bloc.dart';
+import 'package:budget_app/core/entities/payment_entity.dart';
 import 'package:budget_app/translation/keyword.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
@@ -11,28 +11,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class AddNewAccountArgument {
-  final Account account;
-  const AddNewAccountArgument({required this.account});
+class AddNewPaymentArgument {
+  final Payment payment;
+  const AddNewPaymentArgument({required this.payment});
 }
 
-class AddNewAccountScreen extends StatefulWidget {
-  const AddNewAccountScreen({
+class AddNewPaymentScreen extends StatefulWidget {
+  const AddNewPaymentScreen({
     super.key,
     this.argument,
   });
 
-  final AddNewAccountArgument? argument;
+  final AddNewPaymentArgument? argument;
 
   @override
-  State<AddNewAccountScreen> createState() => _AddNewAccountScreenState();
+  State<AddNewPaymentScreen> createState() => _AddNewPaymentScreenState();
 }
 
-class _AddNewAccountScreenState extends State<AddNewAccountScreen> {
+class _AddNewPaymentScreenState extends State<AddNewPaymentScreen> {
   @override
   void initState() {
-    controller = TextEditingController(text: widget.argument?.account.name.tr);
-    emojiText = widget.argument?.account.emoji ?? '❤';
+    controller = TextEditingController(text: widget.argument?.payment.name.tr);
+    emojiText = widget.argument?.payment.emoji ?? '❤';
     super.initState();
   }
 
@@ -51,8 +51,8 @@ class _AddNewAccountScreenState extends State<AddNewAccountScreen> {
       appBar: AppBar(
         title: Text(
           widget.argument == null
-              ? KeyWork.newAccount.tr
-              : KeyWork.editAccount.tr,
+              ? KeyWork.newPayment.tr
+              : KeyWork.editPayment.tr,
           style: TextStyle(
             color: Colors.black87,
           ),
@@ -63,14 +63,14 @@ class _AddNewAccountScreenState extends State<AddNewAccountScreen> {
         actions: [
           TextButton(
               onPressed: () {
-                context.read<AccountBloc>().add(
-                      AccountAdded(
-                        account: widget.argument?.account == null
-                            ? Account(
+                context.read<PaymentBloc>().add(
+                      PaymentAdded(
+                        payment: widget.argument?.payment == null
+                            ? Payment(
                                 name: controller.text,
                                 emoji: emojiText,
                               )
-                            : widget.argument!.account.copyWith(
+                            : widget.argument!.payment.copyWith(
                                 name: controller.text,
                                 emoji: emojiText,
                               ),
@@ -135,7 +135,7 @@ class _AddNewAccountScreenState extends State<AddNewAccountScreen> {
               textAlign: TextAlign.center,
               controller: controller,
               decoration: InputDecoration(
-                hintText: KeyWork.enterAccountName.tr,
+                hintText: KeyWork.enterPaymentName.tr,
                 hintStyle: TextStyleUtils.regular(20),
                 border: InputBorder.none,
               ),

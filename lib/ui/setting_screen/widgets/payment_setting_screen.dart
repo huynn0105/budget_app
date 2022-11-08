@@ -1,6 +1,6 @@
 import 'package:budget_app/constants.dart';
-import 'package:budget_app/core/blocs/account_bloc/account_bloc.dart';
-import 'package:budget_app/core/entities/account_entity.dart';
+import 'package:budget_app/core/blocs/payment_bloc/payment_bloc.dart';
+import 'package:budget_app/core/entities/payment_entity.dart';
 import 'package:budget_app/translation/keyword.dart';
 import 'package:budget_app/ui/add_new_account_screen.dart';
 import 'package:flutter/material.dart';
@@ -9,14 +9,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 
-class AccountSettingScreen extends StatelessWidget {
-  const AccountSettingScreen({super.key});
+class PaymentSettingScreen extends StatelessWidget {
+  const PaymentSettingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(KeyWork.account.tr),
+        title: Text(KeyWork.payment.tr),
         elevation: 0,
         centerTitle: true,
       ),
@@ -24,24 +24,24 @@ class AccountSettingScreen extends StatelessWidget {
         physics: BouncingScrollPhysics(),
         child: Card(
           margin: EdgeInsets.all(16.r),
-          child: BlocBuilder<AccountBloc, AccountState>(
+          child: BlocBuilder<PaymentBloc, PaymentState>(
             builder: (context, state) {
-              if (state is AccountLoaded) {
+              if (state is PaymentLoaded) {
                 return ListView.separated(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) =>
-                      index != state.accounts.length
-                          ? _AccountItem(
-                              account: state.accounts[index],
+                      index != state.payments.length
+                          ? _PaymentItem(
+                              payment: state.payments[index],
                             )
                           : AddItem(
                               onTap: () {
-                                Get.to(() => AddNewAccountScreen());
+                                Get.to(() => AddNewPaymentScreen());
                               },
-                              name: KeyWork.newAccount.tr,
+                              name: KeyWork.newPayment.tr,
                             ),
-                  itemCount: state.accounts.length + 1,
+                  itemCount: state.payments.length + 1,
                   separatorBuilder: (context, index) => Divider(
                     height: 1.h,
                     color: Colors.grey.shade300,
@@ -57,20 +57,20 @@ class AccountSettingScreen extends StatelessWidget {
   }
 }
 
-class _AccountItem extends StatelessWidget {
-  const _AccountItem({
+class _PaymentItem extends StatelessWidget {
+  const _PaymentItem({
     Key? key,
-    required this.account,
+    required this.payment,
   }) : super(key: key);
 
-  final Account account;
+  final Payment payment;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.to(() => AddNewAccountScreen(
-              argument: AddNewAccountArgument(account: account),
+        Get.to(() => AddNewPaymentScreen(
+              argument: AddNewPaymentArgument(payment: payment),
             ));
       },
       child: Slidable(
@@ -82,8 +82,8 @@ class _AccountItem extends StatelessWidget {
             SlidableAction(
               onPressed: (context) {
                 context
-                    .read<AccountBloc>()
-                    .add(AccountDeleted(account: account));
+                    .read<PaymentBloc>()
+                    .add(PaymentDeleted(payment: payment));
               },
               backgroundColor: Color(0xFFFE4A49),
               foregroundColor: Colors.white,
@@ -96,11 +96,11 @@ class _AccountItem extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                account.emoji,
+                payment.emoji,
                 style: TextStyleUtils.regular(18),
               ),
               SizedBox(width: 10.w),
-              Text(account.name.tr, style: TextStyleUtils.regular(14))
+              Text(payment.name.tr, style: TextStyleUtils.regular(14))
             ],
           ),
         ),

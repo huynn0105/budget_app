@@ -1,7 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:budget_app/core/blocs/category_bloc/category_bloc.dart';
 import 'package:budget_app/core/blocs/transaction_bloc/transaction_bloc.dart';
-import 'package:budget_app/core/entities/account_entity.dart';
+import 'package:budget_app/core/entities/payment_entity.dart';
 import 'package:budget_app/core/entities/category_entity.dart';
 import 'package:budget_app/core/entities/transaction_entity.dart';
 import 'package:budget_app/core/services/interfaces/icategory_service.dart';
@@ -44,7 +44,7 @@ void main() async {
         TransactionAdded(
           transaction:
               Transaction(note: 'title', dateTime: DateTime.now(), amount: 1),
-          account: Account(
+          payment: Payment(
             emoji: 'cash',
             name: 'cash',
           ),

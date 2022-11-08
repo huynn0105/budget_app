@@ -1,7 +1,7 @@
 part of '../add_new_transaction_screen.dart';
 
-class _AccountBottomSheet extends StatelessWidget {
-  const _AccountBottomSheet({
+class _PaymentBottomSheet extends StatelessWidget {
+  const _PaymentBottomSheet({
     Key? key,
   }) : super(key: key);
 
@@ -14,20 +14,20 @@ class _AccountBottomSheet extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              KeyWork.account.tr,
+              KeyWork.payment.tr,
               style: TextStyleUtils.medium(18),
             ),
             SizedBox(height: 10.h),
-            BlocBuilder<AccountBloc, AccountState>(
+            BlocBuilder<PaymentBloc, PaymentState>(
               builder: (context, state) {
-                if (state is AccountInitial) {
+                if (state is PaymentInitial) {
                   return const CircularProgressIndicator();
                 }
-                if (state is AccountLoaded) {
+                if (state is PaymentLoaded) {
                   return GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: state.accounts.length + 1,
+                    itemCount: state.payments.length + 1,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 4,
@@ -36,24 +36,24 @@ class _AccountBottomSheet extends StatelessWidget {
                       childAspectRatio: 1,
                     ),
                     itemBuilder: (context, index) => index !=
-                            state.accounts.length
+                            state.payments.length
                         ? _Button(
-                            emoji: state.accounts[index].emoji,
-                            name: state.accounts[index].name.tr,
+                            emoji: state.payments[index].emoji,
+                            name: state.payments[index].name.tr,
                             onLongPress: () {
-                              context.read<AccountBloc>().add(AccountDeleted(
-                                  account: state.accounts[index]));
+                              context.read<PaymentBloc>().add(PaymentDeleted(
+                                  payment: state.payments[index]));
                             },
                             onTap: () {
-                              context.read<AccountBloc>().add(AccountSelected(
-                                  account: state.accounts[index]));
+                              context.read<PaymentBloc>().add(PaymentSelected(
+                                  payment: state.payments[index]));
                             },
                           )
                         : _AddButton(
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) =>
-                                      const AddNewAccountScreen()));
+                                      const AddNewPaymentScreen()));
                             },
                           ),
                   );

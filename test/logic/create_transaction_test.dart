@@ -1,4 +1,4 @@
-import 'package:budget_app/core/entities/account_entity.dart';
+import 'package:budget_app/core/entities/payment_entity.dart';
 import 'package:budget_app/core/entities/category_entity.dart';
 import 'package:budget_app/core/entities/transaction_entity.dart';
 import 'package:budget_app/core/services/interfaces/iaccount_service.dart';
@@ -19,9 +19,9 @@ void main() async {
       final transaction =
           Transaction(note: 'title', dateTime: DateTime.now(), amount: 1);
       final category = Category(name: 'food', emoji: 'food');
-      final account = Account(name: 'cash', emoji: 'cash');
+      final account = Payment(name: 'cash', emoji: 'cash');
       transaction.category.target = category;
-      transaction.account.target = account;
+      transaction.payment.target = account;
       transactionService.clear();
       int transactionId = transactionService.insertTransaction(transaction);
       List<Transaction> transactions = transactionService.getTransactions();
@@ -53,17 +53,17 @@ void main() async {
   group('Account test', () {
     final accountService = locator<IAccountService>();
     test('User created account, accounts list should add new account', () {
-      final account = Account(name: 'food', emoji: 'food');
+      final account = Payment(name: 'food', emoji: 'food');
       int accountId = accountService.insertAccount(account);
-      Account? accountInDb = accountService.findAccountById(accountId);
+      Payment? accountInDb = accountService.findAccountById(accountId);
       expect(account.id, accountId);
       expect(account, accountInDb);
     });
     test('User delete account, accounts list shouldn delete this account', () {
-      final accounts = accountService.getAccounts();
+      final accounts = accountService.getPayments();
       final accountInList = accounts.first;
-      accountService.deleteAccount(accountInList);
-      Account? accountInDb = accountService.findAccountById(accountInList.id);
+      accountService.deletePayment(accountInList);
+      Payment? accountInDb = accountService.findAccountById(accountInList.id);
       expect(null, accountInDb);
     });
   });

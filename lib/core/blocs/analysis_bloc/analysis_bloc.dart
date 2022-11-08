@@ -23,11 +23,11 @@ class AnalysisBloc extends Bloc<AnalysisEvent, AnalysisState> {
       if (state is AnalysisLoaded) {
         viewType = state.viewType;
       }
-      final today = DateTime.now().toDate();
+      final today = DateTime.now().toStartDate();
       List<Transaction> transactionOfWeek =
           _transactionService.getWeekTransactions(today);
       List<Transaction> transactionOfMonth =
-          _transactionService.getYearTransactions(today);
+          _transactionService.getMonthTransactions(today);
       List<Transaction> transactionOfYear =
           _transactionService.getYearTransactions(today);
       emit(
@@ -45,7 +45,7 @@ class AnalysisBloc extends Bloc<AnalysisEvent, AnalysisState> {
     on<AnalysisSeleteViewType>((event, emit) {
       final state = this.state;
       if (state is AnalysisLoaded) {
-        final today = DateTime.now().toDate();
+        final today = DateTime.now().toStartDate();
         switch (event.viewType) {
           case ViewType.week:
             List<Transaction> transactionOfWeek =

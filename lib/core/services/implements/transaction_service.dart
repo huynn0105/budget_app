@@ -34,13 +34,13 @@ class TransactionService implements ITransactionService {
 
   @override
   List<Transaction> getWeekTransactions(DateTime date) {
-    final startOfWeek = date.startOfWeek();
-    final endOfWeek = date.endOfWeek();
+    final startOfWeek = date.startOfWeek().millisecondsSinceEpoch;
+    final endOfWeek = date.endOfWeek().millisecondsSinceEpoch;
     final transactions = _transactionDao
         .getAll()
         .where((x) =>
-            x.dateTime.compareTo(startOfWeek) == 1 &&
-            x.dateTime.compareTo(endOfWeek) == -1)
+            x.dateTime.millisecondsSinceEpoch >= startOfWeek &&
+            x.dateTime.millisecondsSinceEpoch <= endOfWeek)
         .toList();
     transactions.sort((a, b) => b.dateTime.compareTo(a.dateTime));
     return transactions;
@@ -55,12 +55,13 @@ class TransactionService implements ITransactionService {
 
   @override
   List<Transaction> getMonthTransactions(DateTime date) {
-    final first = date.firstDayOfMonth();
-    final end = date.endOfWeek();
+    final first = date.firstDayOfMonth().millisecondsSinceEpoch;
+    final end = date.endOfWeek().millisecondsSinceEpoch;
     final transactions = _transactionDao
         .getAll()
         .where((x) =>
-            x.dateTime.compareTo(first) == 1 && x.dateTime.compareTo(end) == -1)
+            x.dateTime.millisecondsSinceEpoch >= first &&
+            x.dateTime.millisecondsSinceEpoch <= end)
         .toList();
     transactions.sort((a, b) => b.dateTime.compareTo(a.dateTime));
     return transactions;

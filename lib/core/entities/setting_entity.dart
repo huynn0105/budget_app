@@ -5,7 +5,10 @@ import 'package:objectbox/objectbox.dart';
 
 import 'package:budget_app/core/entities/base_entity.dart';
 
+import 'account_entity.dart';
+
 @Entity()
+// ignore: must_be_immutable
 class SettingEntity extends BaseEntity {
   @override
   int id;
@@ -15,6 +18,7 @@ class SettingEntity extends BaseEntity {
   ThemeMode themeMode;
   int _dbLanguage = 0;
   int _dbThemeMode = 0;
+  var account = ToOne<Account>();
 
   SettingEntity({
     this.id = 0,

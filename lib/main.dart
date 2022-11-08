@@ -1,7 +1,7 @@
-import 'package:budget_app/core/blocs/account_bloc/account_bloc.dart';
 import 'package:budget_app/core/blocs/analysis_bloc/analysis_bloc.dart';
 import 'package:budget_app/core/blocs/category_bloc/category_bloc.dart';
 import 'package:budget_app/core/blocs/home_cubit/home_cubit.dart';
+import 'package:budget_app/core/blocs/payment_bloc/payment_bloc.dart';
 import 'package:budget_app/core/blocs/setting_bloc/setting_bloc.dart';
 import 'package:budget_app/core/blocs/transaction_bloc/transaction_bloc.dart';
 import 'package:budget_app/core/blocs/transaction_type_cubit/transaction_type_cubit.dart';
@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
 List<BlocProviderSingleChildWidget> get listBlocProvider {
   return [
     BlocProvider(create: (_) => TransactionBloc()),
-    BlocProvider(create: (_) => AccountBloc()..add(const AccountStarted())),
+    BlocProvider(create: (_) => PaymentBloc()..add(const PaymentStarted())),
     BlocProvider(create: (_) => CategoryBloc()..add(const CategoryStarted())),
     BlocProvider(create: (_) => TransactionTypeCubit()),
     BlocProvider(create: (_) => BottomNavBarCubit()),

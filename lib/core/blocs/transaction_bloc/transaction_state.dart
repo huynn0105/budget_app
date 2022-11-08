@@ -18,7 +18,7 @@ class TransactionLoaded extends TransactionState {
   int get total => transactions.fold(0, (prevValue, x) => prevValue + x.amount);
 
   Map<DateTime, List<Transaction>> get transactionOfDate {
-    return transactions.groupListsBy<DateTime>((x) => x.dateTime.toDate());
+    return transactions.groupListsBy<DateTime>((x) => x.dateTime.toStartDate());
   }
 
   int getTotal(List<Transaction> transactions) {

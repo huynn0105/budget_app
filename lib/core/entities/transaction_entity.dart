@@ -1,9 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:objectbox/objectbox.dart';
 
-import 'package:budget_app/core/entities/account_entity.dart';
+import 'package:budget_app/core/entities/payment_entity.dart';
 import 'package:budget_app/core/entities/category_entity.dart';
 
+import 'account_entity.dart';
 import 'base_entity.dart';
 
 @Entity()
@@ -17,8 +18,10 @@ class Transaction extends BaseEntity {
   @Transient()
   TransactionType type;
   int _transactionType = 0;
-  final account = ToOne<Account>();
+
+  final payment = ToOne<Payment>();
   final category = ToOne<Category>();
+  final account = ToOne<Account>();
   Transaction({
     this.id = 0,
     required this.note,
@@ -54,7 +57,7 @@ class Transaction extends BaseEntity {
         type,
         amount,
         dateTime,
-        account.targetId,
+        payment.targetId,
         category.targetId,
       ];
 

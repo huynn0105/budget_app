@@ -16,44 +16,13 @@ import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
 import 'core/entities/account_entity.dart';
 import 'core/entities/category_entity.dart';
+import 'core/entities/payment_entity.dart';
 import 'core/entities/setting_entity.dart';
 import 'core/entities/transaction_entity.dart';
 
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
 
 final _entities = <ModelEntity>[
-  ModelEntity(
-      id: const IdUid(1, 8296679817524583314),
-      name: 'Account',
-      lastPropertyId: const IdUid(4, 7369415057554100201),
-      flags: 0,
-      properties: <ModelProperty>[
-        ModelProperty(
-            id: const IdUid(1, 2822742064893531904),
-            name: 'id',
-            type: 6,
-            flags: 1),
-        ModelProperty(
-            id: const IdUid(2, 3213445006787576109),
-            name: 'name',
-            type: 9,
-            flags: 0),
-        ModelProperty(
-            id: const IdUid(3, 5434269270498639034),
-            name: 'emoji',
-            type: 9,
-            flags: 0),
-        ModelProperty(
-            id: const IdUid(4, 7369415057554100201),
-            name: 'active',
-            type: 1,
-            flags: 0)
-      ],
-      relations: <ModelRelation>[],
-      backlinks: <ModelBacklink>[
-        ModelBacklink(
-            name: 'transactions', srcEntity: 'Transaction', srcField: '')
-      ]),
   ModelEntity(
       id: const IdUid(2, 2501090390936674867),
       name: 'Category',
@@ -89,7 +58,7 @@ final _entities = <ModelEntity>[
   ModelEntity(
       id: const IdUid(3, 3459246968913548694),
       name: 'Transaction',
-      lastPropertyId: const IdUid(10, 2873775516735302974),
+      lastPropertyId: const IdUid(11, 4981267556058581864),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
@@ -130,7 +99,14 @@ final _entities = <ModelEntity>[
             id: const IdUid(10, 2873775516735302974),
             name: 'note',
             type: 9,
-            flags: 0)
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(11, 4981267556058581864),
+            name: 'paymentId',
+            type: 11,
+            flags: 520,
+            indexId: const IdUid(5, 475914921134855771),
+            relationTarget: 'Payment')
       ],
       relations: <ModelRelation>[],
       backlinks: <ModelBacklink>[]),
@@ -157,7 +133,61 @@ final _entities = <ModelEntity>[
             flags: 0)
       ],
       relations: <ModelRelation>[],
-      backlinks: <ModelBacklink>[])
+      backlinks: <ModelBacklink>[]),
+  ModelEntity(
+      id: const IdUid(5, 4810265279849438907),
+      name: 'Payment',
+      lastPropertyId: const IdUid(4, 7740974396729799348),
+      flags: 0,
+      properties: <ModelProperty>[
+        ModelProperty(
+            id: const IdUid(1, 1942087705111350790),
+            name: 'id',
+            type: 6,
+            flags: 1),
+        ModelProperty(
+            id: const IdUid(2, 7302225031685387564),
+            name: 'name',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(3, 7432430976350463662),
+            name: 'emoji',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(4, 7740974396729799348),
+            name: 'active',
+            type: 1,
+            flags: 0)
+      ],
+      relations: <ModelRelation>[],
+      backlinks: <ModelBacklink>[
+        ModelBacklink(
+            name: 'transactions', srcEntity: 'Transaction', srcField: '')
+      ]),
+  ModelEntity(
+      id: const IdUid(7, 7969227711269589476),
+      name: 'Account',
+      lastPropertyId: const IdUid(2, 9123652872069993126),
+      flags: 0,
+      properties: <ModelProperty>[
+        ModelProperty(
+            id: const IdUid(1, 252383646842821722),
+            name: 'id',
+            type: 6,
+            flags: 1),
+        ModelProperty(
+            id: const IdUid(2, 9123652872069993126),
+            name: 'name',
+            type: 9,
+            flags: 0)
+      ],
+      relations: <ModelRelation>[],
+      backlinks: <ModelBacklink>[
+        ModelBacklink(
+            name: 'transactions', srcEntity: 'Transaction', srcField: '')
+      ])
 ];
 
 /// Open an ObjectBox store with the model declared in this file.
@@ -180,16 +210,22 @@ Future<Store> openStore(
 ModelDefinition getObjectBoxModel() {
   final model = ModelInfo(
       entities: _entities,
-      lastEntityId: const IdUid(4, 2996561069980989109),
-      lastIndexId: const IdUid(4, 1894448582879584189),
+      lastEntityId: const IdUid(7, 7969227711269589476),
+      lastIndexId: const IdUid(5, 475914921134855771),
       lastRelationId: const IdUid(0, 0),
       lastSequenceId: const IdUid(0, 0),
-      retiredEntityUids: const [],
+      retiredEntityUids: const [8296679817524583314, 4496292267058893169],
       retiredIndexUids: const [4779389994422262847, 7056461475385909954],
       retiredPropertyUids: const [
         2060229492095202932,
         9080673135740415875,
-        1463201996194926459
+        1463201996194926459,
+        2822742064893531904,
+        3213445006787576109,
+        5434269270498639034,
+        7369415057554100201,
+        3979446512432894809,
+        5603855170268429572
       ],
       retiredRelationUids: const [],
       modelVersion: 5,
@@ -197,51 +233,8 @@ ModelDefinition getObjectBoxModel() {
       version: 1);
 
   final bindings = <Type, EntityDefinition>{
-    Account: EntityDefinition<Account>(
-        model: _entities[0],
-        toOneRelations: (Account object) => [],
-        toManyRelations: (Account object) => {
-              RelInfo<Transaction>.toOneBacklink(6, object.id,
-                      (Transaction srcObject) => srcObject.account):
-                  object.transactions
-            },
-        getId: (Account object) => object.id,
-        setId: (Account object, int id) {
-          object.id = id;
-        },
-        objectToFB: (Account object, fb.Builder fbb) {
-          final nameOffset = fbb.writeString(object.name);
-          final emojiOffset = fbb.writeString(object.emoji);
-          fbb.startTable(5);
-          fbb.addInt64(0, object.id);
-          fbb.addOffset(1, nameOffset);
-          fbb.addOffset(2, emojiOffset);
-          fbb.addBool(3, object.active);
-          fbb.finish(fbb.endTable());
-          return object.id;
-        },
-        objectFromFB: (Store store, ByteData fbData) {
-          final buffer = fb.BufferContext(fbData);
-          final rootOffset = buffer.derefObject(0);
-
-          final object = Account(
-              id: const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0),
-              name: const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 6, ''),
-              emoji: const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 8, ''),
-              active: const fb.BoolReader()
-                  .vTableGet(buffer, rootOffset, 10, false));
-          InternalToManyAccess.setRelInfo(
-              object.transactions,
-              store,
-              RelInfo<Transaction>.toOneBacklink(
-                  6, object.id, (Transaction srcObject) => srcObject.account),
-              store.box<Account>());
-          return object;
-        }),
     Category: EntityDefinition<Category>(
-        model: _entities[1],
+        model: _entities[0],
         toOneRelations: (Category object) => [],
         toManyRelations: (Category object) => {
               RelInfo<Transaction>.toOneBacklink(5, object.id,
@@ -284,9 +277,9 @@ ModelDefinition getObjectBoxModel() {
           return object;
         }),
     Transaction: EntityDefinition<Transaction>(
-        model: _entities[2],
+        model: _entities[1],
         toOneRelations: (Transaction object) =>
-            [object.category, object.account],
+            [object.category, object.account, object.payment],
         toManyRelations: (Transaction object) => {},
         getId: (Transaction object) => object.id,
         setId: (Transaction object, int id) {
@@ -294,7 +287,7 @@ ModelDefinition getObjectBoxModel() {
         },
         objectToFB: (Transaction object, fb.Builder fbb) {
           final noteOffset = fbb.writeString(object.note);
-          fbb.startTable(11);
+          fbb.startTable(12);
           fbb.addInt64(0, object.id);
           fbb.addInt64(2, object.dateTime.millisecondsSinceEpoch);
           fbb.addInt64(4, object.category.targetId);
@@ -302,6 +295,7 @@ ModelDefinition getObjectBoxModel() {
           fbb.addInt64(6, object.amount);
           fbb.addInt64(8, object.dbType);
           fbb.addOffset(9, noteOffset);
+          fbb.addInt64(10, object.payment.targetId);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -325,10 +319,13 @@ ModelDefinition getObjectBoxModel() {
           object.account.targetId =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 14, 0);
           object.account.attach(store);
+          object.payment.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 24, 0);
+          object.payment.attach(store);
           return object;
         }),
     SettingEntity: EntityDefinition<SettingEntity>(
-        model: _entities[3],
+        model: _entities[2],
         toOneRelations: (SettingEntity object) => [],
         toManyRelations: (SettingEntity object) => {},
         getId: (SettingEntity object) => object.id,
@@ -355,87 +352,179 @@ ModelDefinition getObjectBoxModel() {
                 const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0);
 
           return object;
+        }),
+    Payment: EntityDefinition<Payment>(
+        model: _entities[3],
+        toOneRelations: (Payment object) => [],
+        toManyRelations: (Payment object) => {
+              RelInfo<Transaction>.toOneBacklink(11, object.id,
+                      (Transaction srcObject) => srcObject.payment):
+                  object.transactions
+            },
+        getId: (Payment object) => object.id,
+        setId: (Payment object, int id) {
+          object.id = id;
+        },
+        objectToFB: (Payment object, fb.Builder fbb) {
+          final nameOffset = fbb.writeString(object.name);
+          final emojiOffset = fbb.writeString(object.emoji);
+          fbb.startTable(5);
+          fbb.addInt64(0, object.id);
+          fbb.addOffset(1, nameOffset);
+          fbb.addOffset(2, emojiOffset);
+          fbb.addBool(3, object.active);
+          fbb.finish(fbb.endTable());
+          return object.id;
+        },
+        objectFromFB: (Store store, ByteData fbData) {
+          final buffer = fb.BufferContext(fbData);
+          final rootOffset = buffer.derefObject(0);
+
+          final object = Payment(
+              id: const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0),
+              name: const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 6, ''),
+              emoji: const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 8, ''),
+              active: const fb.BoolReader()
+                  .vTableGet(buffer, rootOffset, 10, false));
+          InternalToManyAccess.setRelInfo(
+              object.transactions,
+              store,
+              RelInfo<Transaction>.toOneBacklink(
+                  11, object.id, (Transaction srcObject) => srcObject.payment),
+              store.box<Payment>());
+          return object;
+        }),
+    Account: EntityDefinition<Account>(
+        model: _entities[4],
+        toOneRelations: (Account object) => [],
+        toManyRelations: (Account object) => {
+              RelInfo<Transaction>.toOneBacklink(6, object.id,
+                      (Transaction srcObject) => srcObject.account):
+                  object.transactions
+            },
+        getId: (Account object) => object.id,
+        setId: (Account object, int id) {
+          object.id = id;
+        },
+        objectToFB: (Account object, fb.Builder fbb) {
+          final nameOffset = fbb.writeString(object.name);
+          fbb.startTable(3);
+          fbb.addInt64(0, object.id);
+          fbb.addOffset(1, nameOffset);
+          fbb.finish(fbb.endTable());
+          return object.id;
+        },
+        objectFromFB: (Store store, ByteData fbData) {
+          final buffer = fb.BufferContext(fbData);
+          final rootOffset = buffer.derefObject(0);
+
+          final object = Account(
+              id: const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0),
+              name: const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 6, ''));
+          InternalToManyAccess.setRelInfo(
+              object.transactions,
+              store,
+              RelInfo<Transaction>.toOneBacklink(
+                  6, object.id, (Transaction srcObject) => srcObject.account),
+              store.box<Account>());
+          return object;
         })
   };
 
   return ModelDefinition(model, bindings);
 }
 
-/// [Account] entity fields to define ObjectBox queries.
-class Account_ {
-  /// see [Account.id]
-  static final id = QueryIntegerProperty<Account>(_entities[0].properties[0]);
-
-  /// see [Account.name]
-  static final name = QueryStringProperty<Account>(_entities[0].properties[1]);
-
-  /// see [Account.emoji]
-  static final emoji = QueryStringProperty<Account>(_entities[0].properties[2]);
-
-  /// see [Account.active]
-  static final active =
-      QueryBooleanProperty<Account>(_entities[0].properties[3]);
-}
-
 /// [Category] entity fields to define ObjectBox queries.
 class Category_ {
   /// see [Category.id]
-  static final id = QueryIntegerProperty<Category>(_entities[1].properties[0]);
+  static final id = QueryIntegerProperty<Category>(_entities[0].properties[0]);
 
   /// see [Category.emoji]
   static final emoji =
-      QueryStringProperty<Category>(_entities[1].properties[1]);
+      QueryStringProperty<Category>(_entities[0].properties[1]);
 
   /// see [Category.name]
-  static final name = QueryStringProperty<Category>(_entities[1].properties[2]);
+  static final name = QueryStringProperty<Category>(_entities[0].properties[2]);
 
   /// see [Category.active]
   static final active =
-      QueryBooleanProperty<Category>(_entities[1].properties[3]);
+      QueryBooleanProperty<Category>(_entities[0].properties[3]);
 }
 
 /// [Transaction] entity fields to define ObjectBox queries.
 class Transaction_ {
   /// see [Transaction.id]
   static final id =
-      QueryIntegerProperty<Transaction>(_entities[2].properties[0]);
+      QueryIntegerProperty<Transaction>(_entities[1].properties[0]);
 
   /// see [Transaction.dateTime]
   static final dateTime =
-      QueryIntegerProperty<Transaction>(_entities[2].properties[1]);
+      QueryIntegerProperty<Transaction>(_entities[1].properties[1]);
 
   /// see [Transaction.category]
   static final category =
-      QueryRelationToOne<Transaction, Category>(_entities[2].properties[2]);
+      QueryRelationToOne<Transaction, Category>(_entities[1].properties[2]);
 
   /// see [Transaction.account]
   static final account =
-      QueryRelationToOne<Transaction, Account>(_entities[2].properties[3]);
+      QueryRelationToOne<Transaction, Account>(_entities[1].properties[3]);
 
   /// see [Transaction.amount]
   static final amount =
-      QueryIntegerProperty<Transaction>(_entities[2].properties[4]);
+      QueryIntegerProperty<Transaction>(_entities[1].properties[4]);
 
   /// see [Transaction.dbType]
   static final dbType =
-      QueryIntegerProperty<Transaction>(_entities[2].properties[5]);
+      QueryIntegerProperty<Transaction>(_entities[1].properties[5]);
 
   /// see [Transaction.note]
   static final note =
-      QueryStringProperty<Transaction>(_entities[2].properties[6]);
+      QueryStringProperty<Transaction>(_entities[1].properties[6]);
+
+  /// see [Transaction.payment]
+  static final payment =
+      QueryRelationToOne<Transaction, Payment>(_entities[1].properties[7]);
 }
 
 /// [SettingEntity] entity fields to define ObjectBox queries.
 class SettingEntity_ {
   /// see [SettingEntity.id]
   static final id =
-      QueryIntegerProperty<SettingEntity>(_entities[3].properties[0]);
+      QueryIntegerProperty<SettingEntity>(_entities[2].properties[0]);
 
   /// see [SettingEntity.dbLanguage]
   static final dbLanguage =
-      QueryIntegerProperty<SettingEntity>(_entities[3].properties[1]);
+      QueryIntegerProperty<SettingEntity>(_entities[2].properties[1]);
 
   /// see [SettingEntity.dbThemeMode]
   static final dbThemeMode =
-      QueryIntegerProperty<SettingEntity>(_entities[3].properties[2]);
+      QueryIntegerProperty<SettingEntity>(_entities[2].properties[2]);
+}
+
+/// [Payment] entity fields to define ObjectBox queries.
+class Payment_ {
+  /// see [Payment.id]
+  static final id = QueryIntegerProperty<Payment>(_entities[3].properties[0]);
+
+  /// see [Payment.name]
+  static final name = QueryStringProperty<Payment>(_entities[3].properties[1]);
+
+  /// see [Payment.emoji]
+  static final emoji = QueryStringProperty<Payment>(_entities[3].properties[2]);
+
+  /// see [Payment.active]
+  static final active =
+      QueryBooleanProperty<Payment>(_entities[3].properties[3]);
+}
+
+/// [Account] entity fields to define ObjectBox queries.
+class Account_ {
+  /// see [Account.id]
+  static final id = QueryIntegerProperty<Account>(_entities[4].properties[0]);
+
+  /// see [Account.name]
+  static final name = QueryStringProperty<Account>(_entities[4].properties[1]);
 }

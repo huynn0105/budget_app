@@ -1,6 +1,6 @@
 import 'package:budget_app/constants.dart';
-import 'package:budget_app/core/blocs/account_bloc/account_bloc.dart';
 import 'package:budget_app/core/blocs/category_bloc/category_bloc.dart';
+import 'package:budget_app/core/blocs/payment_bloc/payment_bloc.dart';
 import 'package:budget_app/core/blocs/transaction_bloc/transaction_bloc.dart';
 import 'package:budget_app/translation/keyword.dart';
 import 'package:flutter/material.dart';
@@ -112,7 +112,7 @@ class EraseDataSettingScreen extends StatelessWidget {
                                 context
                                     .read<CategoryBloc>()
                                     .add(CategoryClear());
-                                context.read<AccountBloc>().add(AccountClear());
+                                context.read<PaymentBloc>().add(PaymentClear());
                                 Get.back();
                               },
                             ),

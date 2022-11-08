@@ -3,7 +3,7 @@ import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:budget_app/core/entities/account_entity.dart';
+import 'package:budget_app/core/entities/payment_entity.dart';
 import 'package:budget_app/core/entities/category_entity.dart';
 import 'package:budget_app/core/entities/transaction_entity.dart';
 import 'package:budget_app/core/services/interfaces/itransaction_service.dart';
@@ -24,7 +24,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
       final state = this.state;
       if (state is TransactionLoaded) {
         event.transaction.category.target = event.category;
-        event.transaction.account.target = event.account;
+        event.transaction.payment.target = event.payment;
         _transactionService.insertTransaction(event.transaction);
         final transactions = _transactionService.getTransactions();
         transactions.sort((a, b) => b.dateTime.compareTo(a.dateTime));

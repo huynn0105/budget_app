@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 import 'package:budget_app/core/entities/payment_entity.dart';
-import 'package:budget_app/core/services/interfaces/iaccount_service.dart';
+import 'package:budget_app/core/services/interfaces/ipayment_service.dart';
 import 'package:budget_app/global/locator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,7 +9,7 @@ part 'payment_event.dart';
 part 'payment_state.dart';
 
 class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
-  final _paymentService = locator<IAccountService>();
+  final _paymentService = locator<IPaymentService>();
 
   PaymentBloc() : super(PaymentInitial()) {
     on<PaymentStarted>((event, emit) {
@@ -24,7 +24,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
     on<PaymentAdded>((event, emit) {
       final state = this.state;
       if (state is PaymentLoaded) {
-        _paymentService.insertAccount(event.payment);
+        _paymentService.insertPayment(event.payment);
         emit(
           PaymentLoaded(
             payments: _paymentService.getPayments(),

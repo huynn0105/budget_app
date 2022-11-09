@@ -79,4 +79,8 @@ class KeyWork {
   static const eating = 'eating';
   static const chart = 'chart';
   static const viewChart = 'viewChart';
+  static const myBudget = 'myBudget';
+  static const newBudget = 'newBudget';
+  static const editBudget = 'editBudget';
+  static const enterBudget = 'enterBudget';
 }

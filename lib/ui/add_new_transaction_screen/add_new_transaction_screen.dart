@@ -16,7 +16,7 @@ import 'package:budget_app/core/blocs/category_bloc/category_bloc.dart';
 import 'package:budget_app/core/blocs/transaction_bloc/transaction_bloc.dart';
 import 'package:budget_app/core/blocs/transaction_type_cubit/transaction_type_cubit.dart';
 import 'package:budget_app/core/entities/transaction_entity.dart';
-import 'package:budget_app/ui/add_new_account_screen.dart';
+import 'package:budget_app/ui/add_new_payment_screen.dart';
 import 'package:budget_app/ui/add_new_category_screen.dart';
 import 'package:money_formatter/money_formatter.dart';
 

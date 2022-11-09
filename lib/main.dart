@@ -1,4 +1,5 @@
 import 'package:budget_app/core/blocs/analysis_bloc/analysis_bloc.dart';
+import 'package:budget_app/core/blocs/budget_bloc/budget_bloc.dart';
 import 'package:budget_app/core/blocs/category_bloc/category_bloc.dart';
 import 'package:budget_app/core/blocs/home_cubit/home_cubit.dart';
 import 'package:budget_app/core/blocs/payment_bloc/payment_bloc.dart';
@@ -61,5 +62,6 @@ List<BlocProviderSingleChildWidget> get listBlocProvider {
     BlocProvider(create: (_) => BottomNavBarCubit()),
     BlocProvider(create: (_) => AnalysisBloc()),
     BlocProvider(create: (_) => SettingBloc()),
+    BlocProvider(create: (_) => BudgetBloc()..add(const BudgetStarted())),
   ];
 }

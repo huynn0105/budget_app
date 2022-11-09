@@ -14,7 +14,7 @@ import 'package:objectbox/internal.dart'; // generated code can access "internal
 import 'package:objectbox/objectbox.dart';
 import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
-import 'core/entities/account_entity.dart';
+import 'core/entities/budget_entity.dart';
 import 'core/entities/category_entity.dart';
 import 'core/entities/payment_entity.dart';
 import 'core/entities/setting_entity.dart';
@@ -84,7 +84,7 @@ final _entities = <ModelEntity>[
             type: 11,
             flags: 520,
             indexId: const IdUid(3, 5021386532645676386),
-            relationTarget: 'Account'),
+            relationTarget: 'Budget'),
         ModelProperty(
             id: const IdUid(7, 1124505379606616695),
             name: 'amount',
@@ -113,7 +113,7 @@ final _entities = <ModelEntity>[
   ModelEntity(
       id: const IdUid(4, 2996561069980989109),
       name: 'SettingEntity',
-      lastPropertyId: const IdUid(3, 5450406603083700164),
+      lastPropertyId: const IdUid(5, 560616708621082994),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
@@ -130,7 +130,14 @@ final _entities = <ModelEntity>[
             id: const IdUid(3, 5450406603083700164),
             name: 'dbThemeMode',
             type: 6,
-            flags: 0)
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(5, 560616708621082994),
+            name: 'budgetId',
+            type: 11,
+            flags: 520,
+            indexId: const IdUid(7, 2590334878588158583),
+            relationTarget: 'Budget')
       ],
       relations: <ModelRelation>[],
       backlinks: <ModelBacklink>[]),
@@ -167,19 +174,24 @@ final _entities = <ModelEntity>[
             name: 'transactions', srcEntity: 'Transaction', srcField: '')
       ]),
   ModelEntity(
-      id: const IdUid(7, 7969227711269589476),
-      name: 'Account',
-      lastPropertyId: const IdUid(2, 9123652872069993126),
+      id: const IdUid(8, 3310321789883508561),
+      name: 'Budget',
+      lastPropertyId: const IdUid(3, 9166126137482215681),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
-            id: const IdUid(1, 252383646842821722),
+            id: const IdUid(1, 2636788616032013361),
             name: 'id',
             type: 6,
             flags: 1),
         ModelProperty(
-            id: const IdUid(2, 9123652872069993126),
+            id: const IdUid(2, 5081778244170789269),
             name: 'name',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(3, 9166126137482215681),
+            name: 'image',
             type: 9,
             flags: 0)
       ],
@@ -210,12 +222,20 @@ Future<Store> openStore(
 ModelDefinition getObjectBoxModel() {
   final model = ModelInfo(
       entities: _entities,
-      lastEntityId: const IdUid(7, 7969227711269589476),
-      lastIndexId: const IdUid(5, 475914921134855771),
+      lastEntityId: const IdUid(8, 3310321789883508561),
+      lastIndexId: const IdUid(7, 2590334878588158583),
       lastRelationId: const IdUid(0, 0),
       lastSequenceId: const IdUid(0, 0),
-      retiredEntityUids: const [8296679817524583314, 4496292267058893169],
-      retiredIndexUids: const [4779389994422262847, 7056461475385909954],
+      retiredEntityUids: const [
+        8296679817524583314,
+        4496292267058893169,
+        7969227711269589476
+      ],
+      retiredIndexUids: const [
+        4779389994422262847,
+        7056461475385909954,
+        6782139830530321343
+      ],
       retiredPropertyUids: const [
         2060229492095202932,
         9080673135740415875,
@@ -225,7 +245,10 @@ ModelDefinition getObjectBoxModel() {
         5434269270498639034,
         7369415057554100201,
         3979446512432894809,
-        5603855170268429572
+        5603855170268429572,
+        1264065323284480606,
+        252383646842821722,
+        9123652872069993126
       ],
       retiredRelationUids: const [],
       modelVersion: 5,
@@ -326,17 +349,18 @@ ModelDefinition getObjectBoxModel() {
         }),
     SettingEntity: EntityDefinition<SettingEntity>(
         model: _entities[2],
-        toOneRelations: (SettingEntity object) => [],
+        toOneRelations: (SettingEntity object) => [object.budget],
         toManyRelations: (SettingEntity object) => {},
         getId: (SettingEntity object) => object.id,
         setId: (SettingEntity object, int id) {
           object.id = id;
         },
         objectToFB: (SettingEntity object, fb.Builder fbb) {
-          fbb.startTable(4);
+          fbb.startTable(6);
           fbb.addInt64(0, object.id);
           fbb.addInt64(1, object.dbLanguage);
           fbb.addInt64(2, object.dbThemeMode);
+          fbb.addInt64(4, object.budget.targetId);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -350,7 +374,9 @@ ModelDefinition getObjectBoxModel() {
                 const fb.Int64Reader().vTableGet(buffer, rootOffset, 6, 0)
             ..dbThemeMode =
                 const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0);
-
+          object.budget.targetId =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 12, 0);
+          object.budget.attach(store);
           return object;
         }),
     Payment: EntityDefinition<Payment>(
@@ -396,23 +422,25 @@ ModelDefinition getObjectBoxModel() {
               store.box<Payment>());
           return object;
         }),
-    Account: EntityDefinition<Account>(
+    Budget: EntityDefinition<Budget>(
         model: _entities[4],
-        toOneRelations: (Account object) => [],
-        toManyRelations: (Account object) => {
+        toOneRelations: (Budget object) => [],
+        toManyRelations: (Budget object) => {
               RelInfo<Transaction>.toOneBacklink(6, object.id,
                       (Transaction srcObject) => srcObject.account):
                   object.transactions
             },
-        getId: (Account object) => object.id,
-        setId: (Account object, int id) {
+        getId: (Budget object) => object.id,
+        setId: (Budget object, int id) {
           object.id = id;
         },
-        objectToFB: (Account object, fb.Builder fbb) {
+        objectToFB: (Budget object, fb.Builder fbb) {
           final nameOffset = fbb.writeString(object.name);
-          fbb.startTable(3);
+          final imageOffset = fbb.writeString(object.image);
+          fbb.startTable(4);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, nameOffset);
+          fbb.addOffset(2, imageOffset);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -420,16 +448,18 @@ ModelDefinition getObjectBoxModel() {
           final buffer = fb.BufferContext(fbData);
           final rootOffset = buffer.derefObject(0);
 
-          final object = Account(
+          final object = Budget(
               id: const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0),
               name: const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 6, ''));
+                  .vTableGet(buffer, rootOffset, 6, ''),
+              image: const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 8, ''));
           InternalToManyAccess.setRelInfo(
               object.transactions,
               store,
               RelInfo<Transaction>.toOneBacklink(
                   6, object.id, (Transaction srcObject) => srcObject.account),
-              store.box<Account>());
+              store.box<Budget>());
           return object;
         })
   };
@@ -470,7 +500,7 @@ class Transaction_ {
 
   /// see [Transaction.account]
   static final account =
-      QueryRelationToOne<Transaction, Account>(_entities[1].properties[3]);
+      QueryRelationToOne<Transaction, Budget>(_entities[1].properties[3]);
 
   /// see [Transaction.amount]
   static final amount =
@@ -502,6 +532,10 @@ class SettingEntity_ {
   /// see [SettingEntity.dbThemeMode]
   static final dbThemeMode =
       QueryIntegerProperty<SettingEntity>(_entities[2].properties[2]);
+
+  /// see [SettingEntity.budget]
+  static final budget =
+      QueryRelationToOne<SettingEntity, Budget>(_entities[2].properties[3]);
 }
 
 /// [Payment] entity fields to define ObjectBox queries.
@@ -520,11 +554,14 @@ class Payment_ {
       QueryBooleanProperty<Payment>(_entities[3].properties[3]);
 }
 
-/// [Account] entity fields to define ObjectBox queries.
-class Account_ {
-  /// see [Account.id]
-  static final id = QueryIntegerProperty<Account>(_entities[4].properties[0]);
+/// [Budget] entity fields to define ObjectBox queries.
+class Budget_ {
+  /// see [Budget.id]
+  static final id = QueryIntegerProperty<Budget>(_entities[4].properties[0]);
 
-  /// see [Account.name]
-  static final name = QueryStringProperty<Account>(_entities[4].properties[1]);
+  /// see [Budget.name]
+  static final name = QueryStringProperty<Budget>(_entities[4].properties[1]);
+
+  /// see [Budget.image]
+  static final image = QueryStringProperty<Budget>(_entities[4].properties[2]);
 }

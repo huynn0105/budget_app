@@ -2,7 +2,7 @@ import 'package:budget_app/constants.dart';
 import 'package:budget_app/core/blocs/payment_bloc/payment_bloc.dart';
 import 'package:budget_app/core/entities/payment_entity.dart';
 import 'package:budget_app/translation/keyword.dart';
-import 'package:budget_app/ui/add_new_account_screen.dart';
+import 'package:budget_app/ui/add_new_payment_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

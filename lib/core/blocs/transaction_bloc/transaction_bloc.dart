@@ -1,3 +1,4 @@
+import 'package:budget_app/core/services/interfaces/isetting_service.dart';
 import 'package:budget_app/core/utils/datetime_util.dart';
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
@@ -14,6 +15,7 @@ part 'transaction_state.dart';
 
 class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   final _transactionService = locator<ITransactionService>();
+  final _settingService = locator<ISettingService>();
   TransactionBloc() : super(const TransactionInitial()) {
     on<TransactionStarted>((event, emit) {
       final transactions = _transactionService.getTransactions();
@@ -25,6 +27,8 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
       if (state is TransactionLoaded) {
         event.transaction.category.target = event.category;
         event.transaction.payment.target = event.payment;
+        event.transaction.account.target =
+            _settingService.getCurrentSetting().budget.target;
         _transactionService.insertTransaction(event.transaction);
         final transactions = _transactionService.getTransactions();
         transactions.sort((a, b) => b.dateTime.compareTo(a.dateTime));

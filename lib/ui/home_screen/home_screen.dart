@@ -1,10 +1,12 @@
 import 'package:budget_app/constants.dart';
+import 'package:budget_app/core/blocs/budget_bloc/budget_bloc.dart';
 import 'package:budget_app/core/blocs/home_cubit/home_cubit.dart';
 import 'package:budget_app/core/blocs/transaction_bloc/transaction_bloc.dart';
 import 'package:budget_app/core/entities/transaction_entity.dart';
 import 'package:budget_app/core/utils/datetime_util.dart';
 import 'package:budget_app/core/utils/enum_helper.dart';
 import 'package:budget_app/translation/keyword.dart';
+import 'package:budget_app/ui/add_new_budget_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+  var scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     Widget homeScreen(BottomNavBar item) {
@@ -50,12 +53,13 @@ class _HomeScreenState extends State<HomeScreen> {
     return BlocBuilder<BottomNavBarCubit, BottomNavBarState>(
       builder: (context, state) {
         return Scaffold(
+          key: scaffoldKey,
           appBar: AppBar(
             elevation: 0,
-            toolbarHeight: 20,
+            toolbarHeight: 30,
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            automaticallyImplyLeading: false,
           ),
-          resizeToAvoidBottomInset: false,
           body: homeScreen(state.navBar),
           bottomNavigationBar: BottomNavigationBar(
             showSelectedLabels: false,
@@ -73,6 +77,55 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: (index) {
               context.read<BottomNavBarCubit>().onItemTapped(index);
             },
+          ),
+          drawer: Drawer(
+            child: BlocBuilder<BudgetBloc, BudgetState>(
+              builder: (context, state) {
+                if (state is BudgetLoaded) {
+                  return ListView(
+                    children: [
+                      DrawerHeader(
+                          child: Column(
+                        children: [
+                          Text(
+                            state.currentBudget.image,
+                            style: TextStyleUtils.bold(45),
+                          ),
+                          SizedBox(height: 10),
+                          Text(state.currentBudget.name.tr),
+                        ],
+                      )),
+                      ...state.budgets
+                          .where((e) => e.id != state.currentBudget.id)
+                          .map((e) => ListTile(
+                                title: Text(e.name.tr),
+                                leading: Icon(Icons.account_box),
+                                onTap: () {
+                                  context
+                                      .read<BudgetBloc>()
+                                      .add(BudgetChanged(budget: e));
+                                  context
+                                      .read<TransactionBloc>()
+                                      .add(TransactionStarted());
+                                },
+                              ))
+                          .toList(),
+                      ListTile(
+                        title: Text(KeyWork.newBudget.tr),
+                        onTap: () {
+                          Get.to(() => AddNewBudgetScreen());
+                        },
+                        minLeadingWidth: 20,
+                        minVerticalPadding: 10,
+                        horizontalTitleGap: 10,
+                        leading: Icon(Icons.add_box_rounded),
+                      )
+                    ],
+                  );
+                }
+                return CircularProgressIndicator();
+              },
+            ),
           ),
           floatingActionButton: FloatingActionButton(
             key: const Key('addNewTransaction'),
@@ -108,14 +161,12 @@ class HomeWidget extends StatelessWidget {
             children: [
               SizedBox(width: 10),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  // scaffoldKey.currentState!.openDrawer();
+                  Scaffold.of(context).openDrawer();
+                },
                 borderRadius: BorderRadius.circular(20),
-                
-                child: Image.asset(
-                  'assets/images/group.png',
-                  width: 25,
-                  height: 25,
-                ),
+                child: Icon(Icons.menu),
               ),
             ],
           ),

@@ -4,7 +4,7 @@ import 'package:objectbox/objectbox.dart';
 import 'package:budget_app/core/entities/payment_entity.dart';
 import 'package:budget_app/core/entities/category_entity.dart';
 
-import 'account_entity.dart';
+import 'budget_entity.dart';
 import 'base_entity.dart';
 
 @Entity()
@@ -17,20 +17,17 @@ class Transaction extends BaseEntity {
   final int amount;
   @Transient()
   TransactionType type;
-  int _transactionType = 0;
 
   final payment = ToOne<Payment>();
   final category = ToOne<Category>();
-  final account = ToOne<Account>();
+  final account = ToOne<Budget>();
   Transaction({
     this.id = 0,
     required this.note,
     required this.dateTime,
     required this.amount,
     this.type = TransactionType.expense,
-  }) {
-    _transactionType = type.index;
-  }
+  });
 
   set dbType(int value) {
     _ensureStableEnumValues();

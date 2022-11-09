@@ -81,5 +81,9 @@ const Map<String, String> en = {
   KeyWork.version: 'Version',
   KeyWork.eating: 'Eating',
   KeyWork.viewChart: 'View chart',
-  KeyWork.chart: 'Chart'
+  KeyWork.chart: 'Chart',
+  KeyWork.myBudget: 'My Budget',
+  KeyWork.newBudget: 'New Budget',
+  KeyWork.enterBudget: 'Enter Budget Name',
+  KeyWork.editBudget: 'Edit Budget',
 };

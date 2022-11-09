@@ -1,7 +1,7 @@
 import 'package:budget_app/core/entities/payment_entity.dart';
 import 'package:budget_app/core/entities/category_entity.dart';
 import 'package:budget_app/core/entities/transaction_entity.dart';
-import 'package:budget_app/core/services/interfaces/iaccount_service.dart';
+import 'package:budget_app/core/services/interfaces/ipayment_service.dart';
 import 'package:budget_app/core/services/interfaces/icategory_service.dart';
 import 'package:budget_app/core/services/interfaces/itransaction_service.dart';
 import 'package:budget_app/global/locator.dart';
@@ -51,11 +51,11 @@ void main() async {
   });
 
   group('Account test', () {
-    final accountService = locator<IAccountService>();
+    final accountService = locator<IPaymentService>();
     test('User created account, accounts list should add new account', () {
       final account = Payment(name: 'food', emoji: 'food');
-      int accountId = accountService.insertAccount(account);
-      Payment? accountInDb = accountService.findAccountById(accountId);
+      int accountId = accountService.insertPayment(account);
+      Payment? accountInDb = accountService.findPaymentById(accountId);
       expect(account.id, accountId);
       expect(account, accountInDb);
     });
@@ -63,7 +63,7 @@ void main() async {
       final accounts = accountService.getPayments();
       final accountInList = accounts.first;
       accountService.deletePayment(accountInList);
-      Payment? accountInDb = accountService.findAccountById(accountInList.id);
+      Payment? accountInDb = accountService.findPaymentById(accountInList.id);
       expect(null, accountInDb);
     });
   });

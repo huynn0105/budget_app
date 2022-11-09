@@ -1,9 +1,9 @@
 import 'package:budget_app/core/database/daos/payment_dao.dart';
 import 'package:budget_app/core/entities/payment_entity.dart';
-import 'package:budget_app/core/services/interfaces/iaccount_service.dart';
+import 'package:budget_app/core/services/interfaces/ipayment_service.dart';
 import 'package:budget_app/global/locator.dart';
 
-class AccountService implements IAccountService {
+class PaymentService implements IPaymentService {
   final _paymentDao = locator<PaymentDao>();
   @override
   List<Payment> getPayments() {
@@ -15,12 +15,12 @@ class AccountService implements IAccountService {
   }
 
   @override
-  int insertAccount(Payment payment) {
+  int insertPayment(Payment payment) {
     return _paymentDao.insert(payment);
   }
 
   @override
-  Payment? findAccountById(int id) {
+  Payment? findPaymentById(int id) {
     return _paymentDao.findById(id);
   }
 

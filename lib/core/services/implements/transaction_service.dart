@@ -1,3 +1,4 @@
+import 'package:budget_app/core/database/daos/setting_dao.dart';
 import 'package:budget_app/core/database/daos/transaction_dao.dart';
 import 'package:budget_app/core/entities/transaction_entity.dart';
 import 'package:budget_app/core/services/interfaces/itransaction_service.dart';
@@ -6,6 +7,7 @@ import 'package:budget_app/global/locator.dart';
 
 class TransactionService implements ITransactionService {
   final _transactionDao = locator<TransactionDao>();
+  final _settingDao = locator<SettingDao>();
 
   @override
   Transaction? getTransactionById(int id) {
@@ -14,7 +16,7 @@ class TransactionService implements ITransactionService {
 
   @override
   List<Transaction> getTransactions() {
-    return _transactionDao.getAll();
+    return _settingDao.getCurrentSetting().budget.target!.transactions.toList();
   }
 
   @override
@@ -36,8 +38,7 @@ class TransactionService implements ITransactionService {
   List<Transaction> getWeekTransactions(DateTime date) {
     final startOfWeek = date.startOfWeek().millisecondsSinceEpoch;
     final endOfWeek = date.endOfWeek().millisecondsSinceEpoch;
-    final transactions = _transactionDao
-        .getAll()
+    final transactions = getTransactions()
         .where((x) =>
             x.dateTime.millisecondsSinceEpoch >= startOfWeek &&
             x.dateTime.millisecondsSinceEpoch <= endOfWeek)
@@ -48,7 +49,7 @@ class TransactionService implements ITransactionService {
 
   @override
   List<Transaction> getYearTransactions(DateTime date) {
-    final transactions = _transactionDao.getAll();
+    final transactions = getTransactions();
     transactions.sort((a, b) => b.dateTime.compareTo(a.dateTime));
     return transactions;
   }
@@ -57,8 +58,7 @@ class TransactionService implements ITransactionService {
   List<Transaction> getMonthTransactions(DateTime date) {
     final first = date.firstDayOfMonth().millisecondsSinceEpoch;
     final end = date.endOfWeek().millisecondsSinceEpoch;
-    final transactions = _transactionDao
-        .getAll()
+    final transactions = getTransactions()
         .where((x) =>
             x.dateTime.millisecondsSinceEpoch >= first &&
             x.dateTime.millisecondsSinceEpoch <= end)

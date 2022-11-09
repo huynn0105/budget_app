@@ -1,7 +1,9 @@
+import 'package:budget_app/core/services/implements/budget_service.dart';
 import 'package:budget_app/core/services/implements/payment_service.dart';
 import 'package:budget_app/core/services/implements/category_service.dart';
 import 'package:budget_app/core/services/implements/setting_service.dart';
-import 'package:budget_app/core/services/interfaces/iaccount_service.dart';
+import 'package:budget_app/core/services/interfaces/ibudget_service.dart';
+import 'package:budget_app/core/services/interfaces/ipayment_service.dart';
 import 'package:budget_app/core/services/interfaces/icategory_service.dart';
 import 'package:budget_app/core/services/interfaces/isetting_service.dart';
 import 'package:budget_app/core/services/interfaces/itransaction_service.dart';
@@ -13,6 +15,7 @@ void registerServiceSingletons(GetIt locator) {
   locator
       .registerLazySingleton<ITransactionService>(() => TransactionService());
   locator.registerLazySingleton<ICategoryService>(() => CategoryService());
-  locator.registerLazySingleton<IAccountService>(() => AccountService());
+  locator.registerLazySingleton<IPaymentService>(() => PaymentService());
   locator.registerLazySingleton<ISettingService>(() => SettingService());
+  locator.registerLazySingleton<IBudgetService>(() => AccountService());
 }

@@ -1,9 +1,9 @@
 import 'package:budget_app/core/entities/payment_entity.dart';
 
-abstract class IAccountService {
+abstract class IPaymentService {
   List<Payment> getPayments();
-  Payment? findAccountById(int id);
-  int insertAccount(Payment account);
+  Payment? findPaymentById(int id);
+  int insertPayment(Payment account);
   void deletePayment(Payment account);
   void clear();
 }

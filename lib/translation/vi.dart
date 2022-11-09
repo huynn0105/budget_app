@@ -64,4 +64,8 @@ const Map<String, String> vi = {
   KeyWork.eating: 'Ăn uống',
   KeyWork.viewChart: 'Xem biểu đồ',
   KeyWork.chart: 'Biểu đồ',
+  KeyWork.myBudget: 'Ngân sách của tôi',
+  KeyWork.newBudget: 'Ngân sách mới',
+  KeyWork.enterBudget: 'Nhập tên ngân sách',
+  KeyWork.editBudget: 'Chỉnh sửa ngân sách',
 };

@@ -1,4 +1,5 @@
 import 'package:budget_app/core/database/daos/setting_dao.dart';
+import 'package:budget_app/core/entities/budget_entity.dart';
 import 'package:budget_app/core/entities/setting_entity.dart';
 import 'package:budget_app/core/services/interfaces/isetting_service.dart';
 import 'package:budget_app/core/utils/enum_helper.dart';
@@ -10,23 +11,27 @@ class SettingService implements ISettingService {
 
   @override
   SettingEntity getCurrentSetting() {
-    if (_settingDao.getAll().length <= 0) {
-      _settingDao.insert(SettingEntity());
-    }
-    return _settingDao.getAll().first;
+    return _settingDao.getCurrentSetting();
   }
 
   @override
   void changeLanguage(Language language) {
-    var currentSetting = getCurrentSetting();
+    var currentSetting = _settingDao.getCurrentSetting();
     final newCurrentSetting = currentSetting.copyWith(language: language);
     _settingDao.update(newCurrentSetting);
   }
 
   @override
   void changeThemeMode(ThemeMode themeMode) {
-    var currentSetting = getCurrentSetting();
+    var currentSetting = _settingDao.getCurrentSetting();
     final newCurrentSetting = currentSetting.copyWith(themeMode: themeMode);
+    _settingDao.update(newCurrentSetting);
+  }
+
+  @override
+  void changeAccount(Budget account) {
+    var currentSetting = _settingDao.getCurrentSetting();
+    final newCurrentSetting = currentSetting.copyWith(account: account);
     _settingDao.update(newCurrentSetting);
   }
 }

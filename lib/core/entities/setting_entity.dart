@@ -5,7 +5,7 @@ import 'package:objectbox/objectbox.dart';
 
 import 'package:budget_app/core/entities/base_entity.dart';
 
-import 'account_entity.dart';
+import 'budget_entity.dart';
 
 @Entity()
 // ignore: must_be_immutable
@@ -16,18 +16,13 @@ class SettingEntity extends BaseEntity {
   Language? language;
   @Transient()
   ThemeMode themeMode;
-  int _dbLanguage = 0;
-  int _dbThemeMode = 0;
-  var account = ToOne<Account>();
+  var budget = ToOne<Budget>();
 
   SettingEntity({
     this.id = 0,
     this.language = Language.english,
     this.themeMode = ThemeMode.system,
-  }) {
-    _dbLanguage = language?.index ?? 0;
-    _dbThemeMode = themeMode.index;
-  }
+  });
 
   set dbLanguage(int value) {
     _ensureStableEnumValues();
@@ -73,11 +68,12 @@ class SettingEntity extends BaseEntity {
     int? id,
     Language? language,
     ThemeMode? themeMode,
+    Budget? account,
   }) {
     return SettingEntity(
       id: id ?? this.id,
       language: language ?? this.language,
       themeMode: themeMode ?? this.themeMode,
-    );
+    )..budget.target = account ?? this.budget.target;
   }
 }

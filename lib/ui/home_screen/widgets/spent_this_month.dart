@@ -11,6 +11,7 @@ class _SpentThisWeek extends StatelessWidget {
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
       children: [
         Text(
           KeyWork.spentThisWeek.tr,

@@ -42,7 +42,9 @@ class _HomeScreenState extends State<HomeScreen> {
     Widget homeScreen(BottomNavBar item) {
       switch (item) {
         case BottomNavBar.home:
-          return const HomeWidget();
+          return HomeWidget(
+            scaffoldKey: scaffoldKey,
+          );
         case BottomNavBar.analysis:
           return const AnalysisScreen();
         case BottomNavBar.settiing:
@@ -54,9 +56,10 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, state) {
         return Scaffold(
           key: scaffoldKey,
+          resizeToAvoidBottomInset: true,
           appBar: AppBar(
             elevation: 0,
-            toolbarHeight: 30,
+            toolbarHeight: 20,
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             automaticallyImplyLeading: false,
           ),
@@ -107,6 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   context
                                       .read<TransactionBloc>()
                                       .add(TransactionStarted());
+                                  scaffoldKey.currentState!.openEndDrawer();
                                 },
                               ))
                           .toList(),
@@ -149,7 +153,10 @@ class _HomeScreenState extends State<HomeScreen> {
 class HomeWidget extends StatelessWidget {
   const HomeWidget({
     Key? key,
+    required this.scaffoldKey,
   }) : super(key: key);
+
+  final GlobalKey<ScaffoldState> scaffoldKey;
 
   @override
   Widget build(BuildContext context) {
@@ -162,11 +169,34 @@ class HomeWidget extends StatelessWidget {
               SizedBox(width: 10),
               InkWell(
                 onTap: () {
-                  // scaffoldKey.currentState!.openDrawer();
-                  Scaffold.of(context).openDrawer();
+                  scaffoldKey.currentState!.openDrawer();
+                  //Scaffold.of(context).openDrawer();
                 },
                 borderRadius: BorderRadius.circular(20),
-                child: Icon(Icons.menu),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(Icons.menu),
+                ),
+              ),
+              Spacer(),
+              BlocBuilder<BudgetBloc, BudgetState>(
+                builder: (context, state) {
+                  if (state is BudgetLoaded) {
+                    return Row(
+                      children: [
+                        Text(
+                          state.currentBudget.name,
+                          style: TextStyleUtils.regular(16),
+                        ),
+                        Text(
+                          state.currentBudget.image,
+                          style: TextStyleUtils.regular(18),
+                        ),
+                      ],
+                    );
+                  }
+                  return CircularProgressIndicator();
+                },
               ),
             ],
           ),

@@ -3,6 +3,7 @@ import 'package:budget_app/core/blocs/setting_bloc/setting_bloc.dart';
 import 'package:budget_app/core/utils/enum_helper.dart';
 import 'package:budget_app/translation/keyword.dart';
 import 'package:budget_app/ui/setting_screen/widgets/about_setting_screen.dart';
+import 'package:budget_app/ui/setting_screen/widgets/budget_setting_screen.dart';
 import 'package:budget_app/ui/setting_screen/widgets/payment_setting_screen.dart';
 import 'package:budget_app/ui/setting_screen/widgets/category_setting_screen.dart';
 import 'package:budget_app/ui/setting_screen/widgets/dark_mode_setting_screen.dart';
@@ -24,6 +25,21 @@ class SettingScreen extends StatelessWidget {
       padding: EdgeInsets.all(16.0.r),
       child: Column(
         children: [
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.0.r),
+            ),
+            elevation: 0.8,
+            child: _SettingItem(
+              icon: Icons.group,
+              onTap: () {
+                Get.to(() => BudgetSettingScreen());
+              },
+              title: 'Manager user',
+              value: '',
+            ),
+          ),
+          SizedBox(height: 10),
           Card(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12.0.r),

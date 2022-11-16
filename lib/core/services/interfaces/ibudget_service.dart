@@ -4,4 +4,5 @@ abstract class IBudgetService {
   List<Budget> getAllAccounts();
   int insertAccount(Budget account);
   void deleteAccount(Budget account);
+
 }

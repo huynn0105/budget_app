@@ -86,4 +86,5 @@ const Map<String, String> en = {
   KeyWork.newBudget: 'New Budget',
   KeyWork.enterBudget: 'Enter Budget Name',
   KeyWork.editBudget: 'Edit Budget',
+  KeyWork.removeBudget: 'Remove Budget',
 };

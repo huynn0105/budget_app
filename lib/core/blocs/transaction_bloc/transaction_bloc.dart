@@ -50,7 +50,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
       ),
     );
     on<TransactionClear>((event, emit) {
-      _transactionService.clear();
+      _transactionService.removeTransactionInBudget();
       emit(TransactionLoaded(transactions: []));
     });
   }

@@ -17,6 +17,7 @@ abstract class BaseDao<T extends BaseEntity> {
   void update(T entity) => _box.put(entity, mode: PutMode.update);
   bool delete(int id) => _box.remove(id);
   void deleteAll() => _box.removeAll();
+  void removeMany(List<int> ids) => _box.removeMany;
   List<int> insertAll(List<T> entities) => _box.putMany(entities);
   List<T> getAll() => _box.getAll();
   Stream<List<T>> getAllStream() =>

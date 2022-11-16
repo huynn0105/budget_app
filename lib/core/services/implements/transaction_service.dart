@@ -66,4 +66,10 @@ class TransactionService implements ITransactionService {
     transactions.sort((a, b) => b.dateTime.compareTo(a.dateTime));
     return transactions;
   }
+
+  @override
+  void removeTransactionInBudget() {
+    final transactionsInBudget = getTransactions();
+    _transactionDao.removeMany(transactionsInBudget.map((e) => e.id).toList());
+  }
 }

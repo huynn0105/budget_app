@@ -83,4 +83,5 @@ class KeyWork {
   static const newBudget = 'newBudget';
   static const editBudget = 'editBudget';
   static const enterBudget = 'enterBudget';
+  static const removeBudget = 'removeBudget';
 }

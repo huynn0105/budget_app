@@ -68,4 +68,5 @@ const Map<String, String> vi = {
   KeyWork.newBudget: 'Ngân sách mới',
   KeyWork.enterBudget: 'Nhập tên ngân sách',
   KeyWork.editBudget: 'Chỉnh sửa ngân sách',
+  KeyWork.removeBudget: 'Xoá ngân sách',
 };

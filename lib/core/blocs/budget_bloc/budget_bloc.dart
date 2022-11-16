@@ -27,6 +27,17 @@ class BudgetBloc extends Bloc<BudgetEvent, BudgetState> {
         emit(state.copyWith(currentBudget: event.budget));
       }
     });
+    on<BudgetRemoved>((event, emit) {
+      _budgetService.deleteAccount(event.budget);
+      final budgets = _budgetService.getAllAccounts();
+      _settingService.changeAccount(budgets.first);
+      emit(
+        BudgetLoaded(
+          budgets: budgets,
+          currentBudget: _settingService.getCurrentSetting().budget.target!,
+        ),
+      );
+    });
     on<BudgetAdded>((event, emit) {
       _budgetService.insertAccount(event.budget);
       _settingService.changeAccount(event.budget);

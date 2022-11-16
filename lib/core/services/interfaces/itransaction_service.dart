@@ -6,6 +6,7 @@ abstract class ITransactionService {
   List<Transaction> getTransactions();
   Transaction? getTransactionById(int id);
   void clear();
+  void removeTransactionInBudget();
   List<Transaction> getWeekTransactions(DateTime date);
   List<Transaction> getYearTransactions(DateTime date);
   List<Transaction> getMonthTransactions(DateTime date);

@@ -148,15 +148,18 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
                   ),
                 ),
                 SizedBox(height: 20.h),
-                IntrinsicWidth(
-                  child: TextField(
-                    controller: noteController,
-                    key: const Key('noteTextField'),
-                    style: TextStyleUtils.regular(14),
-                    decoration: InputDecoration(
-                      hintText: KeyWork.enterNote.tr,
-                      hintStyle: TextStyleUtils.regular(14),
-                      isDense: true,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: IntrinsicWidth(
+                    child: TextField(
+                      controller: noteController,
+                      key: const Key('noteTextField'),
+                      style: TextStyleUtils.regular(14),
+                      decoration: InputDecoration(
+                        hintText: KeyWork.enterNote.tr,
+                        hintStyle: TextStyleUtils.regular(14),
+                        isDense: true,
+                      ),
                     ),
                   ),
                 ),

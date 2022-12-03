@@ -185,7 +185,7 @@ class HomeWidget extends StatelessWidget {
                     return Row(
                       children: [
                         Text(
-                          state.currentBudget.name,
+                          state.currentBudget.name.tr,
                           style: TextStyleUtils.regular(16),
                         ),
                         Text(

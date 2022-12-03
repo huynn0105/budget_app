@@ -79,39 +79,41 @@ class _TransactionItem extends StatelessWidget {
           : Colors.red.withOpacity(0.08),
       child: Padding(
         padding: EdgeInsets.all(10.0.r),
-        child: Row(
+        child: Column(
           children: [
-            Text(
-              DateFormat('HH:mm').format(transaction.dateTime),
-              style: TextStyleUtils.regular(12),
-            ),
-            SizedBox(width: 5.w),
-            Text(
-              transaction.category.target!.emoji,
-              style: TextStyleUtils.regular(30),
-            ),
-            SizedBox(width: 10.w),
-            Expanded(
-              child: Row(
-                children: [
-                  Text(
+            Row(
+              children: [
+                Text(
+                  DateFormat('HH:mm').format(transaction.dateTime),
+                  style: TextStyleUtils.regular(12),
+                ),
+                SizedBox(width: 5.w),
+                Text(
+                  transaction.category.target!.emoji,
+                  style: TextStyleUtils.regular(30),
+                ),
+                SizedBox(width: 10.w),
+                Expanded(
+                  child: Text(
                     transaction.category.target!.name.tr,
                     style: TextStyleUtils.regular(18),
                   ),
-                  SizedBox(width: 5.w),
-                  transaction.note.isNotEmpty
-                      ? Text(
-                          '(${transaction.note})',
-                          style: TextStyleUtils.regular(14),
-                        )
-                      : const SizedBox.shrink(),
-                ],
-              ),
+                ),
+                Text(
+                  '${transaction.type == TransactionType.expense ? '-' : ''}${format.format(transaction.amount)}đ',
+                  style: TextStyleUtils.regular(16),
+                ),
+              ],
             ),
-            Text(
-              '${transaction.type == TransactionType.expense ? '-' : ''}${format.format(transaction.amount)}đ',
-              style: TextStyleUtils.regular(16),
-            ),
+            if (transaction.note.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.only(top: 5),
+                child: Text(
+                  '${transaction.note}',
+                  style: TextStyleUtils.regular(14)
+                      .copyWith(color: Colors.black45),
+                ),
+              )
           ],
         ),
       ),

@@ -129,35 +129,36 @@ class _TransactionItem extends StatelessWidget {
             : Colors.red.withOpacity(0.06),
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 8.0.r, horizontal: 16.r),
-          child: Row(
+          child: Column(
             children: [
-              Text(
-                transaction.category.target!.emoji,
-                style: TextStyleUtils.regular(30),
-              ),
-              SizedBox(width: 10.w),
-              Expanded(
-                child: Row(
-                  children: [
-                    Text(
+              Row(
+                children: [
+                  Text(
+                    transaction.category.target!.emoji,
+                    style: TextStyleUtils.regular(30),
+                  ),
+                  SizedBox(width: 10.w),
+                  Expanded(
+                    child: Text(
                       transaction.category.target!.name.tr,
                       style: TextStyleUtils.regular(16),
                     ),
-                    SizedBox(width: 5.w),
-                    transaction.note.isNotEmpty
-                        ? Text(
-                            '(${transaction.note})',
-                            style: TextStyleUtils.regular(14)
-                                .copyWith(color: Colors.black45),
-                          )
-                        : const SizedBox.shrink(),
-                  ],
+                  ),
+                  Text(
+                    '${transaction.type == TransactionType.expense ? '-' : ''}${format.format(transaction.amount)}đ',
+                    style: TextStyleUtils.regular(16),
+                  ),
+                ],
+              ),
+              if (transaction.note.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.only(top: 5),
+                  child: Text(
+                    '${transaction.note}',
+                    style: TextStyleUtils.regular(14)
+                        .copyWith(color: Colors.black45),
+                  ),
                 ),
-              ),
-              Text(
-                '${transaction.type == TransactionType.expense ? '-' : ''}${format.format(transaction.amount)}đ',
-                style: TextStyleUtils.regular(16),
-              ),
             ],
           ),
         ),

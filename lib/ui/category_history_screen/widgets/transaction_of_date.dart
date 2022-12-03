@@ -80,6 +80,7 @@ class _TransactionItem extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(10.0.r),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [

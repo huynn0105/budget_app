@@ -130,6 +130,7 @@ class _TransactionItem extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 8.0.r, horizontal: 16.r),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [

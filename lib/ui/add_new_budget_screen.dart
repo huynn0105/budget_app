@@ -61,10 +61,16 @@ class _AddNewBudgetScreenState extends State<AddNewBudgetScreen> {
               onPressed: () {
                 context.read<BudgetBloc>().add(
                       BudgetAdded(
-                          budget: Budget(
-                        name: controller.text,
-                        image: emojiText,
-                      )),
+                        budget: widget.argument?.budget == null
+                            ? Budget(
+                                name: controller.text,
+                                image: emojiText,
+                              )
+                            : widget.argument!.budget.copyWith(
+                                name: controller.text,
+                                image: emojiText,
+                              ),
+                      ),
                     );
                 context.read<TransactionBloc>().add(TransactionStarted());
                 Navigator.of(context).pop();

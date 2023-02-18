@@ -1,6 +1,6 @@
 # Budget App
 
-Budget App helps you track your expenses and incomes. The minimalist approach does not distract you from the main focus either adding entries or checking insights interacting with a clean and simple interface.
+Budget App makes managing personal finances. Helps you save money, plan for the future, and see all your finances in one place.
 
 The best way to manage personal money is to enter every expense you've made manually. Adding next utility, groceries, subscription, or snacks expense you think: "Is it possible to get rid of this purchase in my future bill?". This is one of the important steps in personal money management.
 

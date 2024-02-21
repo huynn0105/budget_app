@@ -18,7 +18,7 @@ class AnalysisBloc extends Bloc<AnalysisEvent, AnalysisState> {
 
   AnalysisBloc() : super(const AnalysisInitial()) {
     on<AnalysisStarted>((event, emit) {
-      ViewType viewType = ViewType.week;
+      ViewType viewType = ViewType.year;
       final state = this.state;
       if (state is AnalysisLoaded) {
         viewType = state.viewType;

@@ -29,11 +29,12 @@ class CategoryHistoryScreen extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
       ),
+      backgroundColor: Color.fromARGB(255, 250, 225, 255),
       body: Column(
         children: [
           Text(
             '${KeyWork.spent.tr} ${categoryUIModel.category.name.tr} ${categoryUIModel.category.emoji}',
-            style: TextStyleUtils.regular(17),
+            style: TextStyleUtils.medium(24),
           ),
           SizedBox(height: 5.h),
           RichText(
@@ -41,13 +42,13 @@ class CategoryHistoryScreen extends StatelessWidget {
               children: [
                 TextSpan(
                   text: format.format(categoryUIModel.total),
-                  style: TextStyleUtils.regular(45).copyWith(
+                  style: TextStyleUtils.bold(55).copyWith(
                     color: Theme.of(context).primaryColor,
                   ),
                 ),
                 TextSpan(
                   text: 'đ',
-                  style: TextStyleUtils.regular(20).copyWith(
+                  style: TextStyleUtils.medium(28).copyWith(
                     color: Theme.of(context).primaryColor,
                   ),
                 ),

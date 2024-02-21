@@ -8,14 +8,13 @@ class _SpentThisWeek extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final format = NumberFormat('#,###');
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          KeyWork.spentThisWeek.tr,
-          style: TextStyleUtils.regular(16),
+          'SPENT',
+          style: TextStyleUtils.bold(26),
         ),
         SizedBox(height: 10.h),
         BlocBuilder<TransactionBloc, TransactionState>(
@@ -29,13 +28,13 @@ class _SpentThisWeek extends StatelessWidget {
                   children: [
                     TextSpan(
                       text: format.format(state.totalThisWeek),
-                      style: TextStyleUtils.regular(45).copyWith(
+                      style: TextStyleUtils.medium(50).copyWith(
                         color: Theme.of(context).primaryColor,
                       ),
                     ),
                     TextSpan(
                       text: 'đ',
-                      style: TextStyleUtils.regular(25).copyWith(
+                      style: TextStyleUtils.regular(30).copyWith(
                         color: Theme.of(context).primaryColor,
                       ),
                     ),

@@ -24,9 +24,9 @@ class _TransactionOfDate extends StatelessWidget {
             prevValue +
             (x.type == TransactionType.expense ? -x.amount : x.amount));
     return Card(
-      elevation: 0.5,
+      elevation: 1.5,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5.0),
+        borderRadius: BorderRadius.circular(15.0),
       ),
       child: Column(
         children: [
@@ -55,7 +55,7 @@ class _TransactionOfDate extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             separatorBuilder: (_, __) =>
-                Divider(height: 1.h, color: Colors.grey.shade100),
+                Divider(height: 2.h, color: Colors.purpleAccent),
             itemBuilder: (context, index) {
               return _TransactionItem(transaction: transactions[index]);
             },
@@ -91,7 +91,7 @@ class _TransactionItem extends StatelessWidget {
                       child: Text(
                         KeyWork.cancel.tr,
                         style: TextStyleUtils.medium(14)
-                            .copyWith(color: Colors.blue),
+                            .copyWith(color: Colors.deepPurpleAccent),
                       ),
                       onPressed: () {
                         Get.back();
@@ -101,7 +101,7 @@ class _TransactionItem extends StatelessWidget {
                       child: Text(
                         KeyWork.eraseData.tr,
                         style: TextStyleUtils.medium(14)
-                            .copyWith(color: Colors.red),
+                            .copyWith(color: Colors.deepPurple),
                       ),
                       onPressed: () {
                         context.read<TransactionBloc>().add(
@@ -114,7 +114,7 @@ class _TransactionItem extends StatelessWidget {
                 ));
       },
       onTap: () {
-        showCupertinoModalBottomSheet(
+        showModalBottomSheet(
           context: context,
           builder: (context) {
             return AddNewTransactionScreen(
@@ -125,8 +125,8 @@ class _TransactionItem extends StatelessWidget {
       },
       child: ColoredBox(
         color: transaction.type == TransactionType.income
-            ? Colors.blue.withOpacity(0.06)
-            : Colors.red.withOpacity(0.06),
+            ? Colors.green.withOpacity(0.06)
+            : Colors.purple.withOpacity(0.06),
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 8.0.r, horizontal: 16.r),
           child: Column(
@@ -157,7 +157,7 @@ class _TransactionItem extends StatelessWidget {
                   child: Text(
                     '${transaction.note}',
                     style: TextStyleUtils.regular(14)
-                        .copyWith(color: Colors.black45),
+                        .copyWith(color: Colors.deepPurpleAccent),
                   ),
                 ),
             ],

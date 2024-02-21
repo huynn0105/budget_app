@@ -16,7 +16,7 @@ class _AddButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Icon(
-            Icons.add_circle,
+            Icons.add_box,
             size: 42.r,
           ),
           Text(

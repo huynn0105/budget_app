@@ -34,11 +34,11 @@ class _TransactionOfDate extends StatelessWidget {
                 children: [
                   Text(
                     date.isToday() ? KeyWork.today.tr : formater.format(date),
-                    style: TextStyleUtils.regular(18),
+                    style: TextStyleUtils.medium(24),
                   ),
                   Text(
                     '${format.format(total)}đ',
-                    style: TextStyleUtils.regular(16),
+                    style: TextStyleUtils.regular(20),
                   ),
                 ],
               ),
@@ -86,23 +86,23 @@ class _TransactionItem extends StatelessWidget {
               children: [
                 Text(
                   DateFormat('HH:mm').format(transaction.dateTime),
-                  style: TextStyleUtils.regular(12),
+                  style: TextStyleUtils.regular(20),
                 ),
                 SizedBox(width: 5.w),
                 Text(
                   transaction.category.target!.emoji,
-                  style: TextStyleUtils.regular(30),
+                  style: TextStyleUtils.regular(36),
                 ),
                 SizedBox(width: 10.w),
                 Expanded(
                   child: Text(
                     transaction.category.target!.name.tr,
-                    style: TextStyleUtils.regular(18),
+                    style: TextStyleUtils.regular(22),
                   ),
                 ),
                 Text(
                   '${transaction.type == TransactionType.expense ? '-' : ''}${format.format(transaction.amount)}đ',
-                  style: TextStyleUtils.regular(16),
+                  style: TextStyleUtils.regular(20),
                 ),
               ],
             ),
@@ -111,7 +111,7 @@ class _TransactionItem extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 5),
                 child: Text(
                   '${transaction.note}',
-                  style: TextStyleUtils.regular(14)
+                  style: TextStyleUtils.regular(20)
                       .copyWith(color: Colors.black45),
                 ),
               )

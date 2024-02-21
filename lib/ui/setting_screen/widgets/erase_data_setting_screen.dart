@@ -63,11 +63,7 @@ class EraseDataSettingScreen extends StatelessWidget {
                 style: TextStyleUtils.regular(14)
                     .copyWith(color: Theme.of(context).primaryColor),
               ),
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).cardColor,
-                  elevation: 0.5,
-                  alignment: AlignmentDirectional.centerStart,
-                  minimumSize: Size(double.infinity, 50.h)),
+
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.w),
@@ -124,11 +120,7 @@ class EraseDataSettingScreen extends StatelessWidget {
                 style: TextStyleUtils.regular(14)
                     .copyWith(color: Theme.of(context).primaryColor),
               ),
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).cardColor,
-                  elevation: 0.5,
-                  alignment: AlignmentDirectional.centerStart,
-                  minimumSize: Size(double.infinity, 50.h)),
+
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.w),

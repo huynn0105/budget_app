@@ -6,7 +6,6 @@ import 'package:budget_app/ui/add_new_category_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 
 class CategorySettingScreen extends StatelessWidget {
@@ -75,25 +74,7 @@ class _CategoryItem extends StatelessWidget {
           ),
         );
       },
-      child: Slidable(
-        startActionPane: ActionPane(
-          motion: const ScrollMotion(),
-          extentRatio: 0.23,
-          key: const ValueKey(1),
-          children: [
-            SlidableAction(
-              onPressed: (context) {
-                context
-                    .read<CategoryBloc>()
-                    .add(CategoryDeleted(category: category));
-              },
-              backgroundColor: Color(0xFFFE4A49),
-              foregroundColor: Colors.white,
-              icon: Icons.delete,
-            ),
-          ],
-        ),
-        child: Padding(
+      child: Padding(
           padding: EdgeInsets.all(12.r),
           child: Row(
             children: [
@@ -106,7 +87,7 @@ class _CategoryItem extends StatelessWidget {
             ],
           ),
         ),
-      ),
+     
     );
   }
 }

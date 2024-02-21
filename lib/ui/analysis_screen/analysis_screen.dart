@@ -16,7 +16,7 @@ import 'package:intl/intl.dart';
 import 'package:money_formatter/money_formatter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-const double heightChart = 160.0;
+const double heightChart = 180.0;
 
 class AnalysisScreen extends StatefulWidget {
   const AnalysisScreen({super.key});
@@ -96,23 +96,13 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                                               .format(state.totalOfMonth)
                                           : numberFormat
                                               .format(state.totalOfYear),
-                                  style: TextStyleUtils.medium(40),
+                                  style: TextStyleUtils.bold(50),
                                 ),
                                 Text(
                                   'đ',
-                                  style: TextStyleUtils.regular(30),
+                                  style: TextStyleUtils.regular(35),
                                 ),
                               ],
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Get.to(() => ChartScreen());
-                            },
-                            child: Text(
-                              KeyWork.viewChart.tr,
-                              style: TextStyleUtils.medium(15)
-                                  .copyWith(color: Colors.blue),
                             ),
                           ),
                         ],
@@ -124,41 +114,6 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                           '${KeyWork.totalSpent.tr} $between',
                           style: TextStyleUtils.regular(16),
                         ),
-                        SizedBox(
-                          height: 30.h,
-                          child: !state.transactionOfWeek.date.isToday() &&
-                                  state.viewType == ViewType.week
-                              ? TextButton(
-                                  onPressed: () {
-                                    context.read<AnalysisBloc>().add(
-                                          AnalysisChangeDate(
-                                            date: DateTime.now(),
-                                            viewType: ViewType.week,
-                                          ),
-                                        );
-                                  },
-                                  style: ButtonStyle(
-                                    elevation: MaterialStateProperty.all(0),
-                                    tapTargetSize:
-                                        MaterialTapTargetSize.shrinkWrap,
-                                    padding: MaterialStateProperty.all(
-                                        const EdgeInsets.symmetric(
-                                            horizontal: 1)),
-                                    backgroundColor: MaterialStateProperty.all(
-                                        Colors.transparent),
-                                    textStyle: MaterialStateProperty.all(
-                                      TextStyleUtils.medium(14)
-                                          .copyWith(color: Colors.blue),
-                                    ),
-                                  ),
-                                  child: Text(
-                                    KeyWork.today.tr,
-                                    style: TextStyleUtils.medium(14)
-                                        .copyWith(color: Colors.red),
-                                  ),
-                                )
-                              : const SizedBox.shrink(),
-                        ),
                       ],
                     ),
                   ],
@@ -168,7 +123,7 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
             },
           ),
           SizedBox(
-            height: heightChart + 60,
+            height: heightChart + 90,
             child: BlocBuilder<AnalysisBloc, AnalysisState>(
               builder: (context, state) {
                 if (state is AnalysisLoaded) {
@@ -406,7 +361,7 @@ class _ChartItem extends StatelessWidget {
                   width: 26.w,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5.r),
-                    color: Theme.of(context).primaryColor,
+                    color: Colors.deepPurpleAccent,
                   ),
                 ),
               ],
@@ -461,22 +416,6 @@ class _ViewTypeWidgetState extends State<_ViewTypeWidget> {
                   selected.value = index;
                   widget.onChanged(ViewType.values[index]);
                 },
-                style: ButtonStyle(
-                    elevation: MaterialStateProperty.all(0),
-                    backgroundColor: MaterialStateProperty.all(
-                        isActive ? Colors.black87 : Colors.white),
-                    padding: MaterialStateProperty.all(
-                        EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h)),
-                    minimumSize: MaterialStateProperty.all(
-                      const Size(70, 28),
-                    ),
-                    fixedSize: MaterialStateProperty.all(
-                      const Size(80, 28),
-                    ),
-                    side: !isActive
-                        ? MaterialStateProperty.all(
-                            BorderSide(color: Colors.grey.shade300))
-                        : null),
                 child: Text(
                   ViewType.values[index] == ViewType.week
                       ? KeyWork.week.tr.toUpperCase()
@@ -484,7 +423,7 @@ class _ViewTypeWidgetState extends State<_ViewTypeWidget> {
                           ? KeyWork.month.tr.toUpperCase()
                           : KeyWork.year.tr.toUpperCase(),
                   style: TextStyleUtils.regular(14).copyWith(
-                      color: isActive ? Colors.white : Colors.black87),
+                      color: isActive ? Colors.purple : Colors.black87),
                 ),
               );
             }),

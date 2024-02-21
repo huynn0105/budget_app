@@ -3,7 +3,7 @@ import 'package:budget_app/translation/keyword.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:package_info_plus/package_info_plus.dart';
+// import 'package:package_info_plus/package_info_plus.dart';
 
 class AboutSettingScreen extends StatefulWidget {
   const AboutSettingScreen({super.key});
@@ -17,10 +17,10 @@ class _AboutSettingScreenState extends State<AboutSettingScreen> {
   @override
   void initState() {
     Future.delayed(Duration.zero, () async {
-      PackageInfo packageInfo = await PackageInfo.fromPlatform();
-      setState(() {
-        version = packageInfo.version;
-      });
+      // PackageInfo packageInfo = await PackageInfo.fromPlatform();
+      // setState(() {
+      //   version = packageInfo.version;
+      // });
     });
     super.initState();
   }

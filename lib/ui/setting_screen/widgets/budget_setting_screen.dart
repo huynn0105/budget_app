@@ -6,7 +6,6 @@ import 'package:budget_app/ui/add_new_budget_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 
 import 'category_setting_screen.dart';
@@ -74,55 +73,7 @@ class _BudgetItem extends StatelessWidget {
               argument: AddNewBudgetArgument(budget: budget),
             ));
       },
-      child: Slidable(
-        startActionPane: ActionPane(
-          motion: const ScrollMotion(),
-          extentRatio: 0.23,
-          key: const ValueKey(1),
-          children: [
-            SlidableAction(
-              onPressed: (context) {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) => AlertDialog(
-                          title: Text(
-                            KeyWork.removeBudget.tr,
-                            style: TextStyleUtils.medium(16),
-                          ),
-                          actions: [
-                            TextButton(
-                              child: Text(
-                                KeyWork.cancel.tr,
-                                style: TextStyleUtils.medium(14)
-                                    .copyWith(color: Colors.blue),
-                              ),
-                              onPressed: () {
-                                Get.back();
-                              },
-                            ),
-                            TextButton(
-                              child: Text(
-                                KeyWork.removeBudget.tr,
-                                style: TextStyleUtils.medium(14)
-                                    .copyWith(color: Colors.red),
-                              ),
-                              onPressed: () {
-                                context
-                                    .read<BudgetBloc>()
-                                    .add(BudgetRemoved(budget: budget));
-                                Get.back();
-                              },
-                            ),
-                          ],
-                        ));
-              },
-              backgroundColor: Color(0xFFFE4A49),
-              foregroundColor: Colors.white,
-              icon: Icons.delete,
-            ),
-          ],
-        ),
-        child: Padding(
+      child: Padding(
           padding: EdgeInsets.all(12.r),
           child: Row(
             children: [
@@ -135,7 +86,7 @@ class _BudgetItem extends StatelessWidget {
             ],
           ),
         ),
-      ),
+    
     );
   }
 }

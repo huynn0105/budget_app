@@ -5,38 +5,27 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 ThemeData lightTheme = ThemeData(
   primaryColor: Colors.black,
   floatingActionButtonTheme: FloatingActionButtonThemeData(
-    backgroundColor: Colors.black87,
+    backgroundColor: Colors.deepPurpleAccent,
     foregroundColor: Colors.white,
   ),
   appBarTheme: AppBarTheme(
     elevation: 0,
     backgroundColor: Colors.grey.shade50,
-    titleTextStyle: TextStyleUtils.medium(16).copyWith(color: Colors.black87),
-    iconTheme: IconThemeData(color: Colors.black87),
+    titleTextStyle: TextStyleUtils.medium(16).copyWith(color: Colors.deepPurpleAccent),
+    iconTheme: IconThemeData(color: Colors.deepPurpleAccent),
   ),
   scaffoldBackgroundColor: Colors.grey.shade50,
   iconTheme: IconThemeData(
     color: Colors.grey.shade600,
   ),
-  buttonTheme: ButtonThemeData(buttonColor: Colors.black87),
+  buttonTheme: ButtonThemeData(buttonColor: Colors.deepPurpleAccent),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     backgroundColor: Colors.grey.shade100,
-    selectedItemColor: Colors.black87,
+    selectedItemColor: Colors.deepPurpleAccent,
     unselectedItemColor: Colors.grey.shade500,
   ),
-  textButtonTheme: TextButtonThemeData(
-    style: ButtonStyle(
-      foregroundColor: MaterialStateProperty.all<Color>(Colors.black87),
-    ),
-  ),
-  elevatedButtonTheme: ElevatedButtonThemeData(
-    style: ButtonStyle(
-      backgroundColor: MaterialStateProperty.all<Color>(Colors.black87),
-      foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-      overlayColor:
-          MaterialStateProperty.all<Color>(Colors.black.withOpacity(0.1)),
-    ),
-  ),
+
+ 
 );
 
 ThemeData darkTheme = ThemeData(
@@ -63,19 +52,5 @@ ThemeData darkTheme = ThemeData(
     border: OutlineInputBorder(borderSide: BorderSide.none),
   ),
   splashColor: Colors.grey.shade800,
-  textButtonTheme: TextButtonThemeData(
-    style: ButtonStyle(
-      foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-    ),
-  ),
-  elevatedButtonTheme: ElevatedButtonThemeData(
-    style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-        foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-        overlayColor: MaterialStateProperty.all<Color>(Colors.black26),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0.r),
-        ))),
-  ),
+ 
 );

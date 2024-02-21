@@ -82,51 +82,51 @@ class _AddNewBudgetScreenState extends State<AddNewBudgetScreen> {
         padding: EdgeInsets.all(16.r),
         child: Column(
           children: [
-            InkWell(
-              onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  builder: (context) => EmojiPicker(
-                    onEmojiSelected: (Category category, Emoji emoji) {
-                      _onEmojiSelected(emoji);
-                    },
-                    config: Config(
-                      columns: 7,
-                      emojiSizeMax: 32 * (Platform.isIOS ? 1.30 : 1.0),
-                      verticalSpacing: 0,
-                      horizontalSpacing: 0,
-                      gridPadding: EdgeInsets.zero,
-                      initCategory: Category.RECENT,
-                      bgColor: const Color(0xFFF2F2F2),
-                      indicatorColor: Colors.blue,
-                      iconColor: Colors.grey,
-                      iconColorSelected: Colors.blue,
-                      progressIndicatorColor: Colors.blue,
-                      backspaceColor: Colors.blue,
-                      skinToneDialogBgColor: Colors.white,
-                      skinToneIndicatorColor: Colors.grey,
-                      enableSkinTones: true,
-                      showRecentsTab: true,
-                      recentsLimit: 28,
-                      replaceEmojiOnLimitExceed: false,
-                      tabIndicatorAnimDuration: kTabScrollDuration,
-                      categoryIcons: const CategoryIcons(),
-                      buttonMode: ButtonMode.CUPERTINO,
-                    ),
-                  ),
-                );
-              },
-              child: DottedBorder(
-                borderType: BorderType.Circle,
-                dashPattern: const [5, 5, 5, 5, 5, 5, 5],
-                padding: EdgeInsets.all(20.r),
-                color: Colors.grey,
-                child: Text(
-                  emojiText,
-                  style: TextStyleUtils.regular(50),
-                ),
-              ),
-            ),
+            // InkWell(
+            //   onTap: () {
+            //     showModalBottomSheet(
+            //       context: context,
+            //       builder: (context) => EmojiPicker(
+            //         onEmojiSelected: (Category category, Emoji emoji) {
+            //           _onEmojiSelected(emoji);
+            //         },
+            //         config: Config(
+            //           columns: 7,
+            //           emojiSizeMax: 32 * (Platform.isIOS ? 1.30 : 1.0),
+            //           verticalSpacing: 0,
+            //           horizontalSpacing: 0,
+            //           gridPadding: EdgeInsets.zero,
+            //           initCategory: Category.RECENT,
+            //           bgColor: const Color(0xFFF2F2F2),
+            //           indicatorColor: Colors.blue,
+            //           iconColor: Colors.grey,
+            //           iconColorSelected: Colors.blue,
+            //           progressIndicatorColor: Colors.blue,
+            //           backspaceColor: Colors.blue,
+            //           skinToneDialogBgColor: Colors.white,
+            //           skinToneIndicatorColor: Colors.grey,
+            //           enableSkinTones: true,
+            //           showRecentsTab: true,
+            //           recentsLimit: 28,
+            //           replaceEmojiOnLimitExceed: false,
+            //           tabIndicatorAnimDuration: kTabScrollDuration,
+            //           categoryIcons: const CategoryIcons(),
+            //           buttonMode: ButtonMode.CUPERTINO,
+            //         ),
+            //       ),
+            //     );
+            //   },
+            //   child: DottedBorder(
+            //     borderType: BorderType.Circle,
+            //     dashPattern: const [5, 5, 5, 5, 5, 5, 5],
+            //     padding: EdgeInsets.all(20.r),
+            //     color: Colors.grey,
+            //     child: Text(
+            //       emojiText,
+            //       style: TextStyleUtils.regular(50),
+            //     ),
+            //   ),
+            // ),
             SizedBox(height: 10.h),
             TextField(
               textAlign: TextAlign.center,

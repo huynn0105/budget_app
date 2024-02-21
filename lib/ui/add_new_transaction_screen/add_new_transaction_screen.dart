@@ -9,7 +9,7 @@ import 'package:flutter_multi_formatter/formatters/money_input_enums.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+// import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import 'package:budget_app/constants.dart';
 import 'package:budget_app/core/blocs/category_bloc/category_bloc.dart';
@@ -76,8 +76,6 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Theme.of(context).bottomAppBarColor,
         leading: TextButton(
           child: Text(
             KeyWork.cancel.tr,
@@ -92,7 +90,7 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
                 state.transactionType == TransactionType.expense
                     ? KeyWork.expense.tr
                     : KeyWork.income.tr,
-                style: TextStyleUtils.medium(16),
+                style: TextStyleUtils.medium(25),
               );
             },
           ),
@@ -131,7 +129,6 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
         centerTitle: true,
         leadingWidth: 80.w,
       ),
-      backgroundColor: Theme.of(context).bottomAppBarColor,
       body: Column(
         children: [
           Expanded(
@@ -154,10 +151,10 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
                     child: TextField(
                       controller: noteController,
                       key: const Key('noteTextField'),
-                      style: TextStyleUtils.regular(14),
+                      style: TextStyleUtils.regular(24),
                       decoration: InputDecoration(
                         hintText: KeyWork.enterNote.tr,
-                        hintStyle: TextStyleUtils.regular(14),
+                        hintStyle: TextStyleUtils.regular(24),
                         isDense: true,
                       ),
                     ),
@@ -183,6 +180,7 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
             },
             child: Text(
               format.format(selectedDate),
+              style: TextStyleUtils.medium(24),
             ),
           ),
           Row(
@@ -190,7 +188,7 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
               Expanded(
                 child: TextButton(
                   onPressed: () {
-                    showCupertinoModalBottomSheet(
+                    showModalBottomSheet(
                       context: context,
                       builder: (context) {
                         return const _PaymentBottomSheet();
@@ -207,10 +205,10 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text('${state.paymentSelected.emoji} ',
-                                style: TextStyleUtils.regular(28)),
+                                style: TextStyleUtils.regular(34)),
                             Text(
                               state.paymentSelected.name.tr,
-                              style: TextStyleUtils.medium(16),
+                              style: TextStyleUtils.medium(22),
                             ),
                           ],
                         );
@@ -227,7 +225,7 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
               Expanded(
                 child: TextButton(
                   onPressed: () {
-                    showCupertinoModalBottomSheet(
+                    showModalBottomSheet(
                       context: context,
                       builder: (context) {
                         return const CategoriesBottomSheet();
@@ -246,10 +244,10 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text('${state.categorySelected.emoji} ',
-                                  style: TextStyleUtils.regular(28)),
+                                  style: TextStyleUtils.regular(34)),
                               Text(
                                 state.categorySelected.name.tr,
-                                style: TextStyleUtils.medium(16),
+                                style: TextStyleUtils.medium(22),
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                               ),
@@ -263,43 +261,46 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
                 ),
               ),
               SizedBox(width: 10.w),
-              _SaveButton(
-                onPressed: () {
-                  transactionBloc.add(
-                    TransactionAdded(
-                      transaction: widget.transaction == null
-                          ? Transaction(
-                              amount: int.parse(controller.text
-                                  .replaceAll(',', '')
-                                  .replaceAll('đ', '')),
-                              dateTime: selectedDate.setCurrentTime(),
-                              note: noteController.text,
-                              type: transactionTypeCubit.state.transactionType,
-                            )
-                          : widget.transaction!.copyWith(
-                              amount: int.parse(controller.text
-                                  .replaceAll(',', '')
-                                  .replaceAll('đ', '')),
-                              dateTime: selectedDate.setCurrentTime(),
-                              note: noteController.text,
-                              type: transactionTypeCubit.state.transactionType,
-                            ),
-                      payment:
-                          (paymentBloc.state as PaymentLoaded).paymentSelected,
-                      category: (categoryBloc.state as CategoryLoaded)
-                          .categorySelected,
-                    ),
-                  );
-                  context.read<AnalysisBloc>().add(const AnalysisStarted());
-                  Navigator.of(context).pop();
-                },
-              ),
-              SizedBox(width: 10.w),
             ],
+          ),
+          SizedBox(
+            width: 200,
+            height: 60,
+            child: _SaveButton(
+              onPressed: () {
+                transactionBloc.add(
+                  TransactionAdded(
+                    transaction: widget.transaction == null
+                        ? Transaction(
+                            amount: int.parse(controller.text
+                                .replaceAll(',', '')
+                                .replaceAll('đ', '')),
+                            dateTime: selectedDate.setCurrentTime(),
+                            note: noteController.text,
+                            type: transactionTypeCubit.state.transactionType,
+                          )
+                        : widget.transaction!.copyWith(
+                            amount: int.parse(controller.text
+                                .replaceAll(',', '')
+                                .replaceAll('đ', '')),
+                            dateTime: selectedDate.setCurrentTime(),
+                            note: noteController.text,
+                            type: transactionTypeCubit.state.transactionType,
+                          ),
+                    payment:
+                        (paymentBloc.state as PaymentLoaded).paymentSelected,
+                    category:
+                        (categoryBloc.state as CategoryLoaded).categorySelected,
+                  ),
+                );
+                context.read<AnalysisBloc>().add(const AnalysisStarted());
+                Navigator.of(context).pop();
+              },
+            ),
           ),
         ],
       ),
-      bottomNavigationBar: SizedBox(height: 1.sh / 2.3),
+      bottomNavigationBar: SizedBox(height: 1.sh / 3),
     );
   }
 }

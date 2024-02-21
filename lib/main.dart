@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
           child: BlocBuilder<SettingBloc, SettingState>(
             builder: (context, state) {
               return GetMaterialApp(
+                debugShowCheckedModeBanner: false,
                 themeMode: state.themeMode,
                 darkTheme: darkTheme,
                 title: 'Budget'.toUpperCase(),

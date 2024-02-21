@@ -74,122 +74,122 @@ class _ChartScreenState extends State<ChartScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 20.h),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: BlocBuilder<AnalysisBloc, AnalysisState>(
-                builder: (context, state) {
-              if (state is AnalysisLoaded) {
-                final between =
-                    '${formater.format(state.transactionOfWeek.date.startOfWeek())} - ${formater.format(state.transactionOfWeek.date.endOfWeek())}';
-                return Text(
-                  '${KeyWork.week.tr} $between'.toUpperCase(),
-                  style: TextStyleUtils.medium(18),
-                );
-              }
-              return const CircularProgressIndicator();
-            }),
-          ),
-          SizedBox(height: 10.h),
-          BlocBuilder<AnalysisBloc, AnalysisState>(
-            builder: (context, state) {
-              if (state is AnalysisLoaded) {
-                Map<Category, List<Transaction>> transactionOfCategory = state
-                    .transactionOfWeek.transactions
-                    .groupListsBy<Category>((x) => x.category.target!);
+          // Padding(
+          //   padding: EdgeInsets.symmetric(horizontal: 16.w),
+          //   child: BlocBuilder<AnalysisBloc, AnalysisState>(
+          //       builder: (context, state) {
+          //     if (state is AnalysisLoaded) {
+          //       final between =
+          //           '${formater.format(state.transactionOfWeek.date.startOfWeek())} - ${formater.format(state.transactionOfWeek.date.endOfWeek())}';
+          //       return Text(
+          //         '${KeyWork.week.tr} $between'.toUpperCase(),
+          //         style: TextStyleUtils.medium(18),
+          //       );
+          //     }
+          //     return const CircularProgressIndicator();
+          //   }),
+          // ),
+          // SizedBox(height: 10.h),
+          // BlocBuilder<AnalysisBloc, AnalysisState>(
+          //   builder: (context, state) {
+          //     if (state is AnalysisLoaded) {
+          //       Map<Category, List<Transaction>> transactionOfCategory = state
+          //           .transactionOfWeek.transactions
+          //           .groupListsBy<Category>((x) => x.category.target!);
 
-                return Dismissible(
-                    resizeDuration: null,
-                    onDismissed: (DismissDirection direction) {
-                      if (direction == DismissDirection.endToStart) {
-                        final DateTime date = state.transactionOfWeek.date
-                            .add(const Duration(days: 7));
-                        context.read<AnalysisBloc>().add(AnalysisChangeDate(
-                            date: date, viewType: ViewType.week));
-                      } else {
-                        final DateTime date = state.transactionOfWeek.date
-                            .subtract(const Duration(days: 7));
-                        context.read<AnalysisBloc>().add(AnalysisChangeDate(
-                            date: date, viewType: ViewType.week));
-                      }
-                    },
-                    key: ValueKey(state.transactionOfWeek.date),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.w),
-                          child: pie.PieChart(
-                            dataMap: transactionOfCategory.entries.isNotEmpty
-                                ? {
-                                    for (var item
-                                        in transactionOfCategory.entries)
-                                      item.key.name: item.value
-                                          .fold(0, (prev, e) => prev + e.amount)
-                                          .toDouble()
-                                  }
-                                : {'No data': 0},
-                            animationDuration: const Duration(
-                              milliseconds: 800,
-                            ),
-                            chartLegendSpacing: 32.r,
-                            chartRadius: 1.sw / 2.5,
-                            colorList: colorList,
-                            chartType: pie.ChartType.disc,
-                            ringStrokeWidth: 1,
-                            legendOptions: const pie.LegendOptions(
-                              showLegends: false,
-                            ),
-                            chartValuesOptions: const pie.ChartValuesOptions(
-                              showChartValues: false,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: SizedBox(
-                            height: 1.sw / 2.4,
-                            child: transactionOfCategory.entries.isNotEmpty
-                                ? ListView.builder(
-                                    itemCount:
-                                        transactionOfCategory.entries.length,
-                                    itemBuilder: (context, index) {
-                                      double totalAmount = transactionOfCategory
-                                          .entries
-                                          .toList()[index]
-                                          .value
-                                          .fold(
-                                              0,
-                                              (prevValue, e) =>
-                                                  prevValue +
-                                                  (e.type ==
-                                                          TransactionType.income
-                                                      ? e.amount
-                                                      : (-e.amount)));
-                                      var totalAmountFormat = MoneyFormatter(
-                                        amount: totalAmount.abs(),
-                                      ).output.compactNonSymbol;
-                                      if (totalAmount < 0) {
-                                        totalAmountFormat =
-                                            '-' + totalAmountFormat;
-                                      }
-                                      return _CustomLegend(
-                                        color: getColor(colorList, index),
-                                        title: totalAmountFormat +
-                                            ' - ' +
-                                            transactionOfCategory.entries
-                                                .toList()[index]
-                                                .key
-                                                .name
-                                                .tr,
-                                      );
-                                    })
-                                : Center(child: Text(KeyWork.noTrnsaction.tr)),
-                          ),
-                        ),
-                      ],
-                    ));
-              }
-              return const CircularProgressIndicator();
-            },
-          ),
+          //       return Dismissible(
+          //           resizeDuration: null,
+          //           onDismissed: (DismissDirection direction) {
+          //             if (direction == DismissDirection.endToStart) {
+          //               final DateTime date = state.transactionOfWeek.date
+          //                   .add(const Duration(days: 7));
+          //               context.read<AnalysisBloc>().add(AnalysisChangeDate(
+          //                   date: date, viewType: ViewType.week));
+          //             } else {
+          //               final DateTime date = state.transactionOfWeek.date
+          //                   .subtract(const Duration(days: 7));
+          //               context.read<AnalysisBloc>().add(AnalysisChangeDate(
+          //                   date: date, viewType: ViewType.week));
+          //             }
+          //           },
+          //           key: ValueKey(state.transactionOfWeek.date),
+          //           child: Row(
+          //             children: [
+          //               Padding(
+          //                 padding: EdgeInsets.symmetric(horizontal: 20.w),
+          //                 child: pie.PieChart(
+          //                   dataMap: transactionOfCategory.entries.isNotEmpty
+          //                       ? {
+          //                           for (var item
+          //                               in transactionOfCategory.entries)
+          //                             item.key.name: item.value
+          //                                 .fold(0, (prev, e) => prev + e.amount)
+          //                                 .toDouble()
+          //                         }
+          //                       : {'No data': 0},
+          //                   animationDuration: const Duration(
+          //                     milliseconds: 800,
+          //                   ),
+          //                   chartLegendSpacing: 32.r,
+          //                   chartRadius: 1.sw / 2.5,
+          //                   colorList: colorList,
+          //                   chartType: pie.ChartType.disc,
+          //                   ringStrokeWidth: 1,
+          //                   legendOptions: const pie.LegendOptions(
+          //                     showLegends: false,
+          //                   ),
+          //                   chartValuesOptions: const pie.ChartValuesOptions(
+          //                     showChartValues: false,
+          //                   ),
+          //                 ),
+          //               ),
+          //               Expanded(
+          //                 child: SizedBox(
+          //                   height: 1.sw / 2.4,
+          //                   child: transactionOfCategory.entries.isNotEmpty
+          //                       ? ListView.builder(
+          //                           itemCount:
+          //                               transactionOfCategory.entries.length,
+          //                           itemBuilder: (context, index) {
+          //                             double totalAmount = transactionOfCategory
+          //                                 .entries
+          //                                 .toList()[index]
+          //                                 .value
+          //                                 .fold(
+          //                                     0,
+          //                                     (prevValue, e) =>
+          //                                         prevValue +
+          //                                         (e.type ==
+          //                                                 TransactionType.income
+          //                                             ? e.amount
+          //                                             : (-e.amount)));
+          //                             var totalAmountFormat = MoneyFormatter(
+          //                               amount: totalAmount.abs(),
+          //                             ).output.compactNonSymbol;
+          //                             if (totalAmount < 0) {
+          //                               totalAmountFormat =
+          //                                   '-' + totalAmountFormat;
+          //                             }
+          //                             return _CustomLegend(
+          //                               color: getColor(colorList, index),
+          //                               title: totalAmountFormat +
+          //                                   ' - ' +
+          //                                   transactionOfCategory.entries
+          //                                       .toList()[index]
+          //                                       .key
+          //                                       .name
+          //                                       .tr,
+          //                             );
+          //                           })
+          //                       : Center(child: Text(KeyWork.noTrnsaction.tr)),
+          //                 ),
+          //               ),
+          //             ],
+          //           ));
+          //     }
+          //     return const CircularProgressIndicator();
+          //   },
+          // ),
           SizedBox(height: 30.h),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),

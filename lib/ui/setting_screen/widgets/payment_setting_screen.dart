@@ -6,7 +6,6 @@ import 'package:budget_app/ui/add_new_payment_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 
 class PaymentSettingScreen extends StatelessWidget {
@@ -73,25 +72,7 @@ class _PaymentItem extends StatelessWidget {
               argument: AddNewPaymentArgument(payment: payment),
             ));
       },
-      child: Slidable(
-        startActionPane: ActionPane(
-          motion: const ScrollMotion(),
-          extentRatio: 0.23,
-          key: const ValueKey(1),
-          children: [
-            SlidableAction(
-              onPressed: (context) {
-                context
-                    .read<PaymentBloc>()
-                    .add(PaymentDeleted(payment: payment));
-              },
-              backgroundColor: Color(0xFFFE4A49),
-              foregroundColor: Colors.white,
-              icon: Icons.delete,
-            ),
-          ],
-        ),
-        child: Padding(
+      child: Padding(
           padding: EdgeInsets.all(12.r),
           child: Row(
             children: [
@@ -104,7 +85,7 @@ class _PaymentItem extends StatelessWidget {
             ],
           ),
         ),
-      ),
+     
     );
   }
 }

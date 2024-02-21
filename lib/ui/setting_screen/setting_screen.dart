@@ -14,7 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:open_mail_app/open_mail_app.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
@@ -140,29 +139,8 @@ class SettingScreen extends StatelessWidget {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    _SettingItem(
-                      icon: Icons.mail,
-                      title: KeyWork.contact.tr,
-                      value: '',
-                      onTap: () async {
-                        var result = await OpenMailApp.composeNewEmailInMailApp(
-                            emailContent: EmailContent(
-                          to: ['huynn0105@gmail.com'],
-                        ));
-                        if (!result.didOpen && !result.canOpen) {
-                          showNoMailAppsDialog(context);
-                        } else if (!result.didOpen && result.canOpen) {
-                          showDialog(
-                            context: context,
-                            builder: (_) {
-                              return MailAppPickerDialog(
-                                mailApps: result.options,
-                              );
-                            },
-                          );
-                        }
-                      },
-                    ),
+                   
+                  
                     Divider(
                       height: 1.h,
                       color: Colors.grey.shade300,

@@ -16,24 +16,27 @@ class _Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      onLongPress: onLongPress,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Text(
-            emoji,
-            style: TextStyleUtils.medium(30),
-            maxLines: 1,
-          ),
-          Text(
-            name,
-            style: TextStyleUtils.regular(16),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ],
+    return Material(
+      child: InkWell(
+        onTap: onTap,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              emoji,
+              style: TextStyleUtils.medium(30),
+              maxLines: 1,
+            ),
+            SizedBox(width: 10),
+            Text(
+              name,
+              style: TextStyleUtils.medium(18),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+        ),
       ),
     );
   }

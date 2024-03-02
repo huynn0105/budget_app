@@ -1,5 +1,4 @@
-import 'package:budget_app/objectbox.g.dart';
-
+import 'package:expense_manager/objectbox.g.dart';
 
 class ObjectBox {
   /// The Store of this app.

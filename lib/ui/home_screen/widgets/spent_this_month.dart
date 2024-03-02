@@ -12,34 +12,40 @@ class _SpentThisWeek extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          'SPENT',
-          style: TextStyleUtils.bold(26),
-        ),
-        SizedBox(height: 10.h),
         BlocBuilder<TransactionBloc, TransactionState>(
           builder: (context, state) {
             if (state is TransactionInitial) {
               return const CircularProgressIndicator();
             }
             if (state is TransactionLoaded) {
-              return RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                      text: format.format(state.totalThisWeek),
-                      style: TextStyleUtils.medium(50).copyWith(
-                        color: Theme.of(context).primaryColor,
-                      ),
+              return Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.account_balance_wallet_rounded,
+                    size: 45,
+                    color: Colors.black,
+                  ),
+                  SizedBox(width: 5),
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: format.format(state.totalThisWeek),
+                          style: TextStyleUtils.extraBold(45).copyWith(
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                        TextSpan(
+                          text: '\$',
+                          style: TextStyleUtils.extraBold(45).copyWith(
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                      ],
                     ),
-                    TextSpan(
-                      text: 'đ',
-                      style: TextStyleUtils.regular(30).copyWith(
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               );
             }
             return const Text('Something went wrong!');

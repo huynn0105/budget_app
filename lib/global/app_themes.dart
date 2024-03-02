@@ -1,31 +1,29 @@
-import 'package:budget_app/constants.dart';
+import 'package:expense_manager/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 ThemeData lightTheme = ThemeData(
   primaryColor: Colors.black,
   floatingActionButtonTheme: FloatingActionButtonThemeData(
-    backgroundColor: Colors.deepPurpleAccent,
+    backgroundColor: Colors.pinkAccent,
     foregroundColor: Colors.white,
   ),
   appBarTheme: AppBarTheme(
     elevation: 0,
     backgroundColor: Colors.grey.shade50,
-    titleTextStyle: TextStyleUtils.medium(16).copyWith(color: Colors.deepPurpleAccent),
-    iconTheme: IconThemeData(color: Colors.deepPurpleAccent),
+    titleTextStyle:
+        TextStyleUtils.medium(16).copyWith(color: Colors.pinkAccent),
+    iconTheme: IconThemeData(color: Colors.pinkAccent),
   ),
   scaffoldBackgroundColor: Colors.grey.shade50,
   iconTheme: IconThemeData(
     color: Colors.grey.shade600,
   ),
-  buttonTheme: ButtonThemeData(buttonColor: Colors.deepPurpleAccent),
+  buttonTheme: ButtonThemeData(buttonColor: Colors.pinkAccent),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     backgroundColor: Colors.grey.shade100,
-    selectedItemColor: Colors.deepPurpleAccent,
+    selectedItemColor: Colors.pinkAccent,
     unselectedItemColor: Colors.grey.shade500,
   ),
-
- 
 );
 
 ThemeData darkTheme = ThemeData(
@@ -52,5 +50,4 @@ ThemeData darkTheme = ThemeData(
     border: OutlineInputBorder(borderSide: BorderSide.none),
   ),
   splashColor: Colors.grey.shade800,
- 
 );

@@ -1,8 +1,8 @@
-import 'package:budget_app/constants.dart';
-import 'package:budget_app/core/blocs/category_bloc/category_bloc.dart';
-import 'package:budget_app/core/blocs/payment_bloc/payment_bloc.dart';
-import 'package:budget_app/core/blocs/transaction_bloc/transaction_bloc.dart';
-import 'package:budget_app/translation/keyword.dart';
+import 'package:expense_manager/constants.dart';
+import 'package:expense_manager/core/blocs/category_bloc/category_bloc.dart';
+import 'package:expense_manager/core/blocs/payment_bloc/payment_bloc.dart';
+import 'package:expense_manager/core/blocs/transaction_bloc/transaction_bloc.dart';
+import 'package:expense_manager/translation/keyword.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -63,7 +63,6 @@ class EraseDataSettingScreen extends StatelessWidget {
                 style: TextStyleUtils.regular(14)
                     .copyWith(color: Theme.of(context).primaryColor),
               ),
-
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.w),
@@ -120,7 +119,6 @@ class EraseDataSettingScreen extends StatelessWidget {
                 style: TextStyleUtils.regular(14)
                     .copyWith(color: Theme.of(context).primaryColor),
               ),
-
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.w),

@@ -1,26 +1,25 @@
-import 'package:budget_app/constants.dart';
-import 'package:budget_app/core/blocs/budget_bloc/budget_bloc.dart';
-import 'package:budget_app/core/blocs/home_cubit/home_cubit.dart';
-import 'package:budget_app/core/blocs/transaction_bloc/transaction_bloc.dart';
-import 'package:budget_app/core/entities/transaction_entity.dart';
-import 'package:budget_app/core/utils/datetime_util.dart';
-import 'package:budget_app/core/utils/enum_helper.dart';
-import 'package:budget_app/translation/keyword.dart';
-import 'package:budget_app/ui/add_new_budget_screen.dart';
+import 'package:expense_manager/constants.dart';
+import 'package:expense_manager/core/blocs/home_cubit/home_cubit.dart';
+import 'package:expense_manager/core/blocs/transaction_bloc/transaction_bloc.dart';
+import 'package:expense_manager/core/entities/transaction_entity.dart';
+import 'package:expense_manager/core/utils/datetime_util.dart';
+import 'package:expense_manager/core/utils/enum_helper.dart';
+import 'package:expense_manager/translation/keyword.dart';
+import 'package:expense_manager/ui/chart_screen/chart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+
 // import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../core/blocs/setting_bloc/setting_bloc.dart';
 import '../add_new_transaction_screen/add_new_transaction_screen.dart';
 import '../analysis_screen/analysis_screen.dart';
-import '../setting_screen/setting_screen.dart';
-import 'package:intl/date_symbol_data_local.dart';
 
-part 'widgets/transaction_of_date.dart';
 part 'widgets/spent_this_month.dart';
+part 'widgets/transaction_of_date.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -46,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
             scaffoldKey: scaffoldKey,
           );
         case BottomNavBar.analysis:
-          return const AnalysisScreen();
+          return const ChartScreen();
         // case BottomNavBar.settiing:
         //   return SettingScreen();
       }
@@ -60,23 +59,25 @@ class _HomeScreenState extends State<HomeScreen> {
           appBar: AppBar(
             elevation: 0,
             toolbarHeight: 20,
-            backgroundColor: Color.fromARGB(255, 250, 225, 255),
             automaticallyImplyLeading: false,
+            backgroundColor: Colors.blueGrey.shade50,
           ),
-          backgroundColor: Color.fromARGB(255, 250, 225, 255),
+          backgroundColor: Colors.blueGrey.shade50,
           body: homeScreen(state.navBar),
           bottomNavigationBar: BottomNavigationBar(
             items: const [
+              BottomNavigationBarItem(icon: Icon(Icons.wallet), label: 'Spent'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.home_filled), label: 'Home'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.show_chart), label: 'Chart'),
+                  icon: Icon(Icons.analytics), label: 'Analys'),
               // BottomNavigationBarItem(icon: Icon(Icons.settings_sharp), label: 'Setting'),
             ],
             currentIndex: state.navBar.index,
             onTap: (index) {
               context.read<BottomNavBarCubit>().onItemTapped(index);
             },
+            elevation: 12,
+            useLegacyColorScheme: true,
+            iconSize: 50,
           ),
           // drawer: Drawer(
           //   child: BlocBuilder<BudgetBloc, BudgetState>(
@@ -130,6 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
           // ),
           floatingActionButton: FloatingActionButton(
             key: const Key('addNewTransaction'),
+            highlightElevation: 2,
             onPressed: () {
               // showModalBottomSheet(
               //   context: context,
@@ -140,8 +142,13 @@ class _HomeScreenState extends State<HomeScreen> {
               Get.to(() => AddNewTransactionScreen());
             },
             elevation: 2,
-            child: const Icon(Icons.add_circle_outline_rounded),
+            child: const Icon(
+              Icons.add,
+              size: 40,
+            ),
           ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
         );
       },
     );
@@ -162,25 +169,37 @@ class HomeWidget extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 10.r),
       child: Column(
         children: [
-          const Expanded(
-            flex: 1,
-            child: _SpentThisWeek(),
-          ),
-          SizedBox(height: 40.h),
+          _SpentThisWeek(),
+          SizedBox(height: 20.h),
           Expanded(
-            flex: 4,
             child: BlocBuilder<TransactionBloc, TransactionState>(
               builder: (context, state) {
                 if (state is TransactionInitial) {
                   return const CircularProgressIndicator();
                 }
                 if (state is TransactionLoaded) {
-                  return ListView(
-                    children: state.transactionOfDate.entries
-                        .map((e) => _TransactionOfDate(
-                            date: e.key, transactions: e.value))
-                        .toList(),
-                  );
+                  return state.transactionOfDate.entries.isNotEmpty
+                      ? ListView(
+                          children: state.transactionOfDate.entries
+                              .map((e) => Padding(
+                                    padding: const EdgeInsets.only(bottom: 20),
+                                    child: _TransactionOfDate(
+                                        date: e.key, transactions: e.value),
+                                  ))
+                              .toList(),
+                        )
+                      : InkWell(
+                          onTap: () {
+                            Get.to(() => AddNewTransactionScreen());
+                          },
+                          child: Text(
+                            'No spent, create now',
+                            style: TextStyleUtils.medium(40).copyWith(
+                              color: Colors.blue,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        );
                 }
                 return const Text('Something went wrong!');
               },

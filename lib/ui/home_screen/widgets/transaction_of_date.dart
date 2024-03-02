@@ -23,46 +23,64 @@ class _TransactionOfDate extends StatelessWidget {
         (prevValue, x) =>
             prevValue +
             (x.type == TransactionType.expense ? -x.amount : x.amount));
-    return Card(
-      elevation: 1.5,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      child: Column(
-        children: [
-          Column(
+    return Column(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(28),
+              topRight: Radius.circular(28),
+            ),
+            color: Colors.white,
+          ),
+          child: Column(
             children: [
-              Padding(
-                padding: EdgeInsets.all(16.0.r),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      date.isToday() ? KeyWork.today.tr : formater.format(date),
-                      style: TextStyleUtils.regular(17),
+              Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(16.0.r),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.history_rounded,
+                          size: 30,
+                          color: Colors.pink,
+                        ),
+                        SizedBox(width: 5),
+                        Text(
+                          date.isToday()
+                              ? KeyWork.today.tr
+                              : formater.format(date),
+                          style: TextStyleUtils.medium(20),
+                        ),
+                        Spacer(),
+                        Text(
+                          '${format.format(total)} \$',
+                          style: TextStyleUtils.medium(20),
+                        ),
+                      ],
                     ),
-                    Text(
-                      '${format.format(total)}đ',
-                      style: TextStyleUtils.regular(17),
-                    ),
-                  ],
-                ),
+                  ),
+                  Divider(height: 1.h, color: Colors.grey.shade300),
+                ],
               ),
-              Divider(height: 1.h, color: Colors.grey.shade300),
             ],
           ),
-          ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            separatorBuilder: (_, __) =>
-                Divider(height: 2.h, color: Colors.purpleAccent),
-            itemBuilder: (context, index) {
-              return _TransactionItem(transaction: transactions[index]);
-            },
-            itemCount: transactions.length,
-          ),
-        ],
-      ),
+        ),
+        ListView.separated(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          separatorBuilder: (_, __) =>
+              Divider(height: 2.h, color: Colors.white),
+          itemBuilder: (context, index) {
+            return _TransactionItem(
+              transaction: transactions[index],
+              isColor: index % 2 != 0,
+            );
+          },
+          itemCount: transactions.length,
+        ),
+      ],
     );
   }
 }
@@ -71,12 +89,22 @@ class _TransactionItem extends StatelessWidget {
   const _TransactionItem({
     Key? key,
     required this.transaction,
+    this.isColor = true,
   }) : super(key: key);
   final Transaction transaction;
+  final bool isColor;
 
   @override
   Widget build(BuildContext context) {
     final format = NumberFormat('#,###');
+    final colos = [
+      Color.fromARGB(255, 164, 205, 225),
+      Color.fromARGB(224, 213, 172, 199)
+    ];
+    final colors = [
+      Color.fromARGB(224, 213, 172, 199),
+      Color.fromARGB(255, 164, 205, 225),
+    ];
     return InkWell(
       onLongPress: () {
         showDialog(
@@ -91,7 +119,7 @@ class _TransactionItem extends StatelessWidget {
                       child: Text(
                         KeyWork.cancel.tr,
                         style: TextStyleUtils.medium(14)
-                            .copyWith(color: Colors.deepPurpleAccent),
+                            .copyWith(color: Colors.pinkAccent),
                       ),
                       onPressed: () {
                         Get.back();
@@ -101,7 +129,7 @@ class _TransactionItem extends StatelessWidget {
                       child: Text(
                         KeyWork.eraseData.tr,
                         style: TextStyleUtils.medium(14)
-                            .copyWith(color: Colors.deepPurple),
+                            .copyWith(color: Colors.pinkAccent),
                       ),
                       onPressed: () {
                         context.read<TransactionBloc>().add(
@@ -114,21 +142,16 @@ class _TransactionItem extends StatelessWidget {
                 ));
       },
       onTap: () {
-        showModalBottomSheet(
-          context: context,
-          builder: (context) {
-            return AddNewTransactionScreen(
+        Get.to(() => AddNewTransactionScreen(
               transaction: transaction,
-            );
-          },
-        );
+            ));
       },
-      child: ColoredBox(
-        color: transaction.type == TransactionType.income
-            ? Colors.green.withOpacity(0.06)
-            : Colors.purple.withOpacity(0.06),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(colors: isColor ? colos : colors),
+        ),
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 8.0.r, horizontal: 16.r),
+          padding: EdgeInsets.symmetric(vertical: 12.0.r, horizontal: 16.r),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -136,18 +159,22 @@ class _TransactionItem extends StatelessWidget {
                 children: [
                   Text(
                     transaction.category.target!.emoji,
-                    style: TextStyleUtils.regular(30),
+                    style: TextStyleUtils.regular(22),
                   ),
                   SizedBox(width: 10.w),
                   Expanded(
                     child: Text(
                       transaction.category.target!.name.tr,
-                      style: TextStyleUtils.regular(16),
+                      style: TextStyleUtils.medium(18).copyWith(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                   Text(
-                    '${transaction.type == TransactionType.expense ? '-' : ''}${format.format(transaction.amount)}đ',
-                    style: TextStyleUtils.regular(16),
+                    '${transaction.type == TransactionType.expense ? '-' : ''}${format.format(transaction.amount)} \$',
+                    style: TextStyleUtils.medium(18).copyWith(
+                      color: Colors.white,
+                    ),
                   ),
                 ],
               ),
@@ -157,7 +184,7 @@ class _TransactionItem extends StatelessWidget {
                   child: Text(
                     '${transaction.note}',
                     style: TextStyleUtils.regular(14)
-                        .copyWith(color: Colors.deepPurpleAccent),
+                        .copyWith(color: Colors.white),
                   ),
                 ),
             ],

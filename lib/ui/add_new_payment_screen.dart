@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:budget_app/constants.dart';
-import 'package:budget_app/core/blocs/payment_bloc/payment_bloc.dart';
-import 'package:budget_app/core/entities/payment_entity.dart';
-import 'package:budget_app/translation/keyword.dart';
+import 'package:expense_manager/constants.dart';
+import 'package:expense_manager/core/blocs/payment_bloc/payment_bloc.dart';
+import 'package:expense_manager/core/entities/payment_entity.dart';
+import 'package:expense_manager/translation/keyword.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';

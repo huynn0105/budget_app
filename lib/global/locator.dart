@@ -1,5 +1,5 @@
-import 'package:budget_app/core/database/object_box.dart';
-import 'package:budget_app/global/locator_service.dart';
+import 'package:expense_manager/core/database/object_box.dart';
+import 'package:expense_manager/global/locator_service.dart';
 import 'package:get_it/get_it.dart';
 
 import 'locator_dao.dart';

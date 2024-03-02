@@ -1,12 +1,12 @@
-import 'package:budget_app/constants.dart';
-import 'package:budget_app/core/blocs/analysis_bloc/analysis_bloc.dart';
-import 'package:budget_app/core/blocs/setting_bloc/setting_bloc.dart';
-import 'package:budget_app/core/ui_model/category_ui_model.dart';
-import 'package:budget_app/core/utils/datetime_util.dart';
-import 'package:budget_app/core/utils/enum_helper.dart';
-import 'package:budget_app/translation/keyword.dart';
-import 'package:budget_app/ui/category_history_screen/category_history_screen.dart';
-import 'package:budget_app/ui/chart_screen/chart_screen.dart';
+import 'package:expense_manager/constants.dart';
+import 'package:expense_manager/core/blocs/analysis_bloc/analysis_bloc.dart';
+import 'package:expense_manager/core/blocs/setting_bloc/setting_bloc.dart';
+import 'package:expense_manager/core/ui_model/category_ui_model.dart';
+import 'package:expense_manager/core/utils/datetime_util.dart';
+import 'package:expense_manager/core/utils/enum_helper.dart';
+import 'package:expense_manager/translation/keyword.dart';
+import 'package:expense_manager/ui/category_history_screen/category_history_screen.dart';
+import 'package:expense_manager/ui/chart_screen/chart_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -99,8 +99,8 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                                   style: TextStyleUtils.bold(50),
                                 ),
                                 Text(
-                                  'đ',
-                                  style: TextStyleUtils.regular(35),
+                                  ' \$',
+                                  style: TextStyleUtils.bold(50),
                                 ),
                               ],
                             ),
@@ -302,12 +302,12 @@ class _CategoryItem extends StatelessWidget {
           Expanded(
             child: Text(
               categoryUI.category.name.tr,
-              style: TextStyleUtils.regular(16),
+              style: TextStyleUtils.medium(24),
             ),
           ),
           Text(
-            '${format.format(categoryUI.total)}đ',
-            style: TextStyleUtils.regular(16),
+            '${format.format(categoryUI.total)} \$',
+            style: TextStyleUtils.medium(24),
           ),
         ],
       ),
@@ -361,7 +361,7 @@ class _ChartItem extends StatelessWidget {
                   width: 26.w,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5.r),
-                    color: Colors.deepPurpleAccent,
+                    color: Colors.pinkAccent,
                   ),
                 ),
               ],
@@ -423,7 +423,7 @@ class _ViewTypeWidgetState extends State<_ViewTypeWidget> {
                           ? KeyWork.month.tr.toUpperCase()
                           : KeyWork.year.tr.toUpperCase(),
                   style: TextStyleUtils.regular(14).copyWith(
-                      color: isActive ? Colors.purple : Colors.black87),
+                      color: isActive ? Colors.pinkAccent : Colors.black87),
                 ),
               );
             }),

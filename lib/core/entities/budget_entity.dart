@@ -1,7 +1,7 @@
 import 'package:objectbox/objectbox.dart';
 
-import 'package:budget_app/core/entities/base_entity.dart';
-import 'package:budget_app/core/entities/transaction_entity.dart';
+import 'package:expense_manager/core/entities/base_entity.dart';
+import 'package:expense_manager/core/entities/transaction_entity.dart';
 
 @Entity()
 class Budget extends BaseEntity {

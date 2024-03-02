@@ -1,6 +1,6 @@
-import 'package:budget_app/core/entities/category_entity.dart';
-import 'package:budget_app/core/services/interfaces/icategory_service.dart';
-import 'package:budget_app/global/locator.dart';
+import 'package:expense_manager/core/entities/category_entity.dart';
+import 'package:expense_manager/core/services/interfaces/icategory_service.dart';
+import 'package:expense_manager/global/locator.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';

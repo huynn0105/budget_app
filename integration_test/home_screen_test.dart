@@ -1,6 +1,6 @@
 // import 'package:flutter/material.dart';
 // import 'package:flutter_test/flutter_test.dart';
-// import 'package:budget_app/main.dart' as app;
+// import 'package:expense_manager/main.dart' as app;
 
 // void main() {
 //   group('HomeScreen test', () {

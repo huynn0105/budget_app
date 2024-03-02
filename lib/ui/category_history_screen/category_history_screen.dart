@@ -1,9 +1,9 @@
-import 'package:budget_app/constants.dart';
-import 'package:budget_app/core/entities/transaction_entity.dart';
-import 'package:budget_app/core/ui_model/category_ui_model.dart';
-import 'package:budget_app/core/utils/datetime_util.dart';
-import 'package:budget_app/core/utils/enum_helper.dart';
-import 'package:budget_app/translation/keyword.dart';
+import 'package:expense_manager/constants.dart';
+import 'package:expense_manager/core/entities/transaction_entity.dart';
+import 'package:expense_manager/core/ui_model/category_ui_model.dart';
+import 'package:expense_manager/core/utils/datetime_util.dart';
+import 'package:expense_manager/core/utils/enum_helper.dart';
+import 'package:expense_manager/translation/keyword.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -47,8 +47,8 @@ class CategoryHistoryScreen extends StatelessWidget {
                   ),
                 ),
                 TextSpan(
-                  text: 'đ',
-                  style: TextStyleUtils.medium(28).copyWith(
+                  text: ' \$',
+                  style: TextStyleUtils.bold(55).copyWith(
                     color: Theme.of(context).primaryColor,
                   ),
                 ),

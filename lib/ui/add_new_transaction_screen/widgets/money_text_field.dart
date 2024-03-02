@@ -13,7 +13,7 @@ class _MoneyTextField extends StatelessWidget {
     return TextField(
       maxLines: 1,
       controller: controller,
-      style: TextStyleUtils.medium(50).copyWith(color: Colors.deepPurpleAccent),
+      style: TextStyleUtils.bold(40).copyWith(color: Colors.black),
       textAlign: TextAlign.center,
       maxLength: 16,
       keyboardType: TextInputType.number,
@@ -22,7 +22,7 @@ class _MoneyTextField extends StatelessWidget {
         CurrencyInputFormatter(
           thousandSeparator: ThousandSeparator.Comma,
           mantissaLength: 0,
-          trailingSymbol: 'đ',
+          trailingSymbol: ' \$',
         )
       ],
       decoration: const InputDecoration(

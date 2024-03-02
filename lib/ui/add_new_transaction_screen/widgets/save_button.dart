@@ -12,8 +12,8 @@ class _SaveButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       child: Text(
-        KeyWork.save.tr,
-        style: TextStyleUtils.medium(30),
+        "Create Expense",
+        style: TextStyleUtils.medium(24),
       ),
     );
   }

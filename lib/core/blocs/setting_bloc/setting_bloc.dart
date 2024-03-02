@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
-import 'package:budget_app/core/services/interfaces/isetting_service.dart';
-import 'package:budget_app/core/utils/enum_helper.dart';
-import 'package:budget_app/global/locator.dart';
-import 'package:budget_app/translation/app_translation.dart';
+import 'package:expense_manager/core/services/interfaces/isetting_service.dart';
+import 'package:expense_manager/core/utils/enum_helper.dart';
+import 'package:expense_manager/global/locator.dart';
+import 'package:expense_manager/translation/app_translation.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 

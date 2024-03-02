@@ -1,14 +1,14 @@
-import 'package:budget_app/constants.dart';
-import 'package:budget_app/core/blocs/setting_bloc/setting_bloc.dart';
-import 'package:budget_app/core/utils/enum_helper.dart';
-import 'package:budget_app/translation/keyword.dart';
-import 'package:budget_app/ui/setting_screen/widgets/about_setting_screen.dart';
-import 'package:budget_app/ui/setting_screen/widgets/budget_setting_screen.dart';
-import 'package:budget_app/ui/setting_screen/widgets/payment_setting_screen.dart';
-import 'package:budget_app/ui/setting_screen/widgets/category_setting_screen.dart';
-import 'package:budget_app/ui/setting_screen/widgets/dark_mode_setting_screen.dart';
-import 'package:budget_app/ui/setting_screen/widgets/erase_data_setting_screen.dart';
-import 'package:budget_app/ui/setting_screen/widgets/language_setting_screen.dart';
+import 'package:expense_manager/constants.dart';
+import 'package:expense_manager/core/blocs/setting_bloc/setting_bloc.dart';
+import 'package:expense_manager/core/utils/enum_helper.dart';
+import 'package:expense_manager/translation/keyword.dart';
+import 'package:expense_manager/ui/setting_screen/widgets/about_setting_screen.dart';
+import 'package:expense_manager/ui/setting_screen/widgets/budget_setting_screen.dart';
+import 'package:expense_manager/ui/setting_screen/widgets/payment_setting_screen.dart';
+import 'package:expense_manager/ui/setting_screen/widgets/category_setting_screen.dart';
+import 'package:expense_manager/ui/setting_screen/widgets/dark_mode_setting_screen.dart';
+import 'package:expense_manager/ui/setting_screen/widgets/erase_data_setting_screen.dart';
+import 'package:expense_manager/ui/setting_screen/widgets/language_setting_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -139,8 +139,6 @@ class SettingScreen extends StatelessWidget {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                   
-                  
                     Divider(
                       height: 1.h,
                       color: Colors.grey.shade300,

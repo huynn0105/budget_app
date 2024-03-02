@@ -1,9 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:objectbox/objectbox.dart';
 
-import 'package:budget_app/core/entities/base_entity.dart';
-import 'package:budget_app/core/entities/transaction_entity.dart';
-import 'package:budget_app/translation/keyword.dart';
+import 'package:expense_manager/core/entities/base_entity.dart';
+import 'package:expense_manager/core/entities/transaction_entity.dart';
+import 'package:expense_manager/translation/keyword.dart';
 
 @Entity()
 class Payment extends BaseEntity {
@@ -23,7 +23,7 @@ class Payment extends BaseEntity {
 
   static List<Payment> paymentsDefault = [
     Payment(name: KeyWork.cash, emoji: '💵'),
-    Payment(name: KeyWork.card, emoji: '💳'),
+    Payment(name: "Credit Card", emoji: '📇'),
   ];
 
   @override

@@ -1,12 +1,12 @@
 // import 'package:bloc_test/bloc_test.dart';
-// import 'package:budget_app/core/blocs/category_bloc/category_bloc.dart';
-// import 'package:budget_app/core/blocs/transaction_bloc/transaction_bloc.dart';
-// import 'package:budget_app/core/entities/payment_entity.dart';
-// import 'package:budget_app/core/entities/category_entity.dart';
-// import 'package:budget_app/core/entities/transaction_entity.dart';
-// import 'package:budget_app/core/services/interfaces/icategory_service.dart';
-// import 'package:budget_app/core/services/interfaces/itransaction_service.dart';
-// import 'package:budget_app/global/locator.dart';
+// import 'package:expense_manager/core/blocs/category_bloc/category_bloc.dart';
+// import 'package:expense_manager/core/blocs/transaction_bloc/transaction_bloc.dart';
+// import 'package:expense_manager/core/entities/payment_entity.dart';
+// import 'package:expense_manager/core/entities/category_entity.dart';
+// import 'package:expense_manager/core/entities/transaction_entity.dart';
+// import 'package:expense_manager/core/services/interfaces/icategory_service.dart';
+// import 'package:expense_manager/core/services/interfaces/itransaction_service.dart';
+// import 'package:expense_manager/global/locator.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter_test/flutter_test.dart';
 

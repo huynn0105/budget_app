@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.apps.budget_manager">
+    package="com.expense.expense_manager_app">
    <application
         android:label="Budget"
         android:name="${applicationName}"

@@ -1,4 +1,4 @@
-import 'package:budget_app/translation/keyword.dart';
+import 'package:expense_manager/translation/keyword.dart';
 
 const Map<String, String> vi = {
   KeyWork.spentThisWeek: 'Chi tiêu của tuần này',

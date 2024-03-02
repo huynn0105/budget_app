@@ -1,4 +1,4 @@
-import 'package:budget_app/core/entities/category_entity.dart';
+import 'package:expense_manager/core/entities/category_entity.dart';
 
 abstract class ICategoryService {
   List<Category> getCategories();

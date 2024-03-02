@@ -1,8 +1,8 @@
-import 'package:budget_app/constants.dart';
-import 'package:budget_app/core/blocs/payment_bloc/payment_bloc.dart';
-import 'package:budget_app/core/entities/payment_entity.dart';
-import 'package:budget_app/translation/keyword.dart';
-import 'package:budget_app/ui/add_new_payment_screen.dart';
+import 'package:expense_manager/constants.dart';
+import 'package:expense_manager/core/blocs/payment_bloc/payment_bloc.dart';
+import 'package:expense_manager/core/entities/payment_entity.dart';
+import 'package:expense_manager/translation/keyword.dart';
+import 'package:expense_manager/ui/add_new_payment_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -73,19 +73,18 @@ class _PaymentItem extends StatelessWidget {
             ));
       },
       child: Padding(
-          padding: EdgeInsets.all(12.r),
-          child: Row(
-            children: [
-              Text(
-                payment.emoji,
-                style: TextStyleUtils.regular(18),
-              ),
-              SizedBox(width: 10.w),
-              Text(payment.name.tr, style: TextStyleUtils.regular(14))
-            ],
-          ),
+        padding: EdgeInsets.all(12.r),
+        child: Row(
+          children: [
+            Text(
+              payment.emoji,
+              style: TextStyleUtils.regular(18),
+            ),
+            SizedBox(width: 10.w),
+            Text(payment.name.tr, style: TextStyleUtils.regular(14))
+          ],
         ),
-     
+      ),
     );
   }
 }

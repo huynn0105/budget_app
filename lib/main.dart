@@ -1,14 +1,14 @@
-import 'package:budget_app/core/blocs/analysis_bloc/analysis_bloc.dart';
-import 'package:budget_app/core/blocs/budget_bloc/budget_bloc.dart';
-import 'package:budget_app/core/blocs/category_bloc/category_bloc.dart';
-import 'package:budget_app/core/blocs/home_cubit/home_cubit.dart';
-import 'package:budget_app/core/blocs/payment_bloc/payment_bloc.dart';
-import 'package:budget_app/core/blocs/setting_bloc/setting_bloc.dart';
-import 'package:budget_app/core/blocs/transaction_bloc/transaction_bloc.dart';
-import 'package:budget_app/core/blocs/transaction_type_cubit/transaction_type_cubit.dart';
-import 'package:budget_app/global/app_themes.dart';
-import 'package:budget_app/translation/app_translation.dart';
-import 'package:budget_app/ui/home_screen/home_screen.dart';
+import 'package:expense_manager/core/blocs/analysis_bloc/analysis_bloc.dart';
+import 'package:expense_manager/core/blocs/budget_bloc/budget_bloc.dart';
+import 'package:expense_manager/core/blocs/category_bloc/category_bloc.dart';
+import 'package:expense_manager/core/blocs/home_cubit/home_cubit.dart';
+import 'package:expense_manager/core/blocs/payment_bloc/payment_bloc.dart';
+import 'package:expense_manager/core/blocs/setting_bloc/setting_bloc.dart';
+import 'package:expense_manager/core/blocs/transaction_bloc/transaction_bloc.dart';
+import 'package:expense_manager/core/blocs/transaction_type_cubit/transaction_type_cubit.dart';
+import 'package:expense_manager/global/app_themes.dart';
+import 'package:expense_manager/translation/app_translation.dart';
+import 'package:expense_manager/ui/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc/src/bloc_provider.dart';
@@ -39,11 +39,12 @@ class MyApp extends StatelessWidget {
                 debugShowCheckedModeBanner: false,
                 themeMode: state.themeMode,
                 darkTheme: darkTheme,
-                title: 'Budget'.toUpperCase(),
+                title: 'Expense'.toUpperCase(),
                 theme: lightTheme,
                 home: child,
                 translations: AppTranslation(),
                 locale: AppTranslation.getDefaultLocale(),
+                color: Colors.pinkAccent,
               );
             },
           ),

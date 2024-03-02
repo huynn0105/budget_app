@@ -1,4 +1,4 @@
-import 'package:budget_app/core/entities/payment_entity.dart';
+import 'package:expense_manager/core/entities/payment_entity.dart';
 
 abstract class IPaymentService {
   List<Payment> getPayments();

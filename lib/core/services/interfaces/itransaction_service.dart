@@ -1,4 +1,4 @@
-import 'package:budget_app/core/entities/transaction_entity.dart';
+import 'package:expense_manager/core/entities/transaction_entity.dart';
 
 abstract class ITransactionService {
   int insertTransaction(Transaction transaction);

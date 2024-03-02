@@ -1,5 +1,5 @@
-import 'package:budget_app/core/entities/category_entity.dart';
-import 'package:budget_app/core/entities/transaction_entity.dart';
+import 'package:expense_manager/core/entities/category_entity.dart';
+import 'package:expense_manager/core/entities/transaction_entity.dart';
 
 class CategoryUIModel {
   final Category category;

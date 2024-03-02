@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "budget_app",
+            "name": "expense_manager",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "budget_app (profile mode)",
+            "name": "expense_manager (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "budget_app (release mode)",
+            "name": "expense_manager (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

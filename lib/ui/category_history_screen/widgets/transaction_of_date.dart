@@ -37,8 +37,8 @@ class _TransactionOfDate extends StatelessWidget {
                     style: TextStyleUtils.medium(24),
                   ),
                   Text(
-                    '${format.format(total)}đ',
-                    style: TextStyleUtils.regular(20),
+                    '${format.format(total)} \$',
+                    style: TextStyleUtils.medium(24),
                   ),
                 ],
               ),
@@ -101,8 +101,8 @@ class _TransactionItem extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '${transaction.type == TransactionType.expense ? '-' : ''}${format.format(transaction.amount)}đ',
-                  style: TextStyleUtils.regular(20),
+                  '${transaction.type == TransactionType.expense ? '-' : ''}${format.format(transaction.amount)} \$',
+                  style: TextStyleUtils.medium(24),
                 ),
               ],
             ),

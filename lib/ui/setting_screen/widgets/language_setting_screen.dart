@@ -1,6 +1,6 @@
-import 'package:budget_app/core/blocs/setting_bloc/setting_bloc.dart';
-import 'package:budget_app/core/utils/enum_helper.dart';
-import 'package:budget_app/ui/setting_screen/widgets/dark_mode_setting_screen.dart';
+import 'package:expense_manager/core/blocs/setting_bloc/setting_bloc.dart';
+import 'package:expense_manager/core/utils/enum_helper.dart';
+import 'package:expense_manager/ui/setting_screen/widgets/dark_mode_setting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

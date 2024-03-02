@@ -1,16 +1,16 @@
 import 'dart:io';
 
-import 'package:budget_app/constants.dart';
-import 'package:budget_app/core/blocs/category_bloc/category_bloc.dart';
-import 'package:budget_app/core/entities/category_entity.dart' as app;
-import 'package:budget_app/translation/keyword.dart';
+import 'package:expense_manager/constants.dart';
+import 'package:expense_manager/core/blocs/category_bloc/category_bloc.dart';
+import 'package:expense_manager/core/entities/category_entity.dart' as app;
+import 'package:expense_manager/translation/keyword.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:budget_app/core/entities/category_entity.dart' as entity;
+import 'package:expense_manager/core/entities/category_entity.dart' as entity;
 
 class AddNewCategoryArgument {
   final entity.Category category;

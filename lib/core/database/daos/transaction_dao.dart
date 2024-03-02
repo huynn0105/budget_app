@@ -1,5 +1,4 @@
-import 'package:budget_app/core/database/daos/base_dao.dart';
-import 'package:budget_app/core/entities/transaction_entity.dart';
+import 'package:expense_manager/core/database/daos/base_dao.dart';
+import 'package:expense_manager/core/entities/transaction_entity.dart';
 
-class TransactionDao extends BaseDao<Transaction>{
-}
+class TransactionDao extends BaseDao<Transaction> {}

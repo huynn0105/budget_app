@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
-import 'package:budget_app/core/entities/budget_entity.dart';
-import 'package:budget_app/core/services/interfaces/ibudget_service.dart';
-import 'package:budget_app/core/services/interfaces/isetting_service.dart';
-import 'package:budget_app/global/locator.dart';
+import 'package:expense_manager/core/entities/budget_entity.dart';
+import 'package:expense_manager/core/services/interfaces/ibudget_service.dart';
+import 'package:expense_manager/core/services/interfaces/isetting_service.dart';
+import 'package:expense_manager/global/locator.dart';
 import 'package:equatable/equatable.dart';
 
 part 'budget_event.dart';

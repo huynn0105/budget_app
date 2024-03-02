@@ -1,8 +1,8 @@
-import 'package:budget_app/core/database/daos/budget_dao.dart';
-import 'package:budget_app/core/entities/budget_entity.dart';
-import 'package:budget_app/core/services/interfaces/ibudget_service.dart';
-import 'package:budget_app/global/locator.dart';
-import 'package:budget_app/translation/keyword.dart';
+import 'package:expense_manager/core/database/daos/budget_dao.dart';
+import 'package:expense_manager/core/entities/budget_entity.dart';
+import 'package:expense_manager/core/services/interfaces/ibudget_service.dart';
+import 'package:expense_manager/global/locator.dart';
+import 'package:expense_manager/translation/keyword.dart';
 import 'package:get/get.dart';
 
 class AccountService implements IBudgetService {

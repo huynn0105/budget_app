@@ -1,4 +1,4 @@
-import 'package:budget_app/core/entities/transaction_entity.dart';
+import 'package:expense_manager/core/entities/transaction_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

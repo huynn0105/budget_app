@@ -12,13 +12,13 @@ class _AddButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      child: Row(
         children: [
           Icon(
             Icons.add_box,
             size: 42.r,
           ),
+          SizedBox(width: 5),
           Text(
             KeyWork.add.tr,
             style: TextStyleUtils.regular(16),

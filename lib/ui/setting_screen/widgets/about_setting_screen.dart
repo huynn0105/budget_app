@@ -1,5 +1,5 @@
-import 'package:budget_app/constants.dart';
-import 'package:budget_app/translation/keyword.dart';
+import 'package:expense_manager/constants.dart';
+import 'package:expense_manager/translation/keyword.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

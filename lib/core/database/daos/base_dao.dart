@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:budget_app/core/database/object_box.dart';
-import 'package:budget_app/core/entities/base_entity.dart';
-import 'package:budget_app/global/locator.dart';
-import 'package:budget_app/objectbox.g.dart';
+import 'package:expense_manager/core/database/object_box.dart';
+import 'package:expense_manager/core/entities/base_entity.dart';
+import 'package:expense_manager/global/locator.dart';
+import 'package:expense_manager/objectbox.g.dart';
 import 'package:flutter/foundation.dart';
 
 abstract class BaseDao<T extends BaseEntity> {

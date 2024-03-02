@@ -1,5 +1,5 @@
-import 'package:budget_app/translation/app_translation.dart';
-import 'package:budget_app/translation/keyword.dart';
+import 'package:expense_manager/translation/app_translation.dart';
+import 'package:expense_manager/translation/keyword.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

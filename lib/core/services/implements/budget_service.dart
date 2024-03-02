@@ -17,14 +17,18 @@ class AccountService implements IBudgetService {
   List<Budget> getAllAccounts() {
     final accounts = _accountDao.getAll();
     if (accounts.isEmpty) {
-      _accountDao.insert(Budget(name: KeyWork.myBudget.tr, image: '🧍'));
+      _accountDao.insert(Budget(
+          name: KeyWork.myBudget.tr,
+          image: '🧍',
+          createTime: DateTime.now(),
+          id: ''));
     }
 
     return _accountDao.getAll();
   }
 
   @override
-  int insertAccount(Budget account) {
-    return _accountDao.insert(account);
+  void insertAccount(Budget account) {
+    _accountDao.insert(account);
   }
 }

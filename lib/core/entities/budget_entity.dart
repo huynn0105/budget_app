@@ -1,38 +1,38 @@
-import 'package:objectbox/objectbox.dart';
-
+import 'package:budget_app/core/database/hive_constants.dart';
 import 'package:budget_app/core/entities/base_entity.dart';
-import 'package:budget_app/core/entities/transaction_entity.dart';
+import 'package:hive/hive.dart';
+part 'budget_entity.g.dart';
 
-@Entity()
+@HiveType(typeId: HiveTypes.budget)
 class Budget extends BaseEntity {
-  @override
-  int id;
+  @HiveField(1)
   final String name;
+  @HiveField(2)
   final String image;
-  @Property(type: PropertyType.date)
-  final DateTime createTime = DateTime.now();
-
-  @Backlink()
-  final transactions = ToMany<Transaction>();
+  @HiveField(3)
+  final DateTime createTime;
 
   Budget({
-    this.id = 0,
     required this.name,
     required this.image,
+    required this.createTime,
+    required super.id,
   });
 
   @override
   List<Object?> get props => [id, name, createTime, image];
 
   Budget copyWith({
-    int? id,
+    String? id,
     String? name,
     String? image,
+    DateTime? dataTime,
   }) {
     return Budget(
       id: id ?? this.id,
       name: name ?? this.name,
       image: image ?? this.image,
+      createTime: dataTime ?? this.createTime,
     );
   }
 }

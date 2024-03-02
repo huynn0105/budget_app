@@ -19,6 +19,7 @@ import 'package:budget_app/core/entities/transaction_entity.dart';
 import 'package:budget_app/ui/add_new_payment_screen.dart';
 import 'package:budget_app/ui/add_new_category_screen.dart';
 import 'package:money_formatter/money_formatter.dart';
+import 'package:uuid/uuid.dart';
 
 part 'widgets/payment_bottom_sheet.dart';
 part 'widgets/add_button.dart';
@@ -64,10 +65,9 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
         amount: widget.transaction!.amount.toDouble(),
       ).output.withoutFractionDigits;
       controller.text = moneyFormatter + 'đ';
-      categoryBloc.add(
-          CategorySelected(category: widget.transaction!.category.target!));
-      paymentBloc
-          .add(PaymentSelected(payment: widget.transaction!.payment.target!));
+      categoryBloc
+          .add(CategorySelected(category: widget.transaction!.category));
+      paymentBloc.add(PaymentSelected(payment: widget.transaction!.payment));
     }
     super.initState();
   }
@@ -170,7 +170,7 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
                 context: context,
                 initialDate: DateTime.now(),
                 firstDate: DateTime(2015),
-                lastDate: DateTime(2023),
+                lastDate: DateTime(2026),
               );
               if (picked != null && picked != selectedDate) {
                 setState(() {
@@ -278,6 +278,9 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
                             dateTime: selectedDate.setCurrentTime(),
                             note: noteController.text,
                             type: transactionTypeCubit.state.transactionType,
+                            id: Uuid().v4(),
+                            category: (categoryBloc.state as CategoryLoaded).categorySelected,
+                            payment: (paymentBloc.state as PaymentLoaded).paymentSelected,
                           )
                         : widget.transaction!.copyWith(
                             amount: int.parse(controller.text

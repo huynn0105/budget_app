@@ -12,8 +12,8 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
   final _paymentService = locator<IPaymentService>();
 
   PaymentBloc() : super(PaymentInitial()) {
-    on<PaymentStarted>((event, emit) {
-      final payments = _paymentService.getPayments();
+    on<PaymentStarted>((event, emit) async {
+      final payments = await _paymentService.getPayments();
       emit(
         PaymentLoaded(
           payments: payments,
@@ -21,13 +21,14 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
         ),
       );
     });
-    on<PaymentAdded>((event, emit) {
+    on<PaymentAdded>((event, emit) async {
       final state = this.state;
       if (state is PaymentLoaded) {
-        _paymentService.insertPayment(event.payment);
+        await _paymentService.insertPayment(event.payment);
+        final payments = await _paymentService.getPayments();
         emit(
           PaymentLoaded(
-            payments: _paymentService.getPayments(),
+            payments: payments,
             paymentSelected: event.payment,
           ),
         );
@@ -44,11 +45,11 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
         );
       }
     });
-    on<PaymentDeleted>((event, emit) {
+    on<PaymentDeleted>((event, emit) async {
       final state = this.state;
       if (state is PaymentLoaded) {
         _paymentService.deletePayment(event.payment);
-        final payments = _paymentService.getPayments();
+        final payments = await _paymentService.getPayments();
 
         emit(
           PaymentLoaded(
@@ -60,9 +61,9 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
         );
       }
     });
-    on<PaymentClear>((event, emit) {
+    on<PaymentClear>((event, emit) async {
       _paymentService.clear();
-      final payments = _paymentService.getPayments();
+      final payments = await _paymentService.getPayments();
       emit(PaymentLoaded(paymentSelected: payments.first, payments: payments));
     });
   }

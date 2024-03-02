@@ -12,6 +12,7 @@ import 'package:budget_app/ui/setting_screen/widgets/language_setting_screen.dar
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -24,21 +25,11 @@ class SettingScreen extends StatelessWidget {
       padding: EdgeInsets.all(16.0.r),
       child: Column(
         children: [
-          Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.0.r),
-            ),
-            elevation: 0.8,
-            child: _SettingItem(
-              icon: Icons.group,
-              onTap: () {
-                Get.to(() => BudgetSettingScreen());
-              },
-              title: 'Manager user',
-              value: '',
-            ),
+          Text(
+            'About',
+            style: TextStyleUtils.medium(30),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 30),
           Card(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12.0.r),
@@ -49,108 +40,31 @@ class SettingScreen extends StatelessWidget {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    _SettingItem(
-                      icon: Icons.language,
-                      title: KeyWork.language.tr,
-                      value: state.language == Language.vietnamese
-                          ? KeyWork.vietnamese.tr
-                          : KeyWork.english.tr,
-                      onTap: () {
-                        Get.to(() => LanguageSettingScreen());
-                      },
-                    ),
-                    Divider(
-                      height: 1.h,
-                      color: Colors.grey.shade300,
-                    ),
-                    _SettingItem(
-                      icon: CupertinoIcons.moon_circle_fill,
-                      title: KeyWork.darkMode.tr,
-                      value: state.themeMode == ThemeMode.dark
-                          ? KeyWork.dark.tr
-                          : state.themeMode == ThemeMode.light
-                              ? KeyWork.light.tr
-                              : KeyWork.system.tr,
-                      onTap: () {
-                        Get.to(() => DarkModeSettingScreen());
-                      },
-                    ),
-                  ],
-                );
-              },
-            ),
-          ),
-          SizedBox(height: 15.h),
-          Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.0.r),
-            ),
-            elevation: 0.8,
-            child: BlocBuilder<SettingBloc, SettingState>(
-              builder: (context, state) {
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    _SettingItem(
-                      icon: Icons.wallet_rounded,
-                      title: KeyWork.payment.tr,
-                      value: '',
-                      onTap: () {
-                        Get.to(() => PaymentSettingScreen());
-                      },
-                    ),
-                    Divider(
-                      height: 1.h,
-                      color: Colors.grey.shade300,
-                    ),
-                    _SettingItem(
-                      icon: CupertinoIcons.square_list_fill,
-                      title: KeyWork.category.tr,
-                      value: '',
-                      onTap: () {
-                        Get.to(() => CategorySettingScreen());
-                      },
-                    ),
-                    Divider(
-                      height: 1.h,
-                      color: Colors.grey.shade300,
-                    ),
-                    _SettingItem(
-                      title: KeyWork.eraseData.tr,
-                      icon: CupertinoIcons.clear_fill,
-                      value: '',
-                      onTap: () {
-                        Get.to(() => EraseDataSettingScreen());
-                      },
-                    ),
-                  ],
-                );
-              },
-            ),
-          ),
-          SizedBox(height: 15.h),
-          Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.0.r),
-            ),
-            elevation: 0.8,
-            child: BlocBuilder<SettingBloc, SettingState>(
-              builder: (context, state) {
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                   
-                  
-                    Divider(
-                      height: 1.h,
-                      color: Colors.grey.shade300,
-                    ),
                     _SettingItem(
                       icon: CupertinoIcons.question_circle_fill,
                       title: KeyWork.about.tr,
                       value: '',
                       onTap: () {
                         Get.to(() => AboutSettingScreen());
+                      },
+                    ),
+                    Divider(
+                      height: 1.h,
+                      color: Colors.grey.shade300,
+                    ),
+                    SizedBox(height: 10),
+                    _SettingItem(
+                      icon: Icons.mail,
+                      title: 'Send Feedback',
+                      value: '',
+                      onTap: () async {
+                        final Email email = Email(
+                          body: 'Email',
+                          subject: 'Feedback',
+                          recipients: ['ggproor@gmail.com'],
+                        );
+
+                        await FlutterEmailSender.send(email);
                       },
                     ),
                   ],

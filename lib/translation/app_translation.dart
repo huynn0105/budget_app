@@ -1,8 +1,6 @@
 import 'dart:ui';
 
-import 'package:budget_app/core/services/interfaces/isetting_service.dart';
 import 'package:budget_app/core/utils/enum_helper.dart';
-import 'package:budget_app/global/locator.dart';
 import 'package:get/get.dart';
 
 import 'en.dart';
@@ -13,20 +11,14 @@ import 'vi.dart';
 /// Use [changeLanguage] to change the current translation language
 class AppTranslation extends Translations {
   static const LANG_CODE_EN = 'en';
-  static const LANG_CODE_VI = 'vi';
+  static const LANG_CODE_VI = 'en';
   static const SUPPORTED_LOCALES = [
-    Locale(LANG_CODE_VI, 'VN'),
+    Locale(LANG_CODE_EN, 'US'),
     Locale(LANG_CODE_EN, 'US'),
   ];
 
   static String get currentLanguageCode => Get.locale!.languageCode;
-  static String get currentLanguage => LANGUAGES[currentLanguageCode]!;
-
-  /// map between language code to language
-  static const LANGUAGES = {
-    LANG_CODE_VI: 'Tiếng việt',
-    LANG_CODE_EN: 'English'
-  };
+  static String get currentLanguage => 'English';
 
   /// Change current langage by [langCode]
   /// [langCode] must be [AppTranslation.LANG_CODE_VI] or [AppTranslation.LANG_CODE_EN]
@@ -41,18 +33,9 @@ class AppTranslation extends Translations {
   /// Return the device's locale if it is in [SUPPORTED_LOCALES].
   /// Otherwise, return [SUPPORTED_LOCALES].first
   static Locale? getDefaultLocale() {
-    final currentSetting = locator<ISettingService>().getCurrentSetting();
-    if (currentSetting.language != null) {
-      return currentSetting.language == Language.vietnamese
-          ? SUPPORTED_LOCALES.first
-          : SUPPORTED_LOCALES[1];
-    }
     var supportLocale = _findSupportedLocale(Get.deviceLocale!.languageCode);
     supportLocale ??= SUPPORTED_LOCALES.first;
-    locator<ISettingService>().changeLanguage(
-        supportLocale == SUPPORTED_LOCALES.first
-            ? Language.vietnamese
-            : Language.english);
+
     return supportLocale;
   }
 

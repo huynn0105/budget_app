@@ -34,7 +34,7 @@ class _TransactionOfDate extends StatelessWidget {
                 children: [
                   Text(
                     date.isToday() ? KeyWork.today.tr : formater.format(date),
-                    style: TextStyleUtils.medium(24),
+                    style: TextStyleUtils.medium(20),
                   ),
                   Text(
                     '${format.format(total)}đ',
@@ -90,13 +90,13 @@ class _TransactionItem extends StatelessWidget {
                 ),
                 SizedBox(width: 5.w),
                 Text(
-                  transaction.category.target!.emoji,
+                  transaction.category.emoji,
                   style: TextStyleUtils.regular(36),
                 ),
                 SizedBox(width: 10.w),
                 Expanded(
                   child: Text(
-                    transaction.category.target!.name.tr,
+                    transaction.category.name.tr,
                     style: TextStyleUtils.regular(22),
                   ),
                 ),

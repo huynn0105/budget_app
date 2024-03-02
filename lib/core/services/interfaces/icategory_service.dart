@@ -1,10 +1,10 @@
 import 'package:budget_app/core/entities/category_entity.dart';
 
 abstract class ICategoryService {
-  List<Category> getCategories();
-  Category? findCategoryById(int id);
-  int insertCategory(Category category);
-  void updateCategory(Category category);
-  void deleteCategory(Category category);
-  void clear();
+  Future<List<Category>> getCategories();
+  Category? findCategoryById(String id);
+  Future<void> insertCategory(Category category);
+  Future<void> updateCategory(Category category);
+  Future<void> deleteCategory(Category category);
+  Future<void> clear();
 }

@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:budget_app/core/entities/category_entity.dart' as entity;
+import 'package:uuid/uuid.dart';
 
 class AddNewCategoryArgument {
   final entity.Category category;
@@ -65,6 +66,7 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
                             ? app.Category(
                                 name: controller.text,
                                 emoji: emojiText,
+                                 id: Uuid().v4(),
                               )
                             : widget.argument!.category.copyWith(
                                 name: controller.text,

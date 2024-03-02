@@ -28,6 +28,12 @@ class CategoryHistoryScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
+        title: Text(
+          'Expense Detail',
+          style: TextStyleUtils.medium(22),
+        ),
+        centerTitle: true,
+        backgroundColor: Color.fromARGB(255, 250, 225, 255),
       ),
       backgroundColor: Color.fromARGB(255, 250, 225, 255),
       body: Column(
@@ -42,7 +48,7 @@ class CategoryHistoryScreen extends StatelessWidget {
               children: [
                 TextSpan(
                   text: format.format(categoryUIModel.total),
-                  style: TextStyleUtils.bold(55).copyWith(
+                  style: TextStyleUtils.bold(40).copyWith(
                     color: Theme.of(context).primaryColor,
                   ),
                 ),

@@ -211,7 +211,7 @@ class _ChartScreenState extends State<ChartScreen> {
               if (state is AnalysisLoaded) {
                 Map<Category, List<Transaction>> transactionOfCategory = state
                     .transactionOfMonth.transactions
-                    .groupListsBy<Category>((x) => x.category.target!);
+                    .groupListsBy<Category>((x) => x.category);
 
                 return Dismissible(
                     resizeDuration: null,

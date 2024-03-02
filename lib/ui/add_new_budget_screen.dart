@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:uuid/uuid.dart';
 
 class AddNewBudgetArgument {
   final Budget budget;
@@ -64,7 +65,8 @@ class _AddNewBudgetScreenState extends State<AddNewBudgetScreen> {
                         budget: widget.argument?.budget == null
                             ? Budget(
                                 name: controller.text,
-                                image: emojiText,
+                                image: emojiText, createTime: DateTime.now(),
+                                id: Uuid().v4()
                               )
                             : widget.argument!.budget.copyWith(
                                 name: controller.text,

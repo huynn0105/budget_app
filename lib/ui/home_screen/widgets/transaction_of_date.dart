@@ -114,14 +114,9 @@ class _TransactionItem extends StatelessWidget {
                 ));
       },
       onTap: () {
-        showModalBottomSheet(
-          context: context,
-          builder: (context) {
-            return AddNewTransactionScreen(
+        Get.to(() => AddNewTransactionScreen(
               transaction: transaction,
-            );
-          },
-        );
+            ));
       },
       child: ColoredBox(
         color: transaction.type == TransactionType.income
@@ -135,13 +130,13 @@ class _TransactionItem extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    transaction.category.target!.emoji,
+                    transaction.category.emoji,
                     style: TextStyleUtils.regular(30),
                   ),
                   SizedBox(width: 10.w),
                   Expanded(
                     child: Text(
-                      transaction.category.target!.name.tr,
+                      transaction.category.name.tr,
                       style: TextStyleUtils.regular(16),
                     ),
                   ),

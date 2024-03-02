@@ -1,4 +1,3 @@
-import 'package:budget_app/core/database/daos/setting_dao.dart';
 import 'package:budget_app/core/database/daos/transaction_dao.dart';
 import 'package:budget_app/core/entities/transaction_entity.dart';
 import 'package:budget_app/core/services/interfaces/itransaction_service.dart';
@@ -7,31 +6,30 @@ import 'package:budget_app/global/locator.dart';
 
 class TransactionService implements ITransactionService {
   final _transactionDao = locator<TransactionDao>();
-  final _settingDao = locator<SettingDao>();
 
   @override
-  Transaction? getTransactionById(int id) {
+  Transaction? getTransactionById(String id) {
     return _transactionDao.findById(id);
   }
 
   @override
   List<Transaction> getTransactions() {
-    return _settingDao.getCurrentSetting().budget.target!.transactions.toList();
+    return _transactionDao.getAll().toList();
   }
 
   @override
-  int insertTransaction(Transaction transaction) {
-    return _transactionDao.insert(transaction);
+  Future<void> insertTransaction(Transaction transaction) async {
+    await _transactionDao.insert(transaction);
   }
 
   @override
   void clear() {
-    _transactionDao.deleteAll();
+    _transactionDao.clear();
   }
 
   @override
-  void deleteTransaction(Transaction transaction) {
-    _transactionDao.delete(transaction.id);
+  Future<void> deleteTransaction(Transaction transaction) async {
+   await _transactionDao.delete(transaction.id);
   }
 
   @override
@@ -70,6 +68,6 @@ class TransactionService implements ITransactionService {
   @override
   void removeTransactionInBudget() {
     final transactionsInBudget = getTransactions();
-    _transactionDao.removeMany(transactionsInBudget.map((e) => e.id).toList());
+    _transactionDao.deleteAll(transactionsInBudget.map((e) => e.id).toList());
   }
 }

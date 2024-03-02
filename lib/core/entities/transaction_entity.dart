@@ -1,32 +1,34 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:objectbox/objectbox.dart';
-
-import 'package:budget_app/core/entities/payment_entity.dart';
+import 'package:budget_app/core/database/hive_constants.dart';
 import 'package:budget_app/core/entities/category_entity.dart';
+import 'package:budget_app/core/entities/payment_entity.dart';
+import 'package:hive/hive.dart';
 
-import 'budget_entity.dart';
 import 'base_entity.dart';
+part 'transaction_entity.g.dart';
 
-@Entity()
+@HiveType(typeId: HiveTypes.transaction)
 class Transaction extends BaseEntity {
-  @override
-  int id;
+  @HiveField(1)
   final String note;
-  @Property(type: PropertyType.date)
+  @HiveField(2)
   final DateTime dateTime;
+  @HiveField(3)
   final int amount;
-  @Transient()
+  @HiveField(4)
   TransactionType type;
+  @HiveField(5)
+  Category category;
+  @HiveField(6)
+  Payment payment;
 
-  final payment = ToOne<Payment>();
-  final category = ToOne<Category>();
-  final account = ToOne<Budget>();
   Transaction({
-    this.id = 0,
     required this.note,
     required this.dateTime,
     required this.amount,
     this.type = TransactionType.expense,
+    required super.id,
+    required this.category,
+    required this.payment,
   });
 
   set dbType(int value) {
@@ -54,12 +56,10 @@ class Transaction extends BaseEntity {
         type,
         amount,
         dateTime,
-        payment.targetId,
-        category.targetId,
       ];
 
   Transaction copyWith({
-    int? id,
+    String? id,
     String? note,
     DateTime? dateTime,
     int? amount,
@@ -71,11 +71,16 @@ class Transaction extends BaseEntity {
       dateTime: dateTime ?? this.dateTime,
       amount: amount ?? this.amount,
       type: type ?? this.type,
+      category: this.category,
+      payment: this.payment,
     );
   }
 }
 
+@HiveType(typeId: HiveTypes.transactionType)
 enum TransactionType {
+  @HiveField(0)
   expense,
+  @HiveField(1)
   income,
 }

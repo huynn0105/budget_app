@@ -1,6 +1,7 @@
-import 'package:equatable/equatable.dart';
+import 'package:hive/hive.dart';
 
-abstract class BaseEntity extends Equatable {
-  int get id;
-  set id(int value);
+class BaseEntity extends HiveObject {
+  @HiveField(0)
+  final String id;
+  BaseEntity({required this.id});
 }

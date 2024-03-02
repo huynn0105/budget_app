@@ -62,15 +62,15 @@ class AnalysisLoaded extends AnalysisState {
     switch (viewType) {
       case ViewType.week:
         transactionsOfCategory = transactionOfWeek.transactions
-            .groupListsBy<Category>((x) => x.category.target!);
+            .groupListsBy<Category>((x) => x.category);
         break;
       case ViewType.month:
         transactionsOfCategory = transactionOfMonth.transactions
-            .groupListsBy<Category>((x) => x.category.target!);
+            .groupListsBy<Category>((x) => x.category);
         break;
       case ViewType.year:
         transactionsOfCategory = transactionOfYear.transactions
-            .groupListsBy<Category>((x) => x.category.target!);
+            .groupListsBy<Category>((x) => x.category);
         break;
     }
     List<CategoryUIModel> categoriesUI = [];

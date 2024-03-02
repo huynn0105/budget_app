@@ -6,38 +6,38 @@ import 'package:budget_app/global/locator.dart';
 class CategoryService implements ICategoryService {
   final _categoryDao = locator<CategoryDao>();
   @override
-  List<Category> getCategories() {
+  Future<List<Category>> getCategories() async {
     final categories = _categoryDao.getAll();
     if (categories.isEmpty) {
-      _categoryDao.insertAll(Category.cetegoriesDefault);
+      await _categoryDao.insertAll(Category.cetegoriesDefault);
     }
     return _categoryDao.getAll().where((x) => x.active).toList();
   }
 
   @override
-  int insertCategory(Category category) {
-    return _categoryDao.insert(category);
+  Future<void> insertCategory(Category category) async {
+    _categoryDao.insert(category);
   }
 
   @override
-  Category? findCategoryById(int id) {
+  Category? findCategoryById(String id) {
     return _categoryDao.findById(id);
   }
 
   @override
-  void deleteCategory(Category category) {
+  Future<void> deleteCategory(Category category) async {
     // _categoryDao.delete(category.id);
     // active = false => Soft Delete
-    _categoryDao.update(category.copyWith(active: false));
+    _categoryDao.update(category.id, category.copyWith(active: false));
   }
 
   @override
-  void updateCategory(Category category) {
-    _categoryDao.update(category);
+  Future<void> updateCategory(Category category) async {
+    _categoryDao.update(category.id, category);
   }
 
   @override
-  void clear() {
-    _categoryDao.deleteAll();
+  Future<void> clear() async {
+    await _categoryDao.clear();
   }
 }

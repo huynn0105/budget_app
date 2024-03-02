@@ -12,19 +12,19 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   final _categoryService = locator<ICategoryService>();
 
   CategoryBloc() : super(const CategoryInitial()) {
-    on<CategoryStarted>((event, emit) {
-      final categories = _categoryService.getCategories();
+    on<CategoryStarted>((event, emit) async {
+      final categories = await _categoryService.getCategories();
       emit(CategoryLoaded(
           categories: categories, categorySelected: categories.first));
     });
-    on<CategoryAdded>((event, emit) {
+    on<CategoryAdded>((event, emit) async {
       final state = this.state;
       if (state is CategoryLoaded) {
         _categoryService.insertCategory(event.category);
+        final categories = await _categoryService.getCategories();
 
         emit(CategoryLoaded(
-            categories: _categoryService.getCategories(),
-            categorySelected: event.category));
+            categories: categories, categorySelected: event.category));
       }
     });
 
@@ -39,11 +39,11 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
         );
       }
     });
-    on<CategoryDeleted>((event, emit) {
+    on<CategoryDeleted>((event, emit) async {
       final state = this.state;
       if (state is CategoryLoaded) {
         _categoryService.deleteCategory(event.category);
-        final categories = _categoryService.getCategories();
+        final categories = await _categoryService.getCategories();
         emit(
           CategoryLoaded(
             categorySelected: state.categorySelected.id == event.category.id
@@ -54,9 +54,9 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
         );
       }
     });
-    on<CategoryClear>((event, emit) {
-      _categoryService.clear();
-      final categories = _categoryService.getCategories();
+    on<CategoryClear>((event, emit) async {
+      await _categoryService.clear();
+      final categories = await _categoryService.getCategories();
       CategoryLoaded(
           categories: categories, categorySelected: categories.first);
     });

@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:uuid/uuid.dart';
 
 class AddNewPaymentArgument {
   final Payment payment;
@@ -69,6 +70,7 @@ class _AddNewPaymentScreenState extends State<AddNewPaymentScreen> {
                             ? Payment(
                                 name: controller.text,
                                 emoji: emojiText,
+                                 id: Uuid().v4(),
                               )
                             : widget.argument!.payment.copyWith(
                                 name: controller.text,

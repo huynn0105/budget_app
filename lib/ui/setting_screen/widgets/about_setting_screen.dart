@@ -13,7 +13,7 @@ class AboutSettingScreen extends StatefulWidget {
 }
 
 class _AboutSettingScreenState extends State<AboutSettingScreen> {
-  String version = '1.0.0';
+  String version = '1.0.3';
   @override
   void initState() {
     Future.delayed(Duration.zero, () async {
@@ -38,7 +38,7 @@ class _AboutSettingScreenState extends State<AboutSettingScreen> {
           children: [
             SizedBox(height: 50.h),
             Image.asset(
-              'assets/images/logo.png',
+              'assets/images/icon.jpg',
               width: 80.r,
               height: 80.r,
             ),
@@ -49,7 +49,7 @@ class _AboutSettingScreenState extends State<AboutSettingScreen> {
             ),
             SizedBox(height: 20.h),
             Text(
-              'Made with ❤ by @huynn0105',
+              'Made with GG Pro',
               style: TextStyleUtils.regular(16),
             ),
           ],

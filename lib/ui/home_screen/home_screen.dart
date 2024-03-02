@@ -47,8 +47,8 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         case BottomNavBar.analysis:
           return const AnalysisScreen();
-        // case BottomNavBar.settiing:
-        //   return SettingScreen();
+        case BottomNavBar.settiing:
+          return SettingScreen();
       }
     }
 
@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   icon: Icon(Icons.home_filled), label: 'Home'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.show_chart), label: 'Chart'),
-              // BottomNavigationBarItem(icon: Icon(Icons.settings_sharp), label: 'Setting'),
+              BottomNavigationBarItem(icon: Icon(Icons.info), label: 'About'),
             ],
             currentIndex: state.navBar.index,
             onTap: (index) {
@@ -162,13 +162,9 @@ class HomeWidget extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 10.r),
       child: Column(
         children: [
-          const Expanded(
-            flex: 1,
-            child: _SpentThisWeek(),
-          ),
-          SizedBox(height: 40.h),
+          _SpentThisWeek(),
+          SizedBox(height: 20.h),
           Expanded(
-            flex: 4,
             child: BlocBuilder<TransactionBloc, TransactionState>(
               builder: (context, state) {
                 if (state is TransactionInitial) {
